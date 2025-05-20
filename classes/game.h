@@ -15,7 +15,9 @@ public:
 private:
     char **board_mtx;
 
-    int convert_char_to_int(char litter);
+    int convert_char_litter_to_int(char litter);
+
+    int conver_char_num_to_int(char num);
 
 };
 
