@@ -6,6 +6,8 @@ class Board {
 public:
     Board();
 
+    Board(const Board& old_board);
+
     ~Board();
 
     void show();
@@ -18,6 +20,8 @@ private:
     int convert_char_litter_to_int(char litter);
 
     int conver_char_num_to_int(char num);
+
+    void set_empty_to_cell();
 
 };
 
