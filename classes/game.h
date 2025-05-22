@@ -14,8 +14,10 @@ public:
 
     void set_start_pos(char* pos_str);
 
+    int get_cell(char* msg, int msg_len);
+
 private:
-    char **board_mtx;
+    char ***board_mtx;
 
     int convert_char_litter_to_int(char litter);
 
