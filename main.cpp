@@ -6,7 +6,6 @@
 #define MSG_CHOOSE_CELL "Enter cell, like a2: "
 
 
-
 using namespace std;
 
 int main() {
@@ -14,9 +13,7 @@ int main() {
     board.set_start_pos(STARTED_POS);
     board.show();
     // int cell = board.get_cell(MSG_CHOOSE_CHESS);
-    Board *c_board = new Board;
-    c_board = board.copy_board(); 
-    c_board->show();
+
 
     return 0;
 }

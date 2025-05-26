@@ -9,7 +9,7 @@
                 "-g",
                 "${workspaceFolder}/*.cpp",
                 "${workspaceFolder}/classes/*.cpp",
-                // "${workspaceFolder}/classes/figures/*.cpp",
+                "${workspaceFolder}/classes/figures/*.cpp",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],

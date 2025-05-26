@@ -32,9 +32,9 @@ private:
     bool is_in_arr(const char sim, const char* arr);
 
     int get_len_of_str(const char* str);
-public:
+
     void get_now_pos(char *now_pos);
-private:
+
     char convert_int_to_char_num(int num);
 
     char convert_int_to_char_litter(int litter);
