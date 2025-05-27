@@ -7,8 +7,7 @@ Figure::Figure(const char* c_and_f, const int pos_num_litter) {
     for (int i = 0; i < LEN_OF_FIGURE; i++) {
         color_and_figure[i] = c_and_f[i];
     }
-    pos_in_board[0] = pos_num_litter/10;
-    pos_in_board[1] = pos_num_litter - (pos_num_litter/10)*10;
+    pos_in_board = pos_num_litter;
 }
 
 Figure::Figure(const Figure& o_figure) {
@@ -16,14 +15,17 @@ Figure::Figure(const Figure& o_figure) {
     for (int i = 0; i < LEN_OF_FIGURE; i++) {
         color_and_figure[i] = o_figure.color_and_figure[i];
     }
-    pos_in_board[0] = o_figure.pos_in_board[0];
-    pos_in_board[1] = o_figure.pos_in_board[1];
+    pos_in_board = o_figure.pos_in_board;
 }
 
 Figure::~Figure() {
     delete [] color_and_figure;
 }
 
-void Figure::make_stap(int stap_cell, Board* board) {
+int Figure::get_pos() {
+    return pos_in_board;
+}
 
+char *Figure::get_color_and_figure() {
+    return color_and_figure;
 }

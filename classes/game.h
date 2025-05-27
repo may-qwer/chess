@@ -1,6 +1,7 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "figure.h"
 
 class Board {
 public:
@@ -18,12 +19,18 @@ public:
 
     Board *copy_board();
 
+    void make_stap(int stap_pos, Figure *fig);
+
 private:
     char ***board_mtx;
 
     char *str_cell;
 
-    int convert_char_litter_to_int(const char litter);
+    int *pos_w_king; // num, letter
+
+    int *pos_b_king; // num, letter
+
+    int convert_char_letter_to_int(const char letter);
 
     int convert_char_num_to_int(const char num);
 
@@ -37,7 +44,7 @@ private:
 
     char convert_int_to_char_num(int num);
 
-    char convert_int_to_char_litter(int litter);
+    char convert_int_to_char_letter(int letter);
 
 };
 

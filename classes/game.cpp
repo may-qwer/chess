@@ -1,5 +1,7 @@
 #include <iostream>
 #include "game.h"
+
+
 using namespace std;
 
 #define SIZE_OF_BOARD 8
@@ -23,7 +25,7 @@ using namespace std;
 #define BLACK "\033[1;30m"
 #define BACKGROUND_WHITE "\033[47m"
 #define BACKGROUND_BLACK "\033[40m"
-#define ARR_OF_LITTERS "abcdefgh"
+#define ARR_OF_LETTERS "abcdefgh"
 #define ARR_OF_NUMS "12345678"
 #define MSG_NOT_CORRECT_INPUT "You enter not correct input. Input shouls be like a2. Try again: "
 
@@ -35,6 +37,12 @@ Board::Board() {
     }
     str_cell = new char[2];
     set_empty_to_cell();
+    pos_w_king = new int[2];
+    pos_w_king[0] = 1;
+    pos_w_king[1] = 5;
+    pos_b_king = new int[2];
+    pos_b_king[0] = 8;
+    pos_b_king[1] = 5;
 }
 
 Board::Board(const Board& old_board) {
@@ -46,6 +54,12 @@ Board::Board(const Board& old_board) {
         }
     }
     str_cell = new char[2];
+    pos_w_king = new int[2];
+    pos_w_king[0] = old_board.pos_w_king[0];
+    pos_w_king[1] = old_board.pos_w_king[1];
+    pos_b_king = new int[2];
+    pos_b_king[0] = old_board.pos_b_king[0];
+    pos_b_king[1] = old_board.pos_b_king[1];
     set_empty_to_cell();
 }
 
@@ -55,6 +69,8 @@ Board::~Board() {
     }
     delete [] board_mtx;
     board_mtx = nullptr;
+    delete [] pos_w_king;
+    delete [] pos_b_king;
 }
 
 void Board::show() {
@@ -81,11 +97,11 @@ void Board::set_start_pos(const char *pos_str) {
     
     int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
     char* arr_of_figures[] = {W_PAWN, W_BISHOP, W_ROOK, W_KNIGHT, W_QUEEN, W_KING, B_PAWN, B_BISHOP, B_ROOK, B_KNIGHT, B_QUEEN, B_KING};
-    int litter_pos, num_pos;
+    int letter_pos, num_pos;
     int max_i = arr_of_indexes_of_figures[0];
     int k = 0;
     for (int i = 0; i < COUNT_OF_FIGURES_SIMBOLS; i += 2) {
-        litter_pos = convert_char_litter_to_int(pos_str[i]) - 1;
+        letter_pos = convert_char_letter_to_int(pos_str[i]) - 1;
         num_pos = SIZE_OF_BOARD - convert_char_num_to_int(pos_str[i+1]);
         if ((pos_str[i] == '-') && (pos_str[i+1] == '-')) {
             continue;
@@ -95,13 +111,13 @@ void Board::set_start_pos(const char *pos_str) {
             max_i = arr_of_indexes_of_figures[k];
         }
         if ((i <= max_i)) {
-            board_mtx[num_pos][litter_pos] = arr_of_figures[k];           
+            board_mtx[num_pos][letter_pos] = arr_of_figures[k];           
         }
     }
 }
 
-int Board::convert_char_litter_to_int(const char litter) {
-    return (int)litter - (int)'a' + 1;
+int Board::convert_char_letter_to_int(const char letter) {
+    return (int)letter - (int)'a' + 1;
 }
 
 int Board::convert_char_num_to_int(const char num) {
@@ -126,13 +142,14 @@ int Board::get_cell(const char* msg) {
     if (get_len_of_str(str_cell) != 2) {
         return get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    if ((!(is_in_arr(str_cell[0], ARR_OF_LITTERS))) || (!(is_in_arr(str_cell[1], ARR_OF_NUMS)))) {
+    if ((!(is_in_arr(str_cell[0], ARR_OF_LETTERS))) || (!(is_in_arr(str_cell[1], ARR_OF_NUMS)))) {
         return get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    int int_litter = convert_char_litter_to_int(str_cell[0]);
+    int int_letter = convert_char_letter_to_int(str_cell[0]);
     int int_num = convert_char_num_to_int(str_cell[1]);
-    //return num consist of 2 numbers: first (1-8) is hieght of board (numbers) secound (1-8) is width of board (litters)
-    return (SIZE_OF_BOARD - int_num + 1)*10 + int_litter + 1;
+    //return num consist of 2 numbers: first (1-8) is hieght of board (numbers) secound (1-8) is width of board (letters)
+    //like indexes in mtx plus one
+    return (SIZE_OF_BOARD - int_num + 1)*10 + int_letter + 1;
 }
 
 bool Board::is_in_arr(const char sim, const char* arr) {
@@ -171,7 +188,7 @@ void Board::get_now_pos(char *now_pos) {
         for (int i = 0; i < SIZE_OF_BOARD; i++) {
             for (int j = 0; j < SIZE_OF_BOARD; j++) {
                 if (board_mtx[i][j] == arr_of_figures[k]) {
-                    now_pos[str_pos] = convert_int_to_char_litter(j);
+                    now_pos[str_pos] = convert_int_to_char_letter(j);
                     now_pos[str_pos + 1] = convert_int_to_char_num(SIZE_OF_BOARD - i - 1);
                     str_pos += 2;
                 } 
@@ -189,8 +206,12 @@ char Board::convert_int_to_char_num(int num) {
     return (char)num + (int)'0' + 1;
 }
 
-char Board::convert_int_to_char_litter(int litter){
-    return (char)litter + (int)'a';
+char Board::convert_int_to_char_letter(int letter){
+    return (char)letter + (int)'a';
 }
 
-
+void Board::make_stap(int stap_pos, Figure *fig) {
+    int fig_pos = fig->get_pos();
+    board_mtx[(fig_pos/10)-1][fig_pos - (fig_pos/10) - 1] = " ";
+    board_mtx[(stap_pos/10)-1][stap_pos - (stap_pos/10) - 1] = fig->get_color_and_figure();
+}
