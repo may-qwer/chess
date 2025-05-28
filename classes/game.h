@@ -1,51 +1,41 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "figure.h"
+#include "board.h"
 
-class Board {
+class Game {
 public:
-    Board();
+    Game();
 
-    Board(const Board& old_board);
-
-    ~Board();
-
-    void show();
-
-    void set_start_pos(const char* pos_str);
+    ~Game();
 
     int get_cell(const char* msg);
 
-    Board *copy_board();
-
-    void make_stap(int stap_pos, Figure *fig);
+    void main_cycle();
 
 private:
-    char ***board_mtx;
-
     char *str_cell;
+    bool running;
+    bool one_more;
+    char who_go;
+    Board *board;
+    int figure_cell;
+    int stap_cell;
 
-    int *pos_w_king; // num, letter
+    bool is_in_arr(const char sim, const char* arr);
 
-    int *pos_b_king; // num, letter
+    int get_len_of_str(const char* str); 
 
     int convert_char_letter_to_int(const char letter);
 
     int convert_char_num_to_int(const char num);
 
-    void set_empty_to_cell();
+    bool is_running();
 
-    bool is_in_arr(const char sim, const char* arr);
+    bool is_win();
 
-    int get_len_of_str(const char* str);
-
-    void get_now_pos(char *now_pos);
-
-    char convert_int_to_char_num(int num);
-
-    char convert_int_to_char_letter(int letter);
-
+    void cout_who_go();
+    
 };
 
 #endif

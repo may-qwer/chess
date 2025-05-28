@@ -1,10 +1,10 @@
 #ifndef PAWN_H
 #define PAWN_H
 
-#include "figure.h"
+// #include "figure.h"
 
-class Pawn : Figure {
+// class Pawn : Figure {
 
-};
+// };
 
 #endif

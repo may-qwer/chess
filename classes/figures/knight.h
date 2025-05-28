@@ -1,10 +1,10 @@
 #ifndef KNIGHT_H
 #define KNIGHT_H
 
-#include "figure.h"
+// #include "figure.h"
 
-class Knight : Figure {
+// class Knight : Figure {
 
-};
+// };
 
 #endif
