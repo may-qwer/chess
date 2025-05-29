@@ -17,15 +17,16 @@ using namespace std;
 #define B_BISHOP "\033[1;31mB"
 #define B_PAWN "\033[1;31mp"
 #define EMPTY " "
+#define COUNT_OF_FIGURES 6
 #define POSSIBLE_TO_EAT "\033[32m"
 #define COUNT_OF_FIGURES_SIMBOLS 64
 #define RESET "\033[0m"
-#define WHITE "\033[1;37m"
-#define BLACK "\033[1;30m"
 #define BACKGROUND_WHITE "\033[47m"
 #define BACKGROUND_BLACK "\033[40m"
 #define START_POS_W_KING 15
 #define START_POS_B_KING 85
+#define MSG_CHOOSE_EMPTY_CELL "You choose empty cell. Try again. "
+#define MSG_CHOOSE_OTHER_COLOR "You choose figure not your color. Try again. "
 
 
 
@@ -37,6 +38,8 @@ Board::Board() {
     set_empty_to_cell();
     pos_w_king = START_POS_W_KING;
     pos_b_king = START_POS_B_KING;
+    WHITE_FIGURES = new const char*[COUNT_OF_FIGURES] {W_PAWN, W_BISHOP, W_ROOK, W_KNIGHT, W_QUEEN, W_KING};
+    BLACK_FIGURES = new const char*[COUNT_OF_FIGURES] {B_PAWN, B_BISHOP, B_ROOK, B_KNIGHT, B_QUEEN, B_KING};
 }
 
 Board::Board(const Board& old_board) {
@@ -50,6 +53,8 @@ Board::Board(const Board& old_board) {
     set_empty_to_cell();
     pos_w_king = START_POS_W_KING;
     pos_b_king = START_POS_B_KING;
+    WHITE_FIGURES = old_board.WHITE_FIGURES;
+    BLACK_FIGURES = old_board.BLACK_FIGURES;
 }
 
 Board::~Board() {
@@ -58,6 +63,8 @@ Board::~Board() {
     }
     delete [] board_mtx;
     board_mtx = nullptr;
+    delete [] WHITE_FIGURES;
+    delete [] BLACK_FIGURES;
 }
 
 void Board::show() {
@@ -164,11 +171,27 @@ char Board::convert_int_to_char_letter(const int letter){
 //     board_mtx[(stap_pos/10)-1][stap_pos - (stap_pos/10) - 1] = fig->get_color_and_figure();
 // }
 
-bool Board::is_where_figure(const int cell) {
-    // cout << "|" << board_mtx[(cell/10) - 1][cell - (cell/10) - 1] << "|" << endl;
-    // cout << "n " << cell << " " << (cell/10) - 1 << " " << cell - (cell/10) - 1 << endl;
-    if (board_mtx[(cell/10) - 1][cell - (cell/10) - 1] == EMPTY) {
+bool Board::is_there_figure(const int cell, char*& msg) {
+    if (board_mtx[(cell/10) - 1][(cell%10 - 1)] == EMPTY) {
         return false;
+        msg = MSG_CHOOSE_EMPTY_CELL;
     }
     return true;
+}
+
+bool Board::is_figure_right_color(const char who_go, const int cell, char** msg) {
+    for (int i = 0; i < COUNT_OF_FIGURES; i++) {
+        if (who_go == 'w') {
+            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
+                return true;
+            }
+        } else if (who_go == 'b') {
+            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == BLACK_FIGURES[i]) {
+                return true;
+            }
+        } else {
+            return false;
+        }
+    }
+    return false;
 }

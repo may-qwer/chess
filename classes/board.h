@@ -21,13 +21,15 @@ public:
 
     // void make_stap(int stap_pos, Figure *fig);
 
-    bool is_where_figure(const int cell);
+    bool is_there_figure(const int cell, char*& msg);
+
+    bool is_figure_right_color(const char who_go, const int cell, char** msg);
 
 private:
     char ***board_mtx;
-
+    const char** WHITE_FIGURES;
+    const char** BLACK_FIGURES;
     int pos_w_king; // num, letter
-
     int pos_b_king; // num, letter
 
     int convert_char_letter_to_int(const char letter);
