@@ -1,5 +1,11 @@
 #include <iostream>
 #include "board.h"
+#include "./figures/pawn.h"
+#include "./figures/rook.h"
+#include "./figures/bishop.h"
+#include "./figures/knight.h"
+#include "./figures/queen.h"
+#include "./figures/king.h"
 
 using namespace std;
 
@@ -171,27 +177,59 @@ char Board::convert_int_to_char_letter(const int letter){
 //     board_mtx[(stap_pos/10)-1][stap_pos - (stap_pos/10) - 1] = fig->get_color_and_figure();
 // }
 
-bool Board::is_there_figure(const int cell, char*& msg) {
+bool Board::is_cell_empty(const int cell, char*& msg) {
     if (board_mtx[(cell/10) - 1][(cell%10 - 1)] == EMPTY) {
-        return false;
         msg = MSG_CHOOSE_EMPTY_CELL;
+        return true;
     }
+    return false;
+}
+
+bool Board::is_figure_not_right_color(const char who_go, const int cell, char*& msg) {
+    if (who_go == 'w') {
+        for (int i = 0; i < COUNT_OF_FIGURES; i++) {
+            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
+                return false;
+            }
+        }
+    }
+    if (who_go == 'b') {
+        for (int i = 0; i < COUNT_OF_FIGURES; i++) {
+            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == BLACK_FIGURES[i]) {
+                return false;
+            }
+        }
+    }
+    msg = MSG_CHOOSE_OTHER_COLOR;
     return true;
 }
 
-bool Board::is_figure_right_color(const char who_go, const int cell, char** msg) {
-    for (int i = 0; i < COUNT_OF_FIGURES; i++) {
-        if (who_go == 'w') {
-            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
-                return true;
-            }
-        } else if (who_go == 'b') {
-            if (board_mtx[(cell/10) - 1][(cell%10) - 1] == BLACK_FIGURES[i]) {
-                return true;
-            }
-        } else {
-            return false;
-        }
+
+Figure* Board::create_figure(const int cell){
+    if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_PAWN) {
+        Pawn fig(W_PAWN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_ROOK) {
+        Rook fig(W_ROOK, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_BISHOP) {
+        Bishop fig(W_BISHOP, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KNIGHT) {
+        Knight fig(W_KNIGHT, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_QUEEN) {
+        Queen fig(W_QUEEN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KING) {
+        King fig(W_KING, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_PAWN) {
+        Pawn fig(B_PAWN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_ROOK) {
+        Rook fig(B_ROOK, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_BISHOP) {
+        Bishop fig(B_BISHOP, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KNIGHT) {
+        Knight fig(B_KNIGHT, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_QUEEN) {
+        Queen fig(B_QUEEN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KING) {
+        King fig(B_KING, cell);
     }
-    return false;
+    return fig;
 }

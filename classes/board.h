@@ -1,7 +1,7 @@
 #ifndef BOARD_H
 #define BOARD_H
 
-// #include "figure.h"
+#include "figure.h"
 
 class Board {
 public:
@@ -21,9 +21,11 @@ public:
 
     // void make_stap(int stap_pos, Figure *fig);
 
-    bool is_there_figure(const int cell, char*& msg);
+    bool is_cell_empty(const int cell, char*& msg);
 
-    bool is_figure_right_color(const char who_go, const int cell, char** msg);
+    bool is_figure_not_right_color(const char who_go, const int cell, char*& msg);
+
+    Figure* create_figure(const int cell);
 
 private:
     char ***board_mtx;
@@ -37,10 +39,6 @@ private:
     int convert_char_num_to_int(const char num);
 
     void set_empty_to_cell();
-
-    bool is_in_arr(const char sim, const char* arr);
-
-    int get_len_of_str(const char* str);
 
     void get_now_pos(char *now_pos);
 

@@ -1,10 +1,10 @@
 #ifndef ROOK_H
 #define ROOK_H
 
-// #include "figure.h"
+#include "figure.h"
 
-// class Rook : Figure {
+class Rook : Figure {
 
-// };
+};
 
 #endif

@@ -1,8 +1,6 @@
 #ifndef FIGURE_H
 #define FIGURE_H
 
-#include "game.h"
-
 class Figure {
 public:
 virtual int get_pos();
@@ -21,7 +19,7 @@ protected:
 
     virtual ~Figure();
 
-    virtual int* get_arr_of_possible_staps() = 0;
+    // virtual int* get_arr_of_possible_staps() = 0;
 
 
 };

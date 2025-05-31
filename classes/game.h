@@ -35,6 +35,8 @@ private:
     bool is_win();
 
     void cout_who_go();
+
+    void pass_the_turn();
     
 };
 

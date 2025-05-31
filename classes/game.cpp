@@ -34,12 +34,15 @@ void Game::main_cycle() {
         while (running) {
             board->show();
             cout_who_go();
-            bool tmp;
+            bool is_figure_color;
+            bool is_cell;
             do {
                 figure_cell = get_cell(msg);
-                tmp = !(board->is_there_figure(figure_cell, msg));
-            } while (tmp);
+                is_figure_color = board->is_figure_not_right_color(who_go, figure_cell, msg);
+                is_cell = board->is_cell_empty(figure_cell, msg);
+            } while (is_figure_color || is_cell);
 
+            pass_the_turn();
             //tmp
             one_more = false;
             running = false;
@@ -98,9 +101,15 @@ int Game::convert_char_num_to_int(const char num) {
 void Game::cout_who_go() {
     if (who_go == 'w') {
         cout << MSG_WHITE_GO;
-        who_go = 'b';
     } else {
         cout << MSG_BLACK_GO;
+    }
+}
+
+void Game::pass_the_turn() {
+    if (who_go == 'w') {
+        who_go = 'b';
+    } else {
         who_go = 'w';
     }
 }
