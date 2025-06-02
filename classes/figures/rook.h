@@ -3,7 +3,13 @@
 
 #include "../figure.h"
 
-class Rook : Figure {
+class Rook : public Figure {
+public:
+    Rook(const char* c_and_f, const int pos_num_litter);
+
+    Rook(const Figure& o_figure);
+ 
+private:
 
 };
 

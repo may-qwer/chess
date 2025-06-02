@@ -37,6 +37,8 @@ private:
     void cout_who_go();
 
     void pass_the_turn();
+
+    int choose_figure_cell();
     
 };
 

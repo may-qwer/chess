@@ -3,7 +3,13 @@
 
 #include "../figure.h"
 
-class Knight : Figure {
+class Knight : public Figure {
+public:
+    Knight(const char* c_and_f, const int pos_num_litter);
+
+    Knight(const Figure& o_figure);
+ 
+private:
 
 };
 

@@ -205,31 +205,31 @@ bool Board::is_figure_not_right_color(const char who_go, const int cell, char*& 
 }
 
 
-// Figure* Board::create_figure(const int cell){
-//     if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_PAWN) {
-//         Pawn fig(W_PAWN, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_ROOK) {
-//         Rook fig(W_ROOK, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_BISHOP) {
-//         Bishop fig(W_BISHOP, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KNIGHT) {
-//         Knight fig(W_KNIGHT, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_QUEEN) {
-//         Queen fig(W_QUEEN, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KING) {
-//         King fig(W_KING, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_PAWN) {
-//         Pawn fig(B_PAWN, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_ROOK) {
-//         Rook fig(B_ROOK, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_BISHOP) {
-//         Bishop fig(B_BISHOP, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KNIGHT) {
-//         Knight fig(B_KNIGHT, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_QUEEN) {
-//         Queen fig(B_QUEEN, cell);
-//     } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KING) {
-//         King fig(B_KING, cell);
-//     }
-//     return fig;
-// }
+Figure* Board::create_figure(const int cell){
+    if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_PAWN) {
+        return new Pawn (W_PAWN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_ROOK) {
+        return new Rook(W_ROOK, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_BISHOP) {
+        return new Bishop(W_BISHOP, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KNIGHT) {
+        return new Knight(W_KNIGHT, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_QUEEN) {
+        return new Queen(W_QUEEN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_KING) {
+        return new King(W_KING, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_PAWN) {
+        return new Pawn(B_PAWN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_ROOK) {
+        return new Rook(B_ROOK, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_BISHOP) {
+        return new Bishop(B_BISHOP, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KNIGHT) {
+        return new Knight(B_KNIGHT, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_QUEEN) {
+        return new Queen(B_QUEEN, cell);
+    } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KING) {
+        return new King(B_KING, cell);
+    }
+}
+

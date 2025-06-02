@@ -30,17 +30,13 @@ void Game::main_cycle() {
     while (one_more) {
         board = new Board();
         board->set_start_pos(STARTED_POS);
-        char* msg = MSG_CHOOSE_CHESS;
+        int figure_cell;
         while (running) {
             board->show();
             cout_who_go();
-            bool is_figure_color;
-            bool is_cell;
-            do {
-                figure_cell = get_cell(msg);
-                is_figure_color = board->is_figure_not_right_color(who_go, figure_cell, msg);
-                is_cell = board->is_cell_empty(figure_cell, msg);
-            } while (is_figure_color || is_cell);
+            figure_cell = choose_figure_cell();
+            Figure *figure = board->create_figure(figure_cell);
+            figure->get_arr_of_possible_staps();
 
             pass_the_turn();
             //tmp
@@ -112,4 +108,16 @@ void Game::pass_the_turn() {
     } else {
         who_go = 'w';
     }
+}
+
+int Game::choose_figure_cell() {
+    char* msg = MSG_CHOOSE_CHESS;
+    bool is_figure_color;
+    bool is_cell;
+    do {
+        figure_cell = get_cell(msg);
+        is_figure_color = board->is_figure_not_right_color(who_go, figure_cell, msg);
+        is_cell = board->is_cell_empty(figure_cell, msg);
+    } while (is_figure_color || is_cell);
+    return figure_cell;
 }

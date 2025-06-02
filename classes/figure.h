@@ -3,15 +3,16 @@
 
 class Figure {
 public:
-virtual int get_pos();
+    int get_pos();
 
-virtual char* get_color_and_figure();
+    char* get_color_and_figure();
 
 private:
 
 protected:
     char *color_and_figure;
     int pos_in_board;//10*num + litter
+    int* arr_of_possible_staps;
 
     Figure(const char* c_and_f, const int pos_num_litter);
 
@@ -19,7 +20,7 @@ protected:
 
     virtual ~Figure();
 
-    // virtual int* get_arr_of_possible_staps() = 0;
+    virtual int* get_arr_of_possible_staps() = 0;
 
 
 };
