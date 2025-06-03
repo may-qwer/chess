@@ -7,7 +7,7 @@ class Bishop : public Figure {
 public:
     Bishop(const char* c_and_f, const int pos_num_litter);
 
-    Bishop(const Figure& o_figure);
+    Bishop(const Bishop& o_figure);
  
 private:
 

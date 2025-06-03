@@ -7,7 +7,7 @@ class King : public Figure {
 public:
     King(const char* c_and_f, const int pos_num_litter);
 
-    King(const Figure& o_figure);
+    King(const King& o_figure);
  
 private:
 
