@@ -27,6 +27,8 @@ public:
 
     Figure* create_figure(const int cell);
 
+    void set_possible_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps);
+
 private:
     char ***board_mtx;
     const char** WHITE_FIGURES;

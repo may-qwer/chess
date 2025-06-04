@@ -209,6 +209,8 @@ Figure* Board::create_figure(const int cell){
     if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_PAWN) {
         return new Pawn (W_PAWN, cell);
     }
+    // if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_PAWN) {
+    //     return new Pawn (W_PAWN, cell);
     // } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_ROOK) {
     //     return new Rook(W_ROOK, cell);
     // } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == W_BISHOP) {
@@ -232,5 +234,12 @@ Figure* Board::create_figure(const int cell){
     // } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == B_KING) {
     //     return new King(B_KING, cell);
     // }
+}
+
+
+void Board::set_possible_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps) {
+    for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
+        
+    }
 }
 

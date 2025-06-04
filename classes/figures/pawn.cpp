@@ -16,30 +16,33 @@ Pawn::Pawn(const Pawn& o_figure) : Figure(o_figure) {
     }
 }
 
-int* Pawn::get_arr_of_possible_staps() {
-
-}
-
-bool Pawn::is_can_eat() {
+int** Pawn::get_arr_of_possible_staps() {
+    //arr_of_possible_staps {stap, if_can_eat_left, if_can_eat_right}
+    //if can_not_eat than 0;
     int left_possible_eat_stap;
     int right_possible_eat_stap;
+    int go_possible_stap;
     if (color_and_figure == W_PAWN) {
         left_possible_eat_stap = pos_in_board + 11;
         right_possible_eat_stap = pos_in_board + 9;
+        go_possible_stap = pos_in_board + 10;
     } else {
         left_possible_eat_stap = pos_in_board - 11;
         right_possible_eat_stap = pos_in_board - 9;
+        go_possible_stap = pos_in_board - 10;
     }
-    if (left_possible_eat_stap%10 < 1 && left_possible_eat_stap%10 > 8 && left_possible_eat_stap/10 < 1 && left_possible_eat_stap/10 > 8) {
-        left_possible_eat_stap = 0;
+    if (is_stap_in_board(go_possible_stap)) {
+        arr_of_possible_staps[0] = go_possible_stap;
     }
-    if (right_possible_eat_stap%10 < 1 && right_possible_eat_stap%10 > 8 && right_possible_eat_stap/10 < 1 && right_possible_eat_stap/10 > 8) {
-        right_possible_eat_stap = 0;
+    if (is_stap_in_board(left_possible_eat_stap)) {
+        arr_of_possible_staps[1] = left_possible_eat_stap;
     }
-    arr_of_possible_staps[2] = right_possible_eat_stap;
-    arr_of_possible_staps[1] = left_possible_eat_stap;
-    if (left_possible_eat_stap != 0 || right_possible_eat_stap != 0) {
-        return true;
+    if (is_stap_in_board(left_possible_eat_stap)) {
+        arr_of_possible_staps[2] = right_possible_eat_stap;
     }
-    return false;
+    return arr_of_possible_staps;
+}
+
+int Pawn::get_lef_of_arr_of_possible_staps() {
+    return max_count_of_possible_staps;
 }

@@ -36,7 +36,7 @@ void Game::main_cycle() {
             cout_who_go();
             figure_cell = choose_figure_cell();
             Figure *figure = board->create_figure(figure_cell);
-            // figure->get_arr_of_possible_staps();
+            figure->get_arr_of_possible_staps();
 
             pass_the_turn();
             //tmp
