@@ -9,15 +9,19 @@ public:
 
     Pawn(const Pawn& o_figure);
 
-    int** get_arr_of_possible_staps();
+    ~Pawn();
 
-    int** get_arr_of_eating_staps();
+    int** get_arr_of_possible_staps(const Board* board);
 
-    int get_lef_of_arr_of_possible_staps();
+    int** get_arr_of_eating_staps(const Board* board);
+
+    int get_len_of_arr_of_possible_staps();
+
+    int get_len_of_arr_of_eating_staps();
  
 private:
-    int max_count_of_possible_staps = 2;
-    int max_count_of_eating_staps = 2;
+    const int max_count_of_possible_staps = 1;
+    const int max_count_of_eating_staps = 2;
     
 };
 

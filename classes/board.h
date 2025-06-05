@@ -23,11 +23,17 @@ public:
 
     bool is_cell_empty(const int cell, char*& msg);
 
+    bool is_cell_empty(const int cell);
+
+    char get_color_of_fig(const int cell);
+
     bool is_figure_not_right_color(const char who_go, const int cell, char*& msg);
 
     Figure* create_figure(const int cell);
 
-    void set_possible_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps);
+    void set_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps, int **arr_of_eating_staps,  int len_of_arr_of_eating_staps);
+
+    void tmp();
 
 private:
     char ***board_mtx;

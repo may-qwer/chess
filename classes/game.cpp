@@ -32,11 +32,12 @@ void Game::main_cycle() {
         board->set_start_pos(STARTED_POS);
         int figure_cell;
         while (running) {
+            board->tmp();
             board->show();
             cout_who_go();
             figure_cell = choose_figure_cell();
             Figure *figure = board->create_figure(figure_cell);
-            figure->get_arr_of_possible_staps();
+
 
             pass_the_turn();
             //tmp

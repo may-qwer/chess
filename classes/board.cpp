@@ -23,8 +23,9 @@ using namespace std;
 #define B_BISHOP "\033[1;31mB"
 #define B_PAWN "\033[1;31mp"
 #define EMPTY " "
+#define POSSIBLE_STAPS "\033[1;32m*"
+#define EATING_STAPS "\033[1;30mX"
 #define COUNT_OF_FIGURES 6
-#define POSSIBLE_TO_EAT "\033[32m"
 #define COUNT_OF_FIGURES_SIMBOLS 64
 #define RESET "\033[0m"
 #define BACKGROUND_WHITE "\033[47m"
@@ -185,6 +186,24 @@ bool Board::is_cell_empty(const int cell, char*& msg) {
     return false;
 }
 
+bool Board::is_cell_empty(const int cell) {
+    if (board_mtx[(cell/10) - 1][(cell%10 - 1)] == EMPTY) {
+        return true;
+    }
+    return false;
+}
+
+char Board::get_color_of_fig(const int cell) {
+    for (int i = 0; i < COUNT_OF_FIGURES; i++) {
+        if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
+            return 'w';
+        } else if (board_mtx[(cell/10) - 1][(cell%10) - 1] == BLACK_FIGURES[i]) {
+            return 'b';
+        }
+        return ' ';
+    }
+}
+
 bool Board::is_figure_not_right_color(const char who_go, const int cell, char*& msg) {
     if (who_go == 'w') {
         for (int i = 0; i < COUNT_OF_FIGURES; i++) {
@@ -237,9 +256,15 @@ Figure* Board::create_figure(const int cell){
 }
 
 
-void Board::set_possible_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps) {
-    for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
-        
-    }
+void Board::set_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps, int **arr_of_eating_staps,  int len_of_arr_of_eating_staps) {
+    // for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
+    //     board_mtx[(arr_of_possible_staps[i]/10) - 1][(arr_of_possible_staps[i]%10) - 1] = 
+    // }
 }
 
+void Board::tmp() {
+    board_mtx[2][1] = POSSIBLE_STAPS;
+    board_mtx[2][2] = EATING_STAPS;
+    board_mtx[5][1] = POSSIBLE_STAPS;
+    board_mtx[5][2] = EATING_STAPS;        
+}
