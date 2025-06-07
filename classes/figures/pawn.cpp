@@ -29,7 +29,7 @@ Pawn::~Pawn() {
     delete [] arr_of_eating_staps;
 }
 
-int** Pawn::get_arr_of_possible_staps(const Board* board) {
+int** Pawn::get_arr_of_possible_staps() {
     //arr_of_possible_staps {stap}
     //if can_not_eat than 0;
     int go_possible_stap;
@@ -41,14 +41,11 @@ int** Pawn::get_arr_of_possible_staps(const Board* board) {
     if (!is_stap_in_board(go_possible_stap)) {
         go_possible_stap = 0;
     }
-    if (!board->is_cell_empty(go_possible_stap)) {
-        go_possible_stap = 0;
-    }
     arr_of_possible_staps[0] = go_possible_stap;
     return arr_of_possible_staps;
 }
 
-int** Pawn::get_arr_of_eating_staps(const Board* board) {
+int** Pawn::get_arr_of_eating_staps() {
     //arr_of_eating_staps {left_stap, right_stap}
     //if can_not_eat than 0;
     int left_possible_eat_stap;
@@ -67,12 +64,6 @@ int** Pawn::get_arr_of_eating_staps(const Board* board) {
         left_possible_eat_stap = 0;
     }
     if (is_stap_in_board(left_possible_eat_stap)) {
-        right_possible_eat_stap = 0;
-    }
-    if (color == board->get_color_of_fig(left_possible_eat_stap)) {
-        left_possible_eat_stap = 0;
-    }
-    if (color == board->get_color_of_fig(right_possible_eat_stap)) {
         right_possible_eat_stap = 0;
     }
     arr_of_eating_staps[0] = left_possible_eat_stap;

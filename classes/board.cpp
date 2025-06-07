@@ -23,8 +23,8 @@ using namespace std;
 #define B_BISHOP "\033[1;31mB"
 #define B_PAWN "\033[1;31mp"
 #define EMPTY " "
-#define POSSIBLE_STAPS "\033[1;32m*"
-#define EATING_STAPS "\033[1;30mX"
+#define POSSIBLE_STAPS "\033[1;36m*"
+#define EATING_STAPS "\033[1;35mX"
 #define COUNT_OF_FIGURES 6
 #define COUNT_OF_FIGURES_SIMBOLS 64
 #define RESET "\033[0m"
@@ -255,16 +255,37 @@ Figure* Board::create_figure(const int cell){
     // }
 }
 
-
-void Board::set_staps(int **arr_of_possible_staps, int len_of_arr_of_possible_staps, int **arr_of_eating_staps,  int len_of_arr_of_eating_staps) {
-    // for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
-    //     board_mtx[(arr_of_possible_staps[i]/10) - 1][(arr_of_possible_staps[i]%10) - 1] = 
-    // }
+void Board::set_staps(Staps* staps) {
+    int** arr_of_possible_staps = staps->get_arr_of_possible_staps();
+    int** arr_of_eating_staps = staps->get_arr_of_eating_staps();
+    for (int i = 0; i < staps->get_arr_of_possible_staps(); i++) {
+        if (arr_of_possible_staps[i] != 0) {
+            board_mtx[(arr_of_possible_staps[i]/10) - 1][(arr_of_possible_staps[i]%10) - 1] = POSSIBLE_STAPS;
+        }
+    }
+    for (int i = 0; i < staps->get_len_of_arr_of_eating_staps(); i++) {
+        if (arr_of_eating_staps[i] != 0) {
+            board_mtx[(arr_of_eating_staps[i]/10) - 1][(arr_of_eating_staps[i]%10) - 1] = EATING_STAPS;
+        }
+    }
 }
 
-void Board::tmp() {
-    board_mtx[2][1] = POSSIBLE_STAPS;
-    board_mtx[2][2] = EATING_STAPS;
-    board_mtx[5][1] = POSSIBLE_STAPS;
-    board_mtx[5][2] = EATING_STAPS;        
+void Board::check_staps(Staps* staps, char who_go) {
+    int** arr_of_possible_staps = staps->get_arr_of_possible_staps();
+    int** arr_of_eating_staps = staps->get_arr_of_eating_staps();
+    for (int i = 0; i < staps->get_len_of_arr_of_possible_staps(); i++) {
+        if (!is_cell_empty(arr_of_possible_staps[i])) {
+            arr_of_possible_staps[i] = 0;
+        }
+    }
+    for (int i = 0; i < staps->get_len_of_arr_of_eating_staps(); i++) {
+        if (who_go == get_color_of_fig(arr_of_eating_staps[i])) {
+            arr_of_eating_staps[i] = 0;
+        }
+    }
+    staps->set_arr_of_possible_staps(arr_of_possible_staps);
+    staps->set_arr_of_eating_staps(arr_of_eating_staps);
 }
+
+
+

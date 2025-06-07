@@ -53,3 +53,7 @@ bool Figure::is_stap_in_board(int stap) {
     }
     return false;
 }
+
+Staps* Figure::get_staps() {
+    return new Staps(get_arr_of_possible_staps(), get_len_of_arr_of_possible_staps(), get_arr_of_eating_staps(), get_len_of_arr_of_eating_staps());
+}

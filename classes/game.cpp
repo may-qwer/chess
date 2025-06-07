@@ -1,6 +1,7 @@
 #include <iostream>
 #include "game.h"
 
+
 using namespace std;
 
 #define ARR_OF_LETTERS "abcdefgh"
@@ -37,7 +38,16 @@ void Game::main_cycle() {
             cout_who_go();
             figure_cell = choose_figure_cell();
             Figure *figure = board->create_figure(figure_cell);
+            Staps *staps = figure->get_staps();
+            board->check_staps(staps, who_go);
+            Board *possible_staps_board = new Board*;
+            possible_staps_board = board->copy_board();
+            possible_staps_board->set_staps(staps);
+            possible_staps_board->show();
+            delete possible_staps_board;
+            
 
+            delete figure;
 
             pass_the_turn();
             //tmp
