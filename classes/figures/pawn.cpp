@@ -29,7 +29,7 @@ Pawn::~Pawn() {
     delete [] arr_of_eating_staps;
 }
 
-int** Pawn::get_arr_of_possible_staps() {
+int* Pawn::get_arr_of_possible_staps() {
     //arr_of_possible_staps {stap}
     //if can_not_eat than 0;
     int go_possible_stap;
@@ -45,7 +45,7 @@ int** Pawn::get_arr_of_possible_staps() {
     return arr_of_possible_staps;
 }
 
-int** Pawn::get_arr_of_eating_staps() {
+int* Pawn::get_arr_of_eating_staps() {
     //arr_of_eating_staps {left_stap, right_stap}
     //if can_not_eat than 0;
     int left_possible_eat_stap;

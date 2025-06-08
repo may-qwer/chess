@@ -39,6 +39,8 @@ private:
     void pass_the_turn();
 
     int choose_figure_cell();
+
+    int choose_stap_cell(Staps* staps);
     
 };
 

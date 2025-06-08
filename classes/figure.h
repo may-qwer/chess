@@ -27,9 +27,9 @@ protected:
 
     virtual ~Figure();
 
-    virtual int** get_arr_of_possible_staps() = 0;
+    virtual int* get_arr_of_possible_staps() = 0;
 
-    virtual int** get_arr_of_eating_staps() = 0;
+    virtual int* get_arr_of_eating_staps() = 0;
 
     virtual int get_len_of_arr_of_possible_staps() = 0;
 

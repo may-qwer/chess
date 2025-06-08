@@ -11,9 +11,9 @@ public:
 
     ~Pawn();
 
-    int** get_arr_of_possible_staps();
+    int* get_arr_of_possible_staps();
 
-    int** get_arr_of_eating_staps();
+    int* get_arr_of_eating_staps();
 
     int get_len_of_arr_of_possible_staps();
 

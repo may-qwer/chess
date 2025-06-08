@@ -194,6 +194,9 @@ bool Board::is_cell_empty(const int cell) {
 }
 
 char Board::get_color_of_fig(const int cell) {
+    if (cell == 0) { 
+        return ' ';
+    }
     for (int i = 0; i < COUNT_OF_FIGURES; i++) {
         if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
             return 'w';
@@ -205,6 +208,9 @@ char Board::get_color_of_fig(const int cell) {
 }
 
 bool Board::is_figure_not_right_color(const char who_go, const int cell, char*& msg) {
+    if (cell == 0) {
+        return true;
+    }
     if (who_go == 'w') {
         for (int i = 0; i < COUNT_OF_FIGURES; i++) {
             if (board_mtx[(cell/10) - 1][(cell%10) - 1] == WHITE_FIGURES[i]) {
@@ -256,14 +262,16 @@ Figure* Board::create_figure(const int cell){
 }
 
 void Board::set_staps(Staps* staps) {
-    int** arr_of_possible_staps = staps->get_arr_of_possible_staps();
-    int** arr_of_eating_staps = staps->get_arr_of_eating_staps();
-    for (int i = 0; i < staps->get_arr_of_possible_staps(); i++) {
+    int* arr_of_possible_staps = staps->get_arr_of_possible_staps();
+    int* arr_of_eating_staps = staps->get_arr_of_eating_staps();
+    int len_of_possible_staps = staps->get_len_of_arr_of_possible_staps(); 
+    int len_of_eating_staps = staps->get_len_of_arr_of_eating_staps(); 
+    for (int i = 0; i < len_of_possible_staps; i++) {
         if (arr_of_possible_staps[i] != 0) {
             board_mtx[(arr_of_possible_staps[i]/10) - 1][(arr_of_possible_staps[i]%10) - 1] = POSSIBLE_STAPS;
         }
     }
-    for (int i = 0; i < staps->get_len_of_arr_of_eating_staps(); i++) {
+    for (int i = 0; i < len_of_eating_staps; i++) {
         if (arr_of_eating_staps[i] != 0) {
             board_mtx[(arr_of_eating_staps[i]/10) - 1][(arr_of_eating_staps[i]%10) - 1] = EATING_STAPS;
         }
@@ -271,15 +279,23 @@ void Board::set_staps(Staps* staps) {
 }
 
 void Board::check_staps(Staps* staps, char who_go) {
-    int** arr_of_possible_staps = staps->get_arr_of_possible_staps();
-    int** arr_of_eating_staps = staps->get_arr_of_eating_staps();
-    for (int i = 0; i < staps->get_len_of_arr_of_possible_staps(); i++) {
-        if (!is_cell_empty(arr_of_possible_staps[i])) {
+    int* arr_of_possible_staps = staps->get_arr_of_possible_staps();
+    int* arr_of_eating_staps = staps->get_arr_of_eating_staps();
+    int len_of_possible_staps = staps->get_len_of_arr_of_possible_staps(); 
+    int len_of_eating_staps = staps->get_len_of_arr_of_eating_staps(); 
+    for (int i = 0; i < len_of_possible_staps; i++) {
+        if (arr_of_possible_staps[i] == 0) {
+            continue;
+        } else if (!is_cell_empty(arr_of_possible_staps[i])) {
             arr_of_possible_staps[i] = 0;
         }
     }
-    for (int i = 0; i < staps->get_len_of_arr_of_eating_staps(); i++) {
-        if (who_go == get_color_of_fig(arr_of_eating_staps[i])) {
+    for (int i = 0; i < len_of_eating_staps; i++) {
+        if (arr_of_eating_staps[i] == 0) {
+            continue;
+        } else if (who_go == get_color_of_fig(arr_of_eating_staps[i])) {
+            arr_of_eating_staps[i] = 0;
+        } else if (board_mtx[(arr_of_eating_staps[i]/10) - 1][(arr_of_eating_staps[i]%10) - 1] == EMPTY) {
             arr_of_eating_staps[i] = 0;
         }
     }
