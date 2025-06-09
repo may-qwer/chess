@@ -13,8 +13,8 @@ using namespace std;
 #define MSG_WHITE_GO "\033[1;34mWhite go. \033[0m"
 #define MSG_BLACK_GO "\033[1;31mBlack go. \033[0m"
 #define SIZE_OF_BOARD 8
-// #define STARTED_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
-#define STARTED_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c3d7e7f7g7h7c8f8a8h8b8g8d8e8"
+// // #define STARTED_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
+// #define STARTED_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c3d7e7f7g7h7c8f8a8h8b8g8d8e8"
 
 
 Game::Game() {
@@ -31,20 +31,19 @@ Game::~Game() {
 void Game::main_cycle() {
     while (one_more) {
         board = new Board();
-        board->set_start_pos(STARTED_POS);
-        int figure_cell;
+        // board->set_start_pos(STARTED_POS);
         while (running) {
-            board->show();
-            cout_who_go();
-            figure_cell = choose_figure_cell();
-            Figure *figure = board->create_figure(figure_cell);
-            Staps *staps = figure->get_staps();
-            board->check_staps(staps, who_go);
-            Board *possible_staps_board = new Board;
-            possible_staps_board = board->copy_board();
-            possible_staps_board->set_staps(staps);
-            possible_staps_board->show();
-            delete possible_staps_board;
+            // board->show();
+            // cout_who_go();
+            // figure_cell = choose_figure_cell();
+            // Figure *figure = board->create_figure(figure_cell);
+            // Staps *staps = figure->get_staps();
+            // board->check_staps(staps, who_go);
+            // Board *possible_staps_board = new Board;
+            // possible_staps_board = board->copy_board();
+            // possible_staps_board->set_staps(staps);
+            // possible_staps_board->show();
+            // delete possible_staps_board;
 
 
 
