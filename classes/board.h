@@ -3,9 +3,17 @@
 
 #include "figure.h"
 
+#define BOARD_SIZE 8
+#define BACKGROUND_WHITE "\033[47m"
+#define BACKGROUND_BLACK "\033[40m"
+#define EMPTY " "
+#define RESET "\033[0m"
+#define COLOR_WHITE "\033[1;34m"
+#define COLOR_BLACK "\033[1;31m"
+
 class Board {
 private:
-    Figure **board_mtx;
+    Figure ***board_mtx;
 
     int convert_str_to_int(const char* str);
 
