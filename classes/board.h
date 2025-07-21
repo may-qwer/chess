@@ -4,6 +4,7 @@
 #include "figure.h"
 
 #define BOARD_SIZE 8
+#define ALL_FIGURES_POS_SIMBOLS 64
 #define BACKGROUND_WHITE "\033[47m"
 #define BACKGROUND_BLACK "\033[40m"
 #define EMPTY " "
