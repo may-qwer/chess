@@ -4,7 +4,7 @@ Game::Game() {
     running = true;
     one_more = false;
     str_cell = new char[2];
-    //main_board = new Board();
+    main_board = new Board;
 }
 
 Game::~Game() {
@@ -15,7 +15,7 @@ Game::~Game() {
 void Game::main_cycle() {
     do {
         while (running) {
-            
+            main_board->show();
         }
     } while (one_more);
 }

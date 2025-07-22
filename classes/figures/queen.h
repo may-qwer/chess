@@ -5,6 +5,6 @@
 
 class Queen : Figure {
     
-}
+};
 
 #endif

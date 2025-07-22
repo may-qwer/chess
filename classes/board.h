@@ -18,8 +18,6 @@ private:
 
     int convert_str_to_int(const char* str);
 
-    void set_empty_cell();
-
     char* convert_int_to_str(const int num);
 
 

@@ -5,6 +5,6 @@
 
 class Rook : Figure {
     
-}
+};
 
 #endif

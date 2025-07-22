@@ -5,6 +5,6 @@
 
 class Bishop : Figure {
     
-}
+};
 
 #endif

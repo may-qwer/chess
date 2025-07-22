@@ -1,6 +1,6 @@
 #include "figure.h"
 
-Figure::Figure(char* c; char fl; int p) {
+Figure::Figure(char* c, char fl, int p) {
     color = c;
     figure_letter = fl;
     pos = p;

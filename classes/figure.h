@@ -9,7 +9,7 @@ private:
     bool empty;
 
 public:
-    Figure(char* c; char fl; int p);
+    Figure(char* c, char fl, int p);
 
     Figure(const Figure& o_figure);
 

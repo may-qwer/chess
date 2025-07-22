@@ -3,8 +3,12 @@
 
 #include "../figure.h"
 
-class Pawn : Figure {
+class Pawn : public Figure {
+public:
+    Pawn();
+
+private:
     
-}
+};
 
 #endif
