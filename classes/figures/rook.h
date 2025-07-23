@@ -3,8 +3,12 @@
 
 #include "../figure.h"
 
-class Rook : Figure {
-    
+class Rook : public Figure {
+public:
+    Rook(const char* c, const int p, const char fl = 'R');
+
+private:
+
 };
 
 #endif

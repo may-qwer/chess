@@ -3,8 +3,12 @@
 
 #include "../figure.h"
 
-class Queen : Figure {
-    
+class Queen : public Figure {
+public:
+    Queen(const char* c, const int p, const char fl = 'Q');
+
+private:
+
 };
 
 #endif

@@ -3,19 +3,18 @@
 
 class Figure {
 private:
-    char* color;
+    const char* color;
     char figure_letter;
     int pos;
-    bool empty;
 
 public:
-    Figure(char* c, char fl, int p);
+    Figure(const char* c, const int p, const char fl);
 
     Figure(const Figure& o_figure);
 
     ~Figure();
 
-    char* get_color();
+    const char* get_color();
 
     char get_figure_letter();
 
