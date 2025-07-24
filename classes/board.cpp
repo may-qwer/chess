@@ -79,6 +79,7 @@ void Board::set_start_pos(const char* start_pos_str) {
         two_figures_simbol[0] = start_pos_str[i];
         two_figures_simbol[1] = start_pos_str[i+1];
         pos = convert_str_to_int(two_figures_simbol);
+        cout << pos/10 << " " << pos%10 << endl;
         if (i <= arr_of_indexes_of_figures[0]) {
             board_mtx[pos/10][pos%10] = new Pawn(COLOR_WHITE, pos);
         } else if (i <= arr_of_indexes_of_figures[1]) {
@@ -111,7 +112,7 @@ void Board::set_start_pos(const char* start_pos_str) {
 
 int Board::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
     int l, n;
-    l = int(str[0]) - int('a') + 1;
+    l = int(str[0]) - int('a');
     n = int(str[1]) - int('0');
     n = BOARD_SIZE - n + 1;
     return 10*l + n;
