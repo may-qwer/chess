@@ -1,4 +1,5 @@
 #include <iostream>
+#include <typeinfo>
 using namespace std;
 #include "board.h"
 #include "./figures/pawn.h"
@@ -66,9 +67,11 @@ void Board::set_start_pos(const char* start_pos_str) {
     //black pawns, black bishops, black rooks, black knites, black queen, black king
     // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
 
-    //stack defaullt pos: a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8
+    //stack defaullt pos: ()()()()()()()()()
+    //stack defaullt pos: {{a2, b2, c2, d2, e2,f2, g2, h2}, {c1, f1}, {a1, h1}, {b1, g1}, {d1}, {e1}, 
+    //                     {a7, b7, c7, d7, e7, f7, g7, h7}, {c8, f8}, {a8, h8}, {b8, g8}, {d8}, {e8}}
     //if figure is missed - '--'
-    
+
     int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
     int pos = 0;
     char two_figures_simbol[2];
@@ -79,7 +82,6 @@ void Board::set_start_pos(const char* start_pos_str) {
         two_figures_simbol[0] = start_pos_str[i];
         two_figures_simbol[1] = start_pos_str[i+1];
         pos = convert_str_to_int(two_figures_simbol);
-        cout << pos/10 << " " << pos%10 << endl;
         if (i <= arr_of_indexes_of_figures[0]) {
             board_mtx[pos/10][pos%10] = new Pawn(COLOR_WHITE, pos);
         } else if (i <= arr_of_indexes_of_figures[1]) {
@@ -104,10 +106,28 @@ void Board::set_start_pos(const char* start_pos_str) {
             board_mtx[pos/10][pos%10] = new Queen(COLOR_BLACK, pos);
         } else  if (i <= arr_of_indexes_of_figures[11]) {
             board_mtx[pos/10][pos%10] = new King(COLOR_BLACK, pos);    
-        } else {
-            board_mtx[pos/10][pos%10] = new Empty(EMPTY, pos);
         }
     }
+    char* el;
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            el = convert_int_to_str(10*i + j);
+            if (!is_in_str(el, start_pos_str)) {
+                 board_mtx[i][j] = new Empty(COLOR_EMPTY, convert_str_to_int(el));
+            }
+        }
+    }
+}
+
+bool Board::is_in_str(const char* el, const char* str) {
+    int i = 0;
+    while(str[i] != 0) {
+        if (str[i] == el[0] && str[i+1] == el[1]) {
+            return true;
+        }
+        i += 2;
+    }
+    return false;
 }
 
 int Board::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24

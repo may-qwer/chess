@@ -11,6 +11,7 @@
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
 #define COLOR_BLACK "\033[1;31m"
+#define COLOR_EMPTY " "
 
 class Board {
 private:
@@ -19,6 +20,8 @@ private:
     int convert_str_to_int(const char* str);
 
     char* convert_int_to_str(const int num);
+
+    bool is_in_str(const char* el, const char* str);
 
 
 public:
