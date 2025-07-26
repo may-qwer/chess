@@ -31,9 +31,10 @@ Board::Board(const Board& o_board) {
 }
 
 Board::~Board() {
-    for (int i = BOARD_SIZE-1; i > -1; i--) {
-        delete board_mtx[i];
-    }
+    // for (int i = BOARD_SIZE-1; i > -1; i--) {
+    // for (int i = 0; i < BOARD_SIZE; i++) {
+    //     delete board_mtx[i];
+    // }
     delete [] board_mtx;
 }
 
@@ -55,7 +56,7 @@ void Board::show() {
             } else {
                 cout << BACKGROUND_BLACK;
             }
-            cout << " " << board_mtx[i][j]->get_color() << board_mtx[i][j]->get_figure_letter() << " " << RESET;
+            cout << " " << board_mtx[j][i]->get_color() << board_mtx[j][i]->get_figure_letter() << " " << RESET;
         }
         cout << endl;
     }
@@ -68,8 +69,7 @@ void Board::set_start_pos(const char* start_pos_str) {
     // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
 
     //stack defaullt pos: ()()()()()()()()()
-    //stack defaullt pos: {{a2, b2, c2, d2, e2,f2, g2, h2}, {c1, f1}, {a1, h1}, {b1, g1}, {d1}, {e1}, 
-    //                     {a7, b7, c7, d7, e7, f7, g7, h7}, {c8, f8}, {a8, h8}, {b8, g8}, {d8}, {e8}}
+    //stack defaullt pos: "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
     //if figure is missed - '--'
 
     int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
@@ -81,39 +81,39 @@ void Board::set_start_pos(const char* start_pos_str) {
         }
         two_figures_simbol[0] = start_pos_str[i];
         two_figures_simbol[1] = start_pos_str[i+1];
-        pos = convert_str_to_int(two_figures_simbol);
+        pos = convert_str_to_int(two_figures_simbol) - 11;
         if (i <= arr_of_indexes_of_figures[0]) {
             board_mtx[pos/10][pos%10] = new Pawn(COLOR_WHITE, pos);
-        } else if (i <= arr_of_indexes_of_figures[1]) {
+        } else if ((i > arr_of_indexes_of_figures[0]) && (i <= arr_of_indexes_of_figures[1])) {
             board_mtx[pos/10][pos%10] = new Bishop(COLOR_WHITE, pos);
-        } else  if (i <= arr_of_indexes_of_figures[2]) {
+        } else  if ((i > arr_of_indexes_of_figures[1]) && (i <= arr_of_indexes_of_figures[2])) {
             board_mtx[pos/10][pos%10] = new Rook(COLOR_WHITE, pos);
-        } else  if (i <= arr_of_indexes_of_figures[3]) {
+        } else  if ((i > arr_of_indexes_of_figures[2]) && (i <= arr_of_indexes_of_figures[3])) {
             board_mtx[pos/10][pos%10] = new Knight(COLOR_WHITE, pos);
-        } else  if (i <= arr_of_indexes_of_figures[4]) {
+        } else  if ((i > arr_of_indexes_of_figures[3]) && (i <= arr_of_indexes_of_figures[4])) {
             board_mtx[pos/10][pos%10] = new Queen(COLOR_WHITE, pos);
-        } else  if (i <= arr_of_indexes_of_figures[5]) {
+        } else  if ((i > arr_of_indexes_of_figures[4]) && (i <= arr_of_indexes_of_figures[5])) {
             board_mtx[pos/10][pos%10] = new King(COLOR_WHITE, pos);
-        } else if (i <= arr_of_indexes_of_figures[6]) {
+        } else if ((i > arr_of_indexes_of_figures[5]) && (i <= arr_of_indexes_of_figures[6])) {
             board_mtx[pos/10][pos%10] = new Pawn(COLOR_BLACK, pos);
-        } else if (i <= arr_of_indexes_of_figures[7]) {
+        } else if ((i > arr_of_indexes_of_figures[6]) && (i <= arr_of_indexes_of_figures[7])) {
             board_mtx[pos/10][pos%10] = new Bishop(COLOR_BLACK, pos);
-        } else  if (i <= arr_of_indexes_of_figures[8]) {
+        } else  if ((i > arr_of_indexes_of_figures[7]) && (i <= arr_of_indexes_of_figures[8])) {
             board_mtx[pos/10][pos%10] = new Rook(COLOR_BLACK, pos);
-        } else  if (i <= arr_of_indexes_of_figures[9]) {
+        } else  if ((i > arr_of_indexes_of_figures[8]) && (i <= arr_of_indexes_of_figures[9])) {
             board_mtx[pos/10][pos%10] = new Knight(COLOR_BLACK, pos);
-        } else  if (i <= arr_of_indexes_of_figures[10]) {
+        } else  if ((i > arr_of_indexes_of_figures[9]) && (i <= arr_of_indexes_of_figures[10])) {
             board_mtx[pos/10][pos%10] = new Queen(COLOR_BLACK, pos);
-        } else  if (i <= arr_of_indexes_of_figures[11]) {
-            board_mtx[pos/10][pos%10] = new King(COLOR_BLACK, pos);    
+        } else  if ((i > arr_of_indexes_of_figures[10]) && (i <= arr_of_indexes_of_figures[11])) {
+            board_mtx[pos/10][pos%10] = new King(COLOR_BLACK, pos);  
         }
     }
     char* el;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            el = convert_int_to_str(10*i + j);
+            el = convert_int_to_str(10*(i+1) + (j+1));
             if (!is_in_str(el, start_pos_str)) {
-                 board_mtx[i][j] = new Empty(COLOR_EMPTY, convert_str_to_int(el));
+                board_mtx[i][j] = new Empty(COLOR_EMPTY, convert_str_to_int(el));
             }
         }
     }
@@ -132,15 +132,15 @@ bool Board::is_in_str(const char* el, const char* str) {
 
 int Board::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
     int l, n;
-    l = int(str[0]) - int('a');
+    l = int(str[0]) - int('a') + 1;
     n = int(str[1]) - int('0');
     n = BOARD_SIZE - n + 1;
     return 10*l + n;
 }
 
-char* Board::convert_int_to_str(const int num) { //15 -> a3; 23 -> b5
+char* Board::convert_int_to_str(const int num) { //16 -> a3; 24 -> b5
     static char ret_str[2];
     ret_str[0] = char(num/10 + int('a') - 1);
-    ret_str[1] = char((BOARD_SIZE - num%10) + int('0'));
+    ret_str[1] = char((BOARD_SIZE - num%10) + int('0') + 1);
     return ret_str;
 }

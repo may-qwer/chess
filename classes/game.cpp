@@ -19,6 +19,9 @@ void Game::main_cycle() {
         main_board->set_start_pos(START_POS);
         while (running) {
             main_board->show();
+
+            // tmp
+            running = false;
         }
     } while (one_more);
 }

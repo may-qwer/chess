@@ -89,33 +89,33 @@
 //     cout << "   a  b  c  d  e  f  g  h \n" << endl;
 // }
 
-// void Board::set_start_pos(const char *pos_str) { 
-//     //white pawns, white bishops, white rooks, white knites, white queen, white king
-//     //black pawns, black bishops, black rooks, black knites, black queen, black king
-//     // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king 
-//     //stack defaullt pos: a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8
-//     //if figure is missed - '--'
+void Board::set_start_pos(const char *pos_str) { 
+    //white pawns, white bishops, white rooks, white knites, white queen, white king
+    //black pawns, black bishops, black rooks, black knites, black queen, black king
+    // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king 
+    //stack defaullt pos: a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8
+    //if figure is missed - '--'
     
-//     int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
-//     char* arr_of_figures[] = {W_PAWN, W_BISHOP, W_ROOK, W_KNIGHT, W_QUEEN, W_KING, B_PAWN, B_BISHOP, B_ROOK, B_KNIGHT, B_QUEEN, B_KING};
-//     int letter_pos, num_pos;
-//     int max_i = arr_of_indexes_of_figures[0];
-//     int k = 0;
-//     for (int i = 0; i < COUNT_OF_FIGURES_SIMBOLS; i += 2) {
-//         letter_pos = convert_char_letter_to_int(pos_str[i]) - 1;
-//         num_pos = SIZE_OF_BOARD - convert_char_num_to_int(pos_str[i+1]);
-//         if ((pos_str[i] == '-') && (pos_str[i+1] == '-')) {
-//             continue;
-//         }
-//         if (i > max_i) {
-//             k++;
-//             max_i = arr_of_indexes_of_figures[k];
-//         }
-//         if ((i <= max_i)) {
-//             board_mtx[num_pos][letter_pos] = arr_of_figures[k];           
-//         }
-//     }
-// }
+    int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
+    char* arr_of_figures[] = {W_PAWN, W_BISHOP, W_ROOK, W_KNIGHT, W_QUEEN, W_KING, B_PAWN, B_BISHOP, B_ROOK, B_KNIGHT, B_QUEEN, B_KING};
+    int letter_pos, num_pos;
+    int max_i = arr_of_indexes_of_figures[0];
+    int k = 0;
+    for (int i = 0; i < COUNT_OF_FIGURES_SIMBOLS; i += 2) {
+        letter_pos = convert_char_letter_to_int(pos_str[i]) - 1;
+        num_pos = SIZE_OF_BOARD - convert_char_num_to_int(pos_str[i+1]);
+        if ((pos_str[i] == '-') && (pos_str[i+1] == '-')) {
+            continue;
+        }
+        if (i > max_i) {
+            k++;
+            max_i = arr_of_indexes_of_figures[k];
+        }
+        if ((i <= max_i)) {
+            board_mtx[num_pos][letter_pos] = arr_of_figures[k];           
+        }
+    }
+}
 
 // int Board::convert_char_letter_to_int(const char letter) {
 //     return (int)letter - (int)'a' + 1;

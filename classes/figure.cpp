@@ -17,7 +17,7 @@ Figure::~Figure() {
 }
 
 const char* Figure::get_color() {
-    return color;
+        return color;
 }
 
 char Figure::get_figure_letter() {

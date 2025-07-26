@@ -11,7 +11,7 @@
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
 #define COLOR_BLACK "\033[1;31m"
-#define COLOR_EMPTY " "
+#define COLOR_EMPTY ""
 
 class Board {
 private:
