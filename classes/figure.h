@@ -18,8 +18,6 @@ public:
 
     char get_figure_letter();
 
-    bool is_empty();
-
 };
 
 #endif

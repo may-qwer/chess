@@ -31,10 +31,9 @@ Board::Board(const Board& o_board) {
 }
 
 Board::~Board() {
-    // for (int i = BOARD_SIZE-1; i > -1; i--) {
-    // for (int i = 0; i < BOARD_SIZE; i++) {
-    //     delete board_mtx[i];
-    // }
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        delete board_mtx[i];
+    }
     delete [] board_mtx;
 }
 
@@ -143,4 +142,8 @@ char* Board::convert_int_to_str(const int num) { //16 -> a3; 24 -> b5
     ret_str[0] = char(num/10 + int('a') - 1);
     ret_str[1] = char((BOARD_SIZE - num%10) + int('0') + 1);
     return ret_str;
+}
+
+Figure* Board::get_mtx_el(int i, int j) {
+    reutrn board_mtx[i][j];
 }
