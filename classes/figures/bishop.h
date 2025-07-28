@@ -5,7 +5,7 @@
 
 class Bishop : public Figure {
 public:
-    Bishop(const char* c, const int p, const char fl = 'B');
+    Bishop(const char t, const char* c, const int p, const char fl = 'B');
     
 private:
     

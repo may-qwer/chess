@@ -5,7 +5,7 @@
 
 class Knight : public Figure {
 public:
-    Knight(const char* c, const int p, const char fl = 'N');
+    Knight(const char t, const char* c, const int p, const char fl = 'N');
 
 private:
 

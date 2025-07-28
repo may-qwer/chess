@@ -23,6 +23,7 @@ void Game::main_cycle() {
         while (running) {
             main_board->show();
             cout_who_go();
+            get_cell(MSG_ENTER_FIGURE);
 
             pass_the_turn();
             // tmp
@@ -50,10 +51,13 @@ void Game::get_cell(const char* msg) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
     int int_cell = convert_str_to_int(str_cell);
-    if (main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_figure_letter() == ' ') {
-        get_cell(MSG_ENTER_FIGURE);
+    if (!(is_right_simbol(int_cell/10)) || !(is_right_simbol(int_cell%10))) {
+        get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    if (get_now_color != main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_color()) {
+    if (main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_figure_letter() == ' ') {
+        get_cell(MSG_EMPTY_CELL);
+    }
+    if (get_now_team_going() != main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_team()) {
         get_cell(MSG_NOT_RIGHT_COLOR);
     }
     if (get_count_of_staps_for_figure(int_cell) == 0) { //get_count_of_staps_for_figure 
@@ -69,6 +73,13 @@ int Game::get_str_len(const char* str) {
     return len;
 }
 
+bool Game::is_right_simbol(const int el) {
+    if ((el >= MIN_LIMIT) && (el <= MAX_LIMIT)) {
+        return true;
+    }
+    return false;
+}
+
 int Game::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
     int l, n;
     l = int(str[0]) - int('a') + 1;
@@ -77,11 +88,11 @@ int Game::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
     return 10*l + n;
 }
 
-const char* Game::get_now_color() {
+const char Game::get_now_team_going() {
     if (counter%2 == 0) {
-        return COLOR_WHITE;
+        return 'w';
     } else {
-        return COLOR_BLACK;
+        return 'b';
     }
 }
 

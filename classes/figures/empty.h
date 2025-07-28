@@ -5,7 +5,7 @@
 
 class Empty : public Figure {
 public:
-    Empty(const char* c, const int p, const char fl = ' ');
+    Empty(const char t, const char* c, const int p, const char fl = ' ');
 
 private:
 

@@ -5,7 +5,7 @@
 
 class Rook : public Figure {
 public:
-    Rook(const char* c, const int p, const char fl = 'R');
+    Rook(const char t, const char* c, const int p, const char fl = 'R');
 
 private:
 

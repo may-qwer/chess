@@ -5,7 +5,7 @@
 
 class King : public Figure {
 public:
-    King(const char* c, const int p, const char fl = 'K');
+    King(const char t, const char* c, const int p, const char fl = 'K');
 
 private:
 

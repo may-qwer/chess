@@ -10,10 +10,14 @@
 #define COLOR_BLACK "\033[1;31m"
 
 #define MSG_ENTER_FIGURE "Enter figure's cell you like to go, like a3: "
-#define MSG_NOT_CORRECT_INPUT "Your input is't corrtct. It should like a3. Try again: "
+#define MSG_NOT_CORRECT_INPUT "Your input is't correct. It should like a3. Try again: "
 #define MSG_NOT_RIGHT_COLOR "You enter cell, where figure not your color. Try again: "
 #define MSG_EMPTY_CELL "You enter empty cell. Try again: "
 #define MSG_ZERO_STAPS "You enter figure, which have zero possible staps. Try again: "
+
+#define MIN_LIMIT 1
+#define MAX_LIMIT 8
+
 
 class Game {
 private:
@@ -34,7 +38,9 @@ private:
 
     int get_str_len(const char* str);
 
-    const char* get_now_color();
+    bool is_right_simbol(const int el);
+
+    const char get_now_team_going();
 
     int get_count_of_staps_for_figure(int int_cell);
 

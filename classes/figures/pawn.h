@@ -5,7 +5,7 @@
 
 class Pawn : public Figure {
 public:
-    Pawn(const char* c, const int p, const char fl = 'p');
+    Pawn(const char t, const char* c, const int p, const char fl = 'p');
 
 private:
     

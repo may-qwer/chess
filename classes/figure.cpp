@@ -1,9 +1,10 @@
 #include "figure.h"
 
-Figure::Figure(const char* c, const int p, const char fl) {
+Figure::Figure(const char t, const char* c, const int p, const char fl) {
     color = c;
     figure_letter = fl;
     pos = p;
+    team = t;
 }
 
 Figure::Figure(const Figure& o_figure) {
@@ -22,4 +23,8 @@ const char* Figure::get_color() {
 
 char Figure::get_figure_letter() {
     return figure_letter;
+}
+
+const char Figure::get_team() {
+    return team;
 }
