@@ -32,6 +32,11 @@ Board::Board(const Board& o_board) {
 
 Board::~Board() {
     for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            delete board_mtx[i][j];
+        }
+    }
+    for (int i = 0; i < BOARD_SIZE; i++) {
         delete board_mtx[i];
     }
     delete [] board_mtx;
@@ -41,7 +46,7 @@ Board* Board::copy() {
     Board* copy_board = new Board;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            copy_board->board_mtx[i][j] = this->board_mtx[i][j];
+            copy_board->board_mtx[i][j] = new Figure(*this->board_mtx[i][j]);
         }
     }
     return copy_board;
