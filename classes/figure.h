@@ -7,6 +7,11 @@ private:
     char figure_letter;
     int pos;
     char team;
+    Staps* staps;
+
+    void set_staps() = 0;    
+
+    bool is_in_board(const int pos);
 
 public:
     Figure(const char t, const char* c, const int p, const char fl);
@@ -21,7 +26,7 @@ public:
 
     const char get_team();
 
-    
+    Staps* get_staps();
 
 };
 

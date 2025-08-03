@@ -1,4 +1,5 @@
 #include "figure.h"
+#include "staps.h"
 
 Figure::Figure(const char t, const char* c, const int p, const char fl) {
     color = c;
@@ -27,4 +28,19 @@ char Figure::get_figure_letter() {
 
 const char Figure::get_team() {
     return team;
+}
+
+bool Figure::is_in_board(const int pos) {
+    int letter, num;
+    letter = pos/10;
+    num = pos%10;
+    if((letter >= 1) && (letter <= 8) && (num >= 1) && (num <= 8)) {
+        return true;
+    }
+    return false;
+}
+
+Staps* Figure::get_staps() {
+    set_staps();
+    return staps;
 }
