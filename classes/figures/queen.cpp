@@ -1,6 +1,5 @@
 #include "queen.h"
-#include "../staps.h"
 
-Queen::Queen(const char t, const char* c, const int p, const char fl) : Figure(t, c, p, fl) {
+Queen::Queen(const char t, const char* c, const int p, const Board* brd, const char fl) : Figure(t, c, p, brd, fl) {
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS, MAX_COUNT_OF_EATING_STAPS);
 }
