@@ -7,6 +7,7 @@
 
 #define MAX_COUNT_OF_POSSIBLE_STAPS 8
 #define MAX_COUNT_OF_EATING_STAPS 8
+#define COUNT_OF_DIRECTIONS 8
 
 class Knight : public Figure {
 public:
