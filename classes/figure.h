@@ -10,15 +10,17 @@ private:
     char figure_letter;
     int pos;
     char team;
-    Staps* staps;
-    Board* board;
 
-    void set_staps() = 0;    
+
+    virtual void set_staps() = 0;    
 
     bool is_in_board(const int pos);
 
+protected:
+    Staps* staps;
+
 public:
-    Figure(const char t, const char* c, const int p, const Board* brd, const char fl);
+    Figure(const char t, const char* c, const int p, const char fl);
 
     Figure(const Figure& o_figure);
 

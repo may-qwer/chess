@@ -1,17 +1,16 @@
-#ifndef ROOK_h
+#ifndef ROOK_H
 #define ROOK_H
 
 #include "../figure.h"
 #include "../staps.h"
-#include "../board.h"
 
-#define MAX_COUNT_OF_POSSIBLE_STAPS 14
-#define MAX_COUNT_OF_EATING_STAPS 4
-#define COUNT_OF_DIRECTIONS 4
+#define MAX_COUNT_OF_POSSIBLE_STAPS_R 14
+#define MAX_COUNT_OF_EATING_STAPS_R 4
+#define COUNT_OF_DIRECTIONS_R 4
 
 class Rook : public Figure {
 public:
-    Rook(const char t, const char* c, const int p, const Board* brd, const char fl = 'R');
+    Rook(const char t, const char* c, const int p, const char fl = 'R');
 
 private:
 

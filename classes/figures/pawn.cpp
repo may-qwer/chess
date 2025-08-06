@@ -1,14 +1,14 @@
 #include "pawn.h"
 
-Pawn::Pawn(const char t, const char* c, const int p, const Board* brd, const char fl) : Figure(t, c, p, brd, fl) {
-    staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS, MAX_COUNT_OF_EATING_STAPS);
+Pawn::Pawn(const char t, const char* c, const int p, const char fl) : Figure(t, c, p, fl) {
+    staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_P, MAX_COUNT_OF_EATING_STAPS_P);
     is_first_stap = true;
 }
 
 void Pawn::set_staps() {
     int len_of_arr_of_possible_staps = 2;
     if (this->get_team() == 'w') {
-        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS] = {11, 9};
+        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS_P] = {11, 9};
         if (is_first_stap) {
             int arr_of_possible_staps[2] = {10, 20};
             is_first_stap = false;
@@ -17,7 +17,7 @@ void Pawn::set_staps() {
             len_of_arr_of_possible_staps = 1;
         }
     } else {
-        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS] = {-11, -9};
+        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS_P] = {-11, -9};
         if (is_first_stap) {
             int arr_of_possible_staps[2] = {-10, -20};
             is_first_stap = false;
@@ -26,7 +26,7 @@ void Pawn::set_staps() {
             len_of_arr_of_possible_staps = 1;
         }        
     }
-    for (int index_of_eating_directions = 0; index_of_eating_directions < COUNT_OF_EATING_DIRECTIONS; index_of_eating_directions++) {
+    for (int index_of_eating_directions = 0; index_of_eating_directions < COUNT_OF_EATING_DIRECTIONS_P; index_of_eating_directions++) {
         if (!is_in_board(possible_pos)) {
             continue;
         }

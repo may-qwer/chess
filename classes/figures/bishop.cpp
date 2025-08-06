@@ -1,14 +1,14 @@
 #include "bishop.h"
 
 
-Bishop::Bishop(const char t, const char* c, const int p, const Board* brd, const char fl) : Figure(t, c, p, brd, fl) {
-    staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS, MAX_COUNT_OF_EATING_STAPS);
+Bishop::Bishop(const char t, const char* c, const int p, const char fl) : Figure(t, c, p, fl) {
+    staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_B, MAX_COUNT_OF_EATING_STAPS_B);
 }
 
 void Bishop::set_staps() {
-    int arr_of_directions[COUNT_OF_DIRECTIONS] = {11, 9, -9, -11};
+    int arr_of_directions[COUNT_OF_DIRECTIONS_B] = {11, 9, -9, -11};
     int possible_pos = pos;
-    for (int index_of_direction = 0; index_of_direction < COUNT_OF_DIRECTIONS; index_of_direction++) {
+    for (int index_of_direction = 0; index_of_direction < COUNT_OF_DIRECTIONS_B; index_of_direction++) {
         possible_pos += arr_of_directions[index_of_direction];
         while (is_in_board(possible_pos)) {
             if (board->get_mtx_el(possible_pos)->get_team() == this->get_team()) {

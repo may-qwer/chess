@@ -1,12 +1,11 @@
 #include "figure.h"
 
 
-Figure::Figure(const char t, const char* c, const int p, const Board* brd, const char fl) {
+Figure::Figure(const char t, const char* c, const int p, const char fl) {
     color = c;
     figure_letter = fl;
     pos = p;
     team = t;
-    board = brd;
 }
 
 Figure::Figure(const Figure& o_figure) {
