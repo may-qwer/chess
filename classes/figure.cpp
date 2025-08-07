@@ -44,3 +44,7 @@ Staps* Figure::get_staps() {
     set_staps();
     return staps;
 }
+
+void Figure::get_board_mtx(const Figure*** mtx) {
+    board_mtx = mtx;
+}

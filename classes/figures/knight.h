@@ -14,6 +14,7 @@ public:
     Knight(const char t, const char* c, const int p, const char fl = 'N');
 
 private:
+    virtual void set_staps();
 
 };
 

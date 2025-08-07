@@ -11,15 +11,15 @@ void Bishop::set_staps() {
     for (int index_of_direction = 0; index_of_direction < COUNT_OF_DIRECTIONS_B; index_of_direction++) {
         possible_pos += arr_of_directions[index_of_direction];
         while (is_in_board(possible_pos)) {
-            if (board->get_mtx_el(possible_pos)->get_team() == this->get_team()) {
+            if (board_mtx[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() == this->get_team()) {
                 break;
             }
-            if (board->get_mtx_el(possible_pos)->get_figure_letter == ' ') {
+            if (board_mtx[possible_pos/10 - 1][possible_pos%10 - 1]->get_figure_letter == ' ') {
                 staps->set_el_to_arr_of_possible_staps(possible_pos);
                 possible_pos += arr_of_directions[index_of_direction];
                 continue;
             }
-            if (board->get_mtx_el(possible_pos)->get_team() != this->get_team()) {
+            if (board_mtx[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() != this->get_team()) {
                 staps->set_el_to_arr_of_eating_staps(possible_pos);
                 possible_pos += arr_of_directions[index_of_direction];
                 break;

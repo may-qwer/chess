@@ -14,6 +14,8 @@ public:
     Pawn(const char t, const char* c, const int p, const char fl = 'p');
 
 private:
+    virtual void set_staps();
+    
     bool is_first_stap;
     
 };

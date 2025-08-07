@@ -13,6 +13,7 @@ public:
     Queen(const char t, const char* c, const int p, const char fl = 'Q');
 
 private:
+    virtual void set_staps();
 
 };
 

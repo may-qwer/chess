@@ -13,6 +13,7 @@ public:
     Rook(const char t, const char* c, const int p, const char fl = 'R');
 
 private:
+    virtual void set_staps();
 
 };
 

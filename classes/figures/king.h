@@ -14,6 +14,8 @@ public:
     King(const char t, const char* c, const int p, const char fl = 'K');
 
 private:
+    virtual void set_staps();
+
     bool is_possible_stap_to_check(int possible_stap);
 
 };

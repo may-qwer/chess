@@ -13,7 +13,8 @@ public:
     Empty(const char t, const char* c, const int p, const char fl = ' ');
 
 private:
-
+    virtual void set_staps();
+    
 };
 
 #endif

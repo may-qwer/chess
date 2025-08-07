@@ -6,18 +6,19 @@
 
 class Figure {
 private:
+
+
+protected:
     const char* color;
     char figure_letter;
     int pos;
     char team;
-
+    Staps* staps;
+    const Figure*** board_mtx;
 
     virtual void set_staps() = 0;    
 
     bool is_in_board(const int pos);
-
-protected:
-    Staps* staps;
 
 public:
     Figure(const char t, const char* c, const int p, const char fl);
@@ -33,6 +34,8 @@ public:
     const char get_team();
 
     Staps* get_staps();
+
+    void get_board_mtx(count Figure*** mtx);
 
 };
 

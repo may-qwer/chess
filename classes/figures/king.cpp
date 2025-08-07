@@ -8,7 +8,7 @@ King::King(const char t, const char* c, const int p, const char fl) : Figure(t, 
 void King::set_staps() {
     int arr_of_directions[COUNT_OF_DIRECTIONS_K] = {10, 11, 1, -11, -10, -9, -1, 9};
     int possible_pos = pos;
-    for (int index_of_direction = 0; index_of_directions < COUNT_OF_DIRECTIONS_K; index_of_direction++) {
+    for (int index_of_direction = 0; index_of_direction < COUNT_OF_DIRECTIONS_K; index_of_direction++) {
         possible_pos += arr_of_directions[index_of_direction];
         if (!is_in_board(possible_pos)) {
             continue;
