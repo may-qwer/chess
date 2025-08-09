@@ -11,7 +11,9 @@
 
 class Pawn : public Figure {
 public:
-    Pawn(const char t, const char* c, const int p, const char fl = 'p');
+    Pawn(const char t, const char* c, const int p, Board* brd, const char fl = 'p');
+
+    virtual ~Pawn();
 
 private:
     virtual void set_staps();

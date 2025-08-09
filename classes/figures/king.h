@@ -11,7 +11,9 @@
 
 class King : public Figure {
 public:
-    King(const char t, const char* c, const int p, const char fl = 'K');
+    King(const char t, const char* c, const int p, Board* brd, const char fl = 'K');
+
+    virtual ~King();
 
 private:
     virtual void set_staps();

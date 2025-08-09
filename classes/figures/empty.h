@@ -12,6 +12,8 @@ class Empty : public Figure {
 public:
     Empty(const char t, const char* c, const int p, const char fl = ' ');
 
+    virtual ~Empty();
+
 private:
     virtual void set_staps();
     

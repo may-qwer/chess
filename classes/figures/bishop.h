@@ -11,7 +11,9 @@
 
 class Bishop : public Figure {
 public:
-    Bishop(const char t, const char* c, const int p, const char fl = 'B');
+    Bishop(const char t, const char* c, const int p, Board* brd, const char fl = 'B');
+
+    virtual ~Bishop();
     
 private:
     virtual void set_staps();

@@ -40,11 +40,11 @@ bool Figure::is_in_board(const int pos) {
     return false;
 }
 
+void Figure::set_staps() {
+    return;
+}
+
 Staps* Figure::get_staps() {
     set_staps();
     return staps;
-}
-
-void Figure::get_board_mtx(const Figure*** mtx) {
-    board_mtx = mtx;
 }

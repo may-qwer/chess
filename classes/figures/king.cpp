@@ -1,8 +1,9 @@
 #include "king.h"
 
 
-King::King(const char t, const char* c, const int p, const char fl) : Figure(t, c, p, fl) {
+King::King(const char t, const char* c, const int p, Board* brd, const char fl) : Figure(t, c, p, fl) {
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_K, MAX_COUNT_OF_EATING_STAPS_K);
+    board = brd;
 }
 
 void King::set_staps() {
@@ -16,14 +17,14 @@ void King::set_staps() {
         if (is_possible_stap_to_check(possible_pos)) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos)->get_team() == this->get_team()) {
+        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() == this->get_team()) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos)->get_team() != this->get_team()) {
+        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() != this->get_team()) {
             staps->set_el_to_arr_of_eating_staps(possible_pos);
             continue;
         }
-        if (board->get_mtx_el(possible_pos)->get_figure_letter() == ' ') {
+        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_figure_letter() == ' ') {
             staps->set_el_to_arr_of_possible_staps(possible_pos);
             continue;
         }

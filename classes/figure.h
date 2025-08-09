@@ -2,11 +2,9 @@
 #define FIGURE_H
 
 #include "staps.h"
-#include "board.h"
 
 class Figure {
 private:
-
 
 protected:
     const char* color;
@@ -14,9 +12,9 @@ protected:
     int pos;
     char team;
     Staps* staps;
-    const Figure*** board_mtx;
+    Figure* figure_on_board;
 
-    virtual void set_staps() = 0;    
+    virtual void set_staps();    
 
     bool is_in_board(const int pos);
 
@@ -35,7 +33,7 @@ public:
 
     Staps* get_staps();
 
-    void get_board_mtx(count Figure*** mtx);
+    void get_figure_from_board(const int pos, Figure* fig);
 
 };
 

@@ -10,7 +10,9 @@
 
 class Queen : public Figure {
 public:
-    Queen(const char t, const char* c, const int p, const char fl = 'Q');
+    Queen(const char t, const char* c, const int p, Board* brd, const char fl = 'Q');
+
+    virtual ~Queen();
 
 private:
     virtual void set_staps();
