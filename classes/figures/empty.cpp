@@ -6,6 +6,10 @@ Empty::Empty(const char t, const char* c, const int p, const char fl) : Figure(t
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_E, MAX_COUNT_OF_EATING_STAPS_E);
 }
 
+Empty::~Empty() {
+    delete staps;
+}
+
 void Empty::set_staps() {
     return;
 }

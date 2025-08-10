@@ -39,6 +39,8 @@ public:
 
     Figure* get_mtx_el(int i, int j);
 
+    Figure*** get_mtx();
+
 };
 
 #endif

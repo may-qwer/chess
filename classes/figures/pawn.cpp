@@ -1,60 +1,71 @@
 #include "pawn.h"
 
-Pawn::Pawn(const char t, const char* c, const int p, Board* brd, const char fl) : Figure(t, c, p, fl) {
+Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char fl) : Figure(t, c, p, fl) {
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_P, MAX_COUNT_OF_EATING_STAPS_P);
-    board = brd;
+    figures_on_board = mtx;
     is_first_stap = true;
+}
+
+Pawn::~Pawn() {
+    delete staps;
 }
 
 void Pawn::set_staps() {
     int len_of_arr_of_possible_staps = 2;
+    int possible_pos = pos;
+    int *arr_of_eating_directions, *arr_of_possible_directions;
     if (this->get_team() == 'w') {
-        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS_P] = {11, 9};
+        arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {11, 9};
         if (is_first_stap) {
-            int arr_of_possible_staps[2] = {10, 20};
+            arr_of_possible_directions = new int[2] {10, 20};
             is_first_stap = false;
         } else {
-            int arr_of_possible_staps[1] = {10};
+            arr_of_possible_directions = new int[1] {10};
             len_of_arr_of_possible_staps = 1;
         }
     } else {
-        int arr_of_eating_directions[COUNT_OF_EATING_DIRECTIONS_P] = {-11, -9};
+        arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {-11, -9};
         if (is_first_stap) {
-            int arr_of_possible_staps[2] = {-10, -20};
+            arr_of_possible_directions = new int[2] {-10, -20};
             is_first_stap = false;
         } else {
-            int arr_of_possible_staps[1] = {-10};
+            arr_of_possible_directions = new int[1] {-10};
             len_of_arr_of_possible_staps = 1;
         }        
     }
     for (int index_of_eating_directions = 0; index_of_eating_directions < COUNT_OF_EATING_DIRECTIONS_P; index_of_eating_directions++) {
+        possible_pos += arr_of_eating_directions[index_of_eating_directions];
         if (!is_in_board(possible_pos)) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() == this->get_team()) {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() == this->get_team()) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() != this->get_team()) {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() != this->get_team()) {
             staps->set_el_to_arr_of_eating_staps(possible_pos);
             continue;
         }  
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_figure_letter() == ' ') {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_figure_letter() == ' ') {
             continue;
         }      
     }
+    possible_pos = pos;
     for (int index_of_going_directions = 0; index_of_going_directions < len_of_arr_of_possible_staps; index_of_going_directions++) {
+        possible_pos += arr_of_possible_directions[index_of_going_directions];
         if (!is_in_board(possible_pos)) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() == this->get_team()) {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() == this->get_team()) {
             continue;
         }
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_team() != this->get_team()) {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() != this->get_team()) {
             continue;
         }  
-        if (board->get_mtx_el(possible_pos/10 - 1, possible_pos%10 - 1)->get_figure_letter() == ' ') {
+        if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_figure_letter() == ' ') {
             staps->set_el_to_arr_of_possible_staps(possible_pos);
             continue;
         }      
     }
+    delete [] arr_of_eating_directions;
+    delete [] arr_of_possible_directions;
 }

@@ -10,7 +10,7 @@
 
 class Rook : public Figure {
 public:
-    Rook(const char t, const char* c, const int p, Board* brd, const char fl = 'R');
+    Rook(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'R');
 
     virtual ~Rook();
 

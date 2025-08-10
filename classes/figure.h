@@ -12,7 +12,7 @@ protected:
     int pos;
     char team;
     Staps* staps;
-    Figure* figure_on_board;
+    Figure*** figures_on_board;
 
     virtual void set_staps();    
 
