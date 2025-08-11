@@ -40,6 +40,10 @@ bool Figure::is_in_board(const int pos) {
     return false;
 }
 
+int Figure::get_pos() {
+    return pos;
+}
+
 void Figure::set_staps() {
     return;
 }

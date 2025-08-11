@@ -31,6 +31,8 @@ public:
 
     const char get_team();
 
+    int get_pos();
+
     Staps* get_staps();
 
     void get_figure_from_board(const int pos, Figure* fig);

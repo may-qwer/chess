@@ -24,6 +24,8 @@ void Game::main_cycle() {
             main_board->show();
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
+            staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+            show_staps();
 
             pass_the_turn();
             // tmp
@@ -50,7 +52,7 @@ void Game::get_cell(const char* msg) {
     if (get_str_len(str_cell) != 2) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    int int_cell = convert_str_to_int(str_cell);
+    int_cell = convert_str_to_int(str_cell);
     if (!(is_right_simbol(int_cell/10)) || !(is_right_simbol(int_cell%10))) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
@@ -99,4 +101,13 @@ const char Game::get_now_team_going() {
 int Game::get_count_of_staps_for_figure(int int_cell) {
     //todo
     return 1;
+}
+
+void Game::show_staps() {
+    Board* staps_board = new Board;
+    staps_board = main_board->copy();
+    staps_board->set_staps_for_board(staps);
+    staps_board->show();
+
+    delete staps_board;
 }

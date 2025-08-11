@@ -1,6 +1,7 @@
 #include <iostream>
 #include <typeinfo>
 using namespace std;
+
 #include "board.h"
 #include "./figures/pawn.h"
 #include "./figures/rook.h"
@@ -9,6 +10,8 @@ using namespace std;
 #include "./figures/queen.h"
 #include "./figures/king.h"
 #include "./figures/empty.h"
+#include "./figures/possible.h"
+#include "./figures/eating.h"
 
 
 Board::Board() {
@@ -154,6 +157,24 @@ Figure* Board::get_mtx_el(int i, int j) {
     return board_mtx[i][j];
 }
 
+void Board::set_mtx_el(Figure* el) {
+    delete board_mtx[el->get_pos()/10][el->get_pos()%10]; //?
+    board_mtx[el->get_pos()/10][el->get_pos()%10] = el;
+}
+
 Figure*** Board::get_mtx() {
     return board_mtx;
+}
+
+void Board::set_staps_for_board(Staps* staps) {
+    for (int index_of_possible_staps; index_of_possible_staps < staps->get_len_of_arr_of_possible_staps(); index_of_possible_staps++) {
+        if (staps->get_arr_of_possible_staps()[index_of_possible_staps]) {
+            this->set_mtx_el(new Possible(' ', COLOR_POSSIBLE, staps->get_arr_of_possible_staps()[index_of_possible_staps]));
+        }
+    }
+    for (int index_of_eating_staps; index_of_eating_staps < staps->get_len_of_arr_of_eating_staps(); index_of_eating_staps++) {
+        if (staps->get_arr_of_eating_staps()[index_of_eating_staps]) {
+            this->set_mtx_el(new Eating(' ', COLOR_POSSIBLE, staps->get_arr_of_eating_staps()[index_of_eating_staps]));
+        }
+    }
 }
