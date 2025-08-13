@@ -15,15 +15,15 @@ void Queen::set_staps() {
     for (int index_of_direction = 0; index_of_direction < COUNT_OF_DIRECTIONS_Q; index_of_direction++) {
         possible_pos += arr_of_directions[index_of_direction];
         while (is_in_board(possible_pos)) {
-            if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() == this->get_team()) {
+            if (figures_on_board[possible_pos/10][possible_pos%10]->get_team() == this->get_team()) {
                 break;
             }
-            if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_figure_letter() == ' ') {
+            if (figures_on_board[possible_pos/10][possible_pos%10]->get_figure_letter() == ' ') {
                 staps->set_el_to_arr_of_possible_staps(possible_pos);
                 possible_pos += arr_of_directions[index_of_direction];
                 continue;
             }
-            if (figures_on_board[possible_pos/10 - 1][possible_pos%10 - 1]->get_team() != this->get_team()) {
+            if (figures_on_board[possible_pos/10][possible_pos%10]->get_team() != this->get_team()) {
                 staps->set_el_to_arr_of_eating_staps(possible_pos);
                 possible_pos += arr_of_directions[index_of_direction];
                 break;

@@ -4,7 +4,11 @@
 #include "board.h"
 #include "staps.h"
 
-#define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
+//white pawns, white bishops, white rooks, white knites, white queen, white king
+//black pawns, black bishops, black rooks, black knites, black queen, black king
+// 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
+// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
+#define START_POS "------------------d4--------------------------------------------"
 
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
@@ -17,8 +21,8 @@
 #define MSG_EMPTY_CELL "You enter empty cell. Try again: "
 #define MSG_ZERO_STAPS "You enter figure, which have zero possible staps. Try again: "
 
-#define MIN_LIMIT 1
-#define MAX_LIMIT 8
+#define MIN_LIMIT 0
+#define MAX_LIMIT 7
 
 
 class Game {

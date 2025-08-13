@@ -25,6 +25,24 @@ void Game::main_cycle() {
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+//---------------------------------            
+            cout << int_cell << " " << int_cell/10 << " " << int_cell%10 << endl;
+            cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_pos() << endl;
+            cout << endl;
+            cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_color() << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_figure_letter() << RESET << endl;
+             for (int i = 0; i < main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_len_of_arr_of_possible_staps(); i++) {
+                if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_possible_staps()[i]) {
+                    cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_possible_staps()[i] << " ";
+                }
+            }
+            cout << endl;
+            for (int i = 0; i < main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_len_of_arr_of_eating_staps(); i++) {
+                if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_eating_staps()[i]) {
+                    cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_eating_staps()[i] << " ";
+                }
+            }
+            cout << endl;
+//---------------------------------  
             show_staps();
 
             pass_the_turn();
@@ -56,10 +74,10 @@ void Game::get_cell(const char* msg) {
     if (!(is_right_simbol(int_cell/10)) || !(is_right_simbol(int_cell%10))) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    if (main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_figure_letter() == ' ') {
+    if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_figure_letter() == ' ') {
         get_cell(MSG_EMPTY_CELL);
     }
-    if (get_now_team_going() != main_board->get_mtx_el((int_cell/10)-1, (int_cell%10)-1)->get_team()) {
+    if (get_now_team_going() != main_board->get_mtx_el(int_cell/10, int_cell%10)->get_team()) {
         get_cell(MSG_NOT_RIGHT_COLOR);
     }
     if (get_count_of_staps_for_figure(int_cell) == 0) { //get_count_of_staps_for_figure 
@@ -84,9 +102,9 @@ bool Game::is_right_simbol(const int el) {
 
 int Game::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
     int l, n;
-    l = int(str[0]) - int('a') + 1;
+    l = int(str[0]) - int('a');
     n = int(str[1]) - int('0');
-    n = BOARD_SIZE - n + 1;
+    n = BOARD_SIZE - n;
     return 10*l + n;
 }
 

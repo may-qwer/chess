@@ -34,7 +34,7 @@ bool Figure::is_in_board(const int pos) {
     int letter, num;
     letter = pos/10;
     num = pos%10;
-    if((letter >= 1) && (letter <= 8) && (num >= 1) && (num <= 8)) {
+    if((letter >= 0) && (letter <= 7) && (num >= 0) && (num <= 7)) {
         return true;
     }
     return false;

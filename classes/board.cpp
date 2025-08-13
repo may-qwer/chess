@@ -89,7 +89,7 @@ void Board::set_start_pos(const char* start_pos_str) {
         }
         two_figures_simbol[0] = start_pos_str[i];
         two_figures_simbol[1] = start_pos_str[i+1];
-        pos = convert_str_to_int(two_figures_simbol) - 11;
+        pos = convert_str_to_int(two_figures_simbol);
         if (i <= arr_of_indexes_of_figures[0]) {
             board_mtx[pos/10][pos%10] = new Pawn('w', COLOR_WHITE, pos, board_mtx);
         } else if ((i > arr_of_indexes_of_figures[0]) && (i <= arr_of_indexes_of_figures[1])) {
@@ -119,7 +119,7 @@ void Board::set_start_pos(const char* start_pos_str) {
     char* el;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            el = convert_int_to_str(10*(i+1) + (j+1));
+            el = convert_int_to_str(10*(i) + (j));
             if (!is_in_str(el, start_pos_str)) {
                 board_mtx[i][j] = new Empty(' ', COLOR_EMPTY, convert_str_to_int(el));
             }
@@ -138,18 +138,18 @@ bool Board::is_in_str(const char* el, const char* str) {
     return false;
 }
 
-int Board::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
+int Board::convert_str_to_int(const char* str) { //a3 -> 05; b5 -> 14; a8 -> 00; h1 -> 77
     int l, n;
-    l = int(str[0]) - int('a') + 1;
+    l = int(str[0]) - int('a');
     n = int(str[1]) - int('0');
-    n = BOARD_SIZE - n + 1;
+    n = BOARD_SIZE - n;
     return 10*l + n;
 }
 
-char* Board::convert_int_to_str(const int num) { //16 -> a3; 24 -> b5
+char* Board::convert_int_to_str(const int num) { //5 -> a3; 14 -> b5; 0 -> a8; 77 -> h1
     static char ret_str[2];
-    ret_str[0] = char(num/10 + int('a') - 1);
-    ret_str[1] = char((BOARD_SIZE - num%10) + int('0') + 1);
+    ret_str[0] = char(num/10 + int('a'));
+    ret_str[1] = char((BOARD_SIZE - num%10) + int('0'));
     return ret_str;
 }
 
