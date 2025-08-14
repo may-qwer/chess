@@ -25,24 +25,6 @@ void Game::main_cycle() {
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
-//---------------------------------            
-            cout << int_cell << " " << int_cell/10 << " " << int_cell%10 << endl;
-            cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_pos() << endl;
-            cout << endl;
-            cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_color() << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_figure_letter() << RESET << endl;
-             for (int i = 0; i < main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_len_of_arr_of_possible_staps(); i++) {
-                if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_possible_staps()[i]) {
-                    cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_possible_staps()[i] << " ";
-                }
-            }
-            cout << endl;
-            for (int i = 0; i < main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_len_of_arr_of_eating_staps(); i++) {
-                if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_eating_staps()[i]) {
-                    cout << main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->get_arr_of_eating_staps()[i] << " ";
-                }
-            }
-            cout << endl;
-//---------------------------------  
             show_staps();
 
             pass_the_turn();
@@ -100,7 +82,7 @@ bool Game::is_right_simbol(const int el) {
     return false;
 }
 
-int Game::convert_str_to_int(const char* str) { //a3 -> 16; b5 -> 24
+int Game::convert_str_to_int(const char* str) { //a3 -> 05; b5 -> 14; a8 -> 00; h1 -> 77
     int l, n;
     l = int(str[0]) - int('a');
     n = int(str[1]) - int('0');

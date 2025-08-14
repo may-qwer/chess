@@ -167,14 +167,14 @@ Figure*** Board::get_mtx() {
 }
 
 void Board::set_staps_for_board(Staps* staps) {
-    for (int index_of_possible_staps; index_of_possible_staps < staps->get_len_of_arr_of_possible_staps(); index_of_possible_staps++) {
+    for (int index_of_possible_staps = 0; index_of_possible_staps < staps->get_len_of_arr_of_possible_staps(); index_of_possible_staps++) {
         if (staps->get_arr_of_possible_staps()[index_of_possible_staps]) {
             this->set_mtx_el(new Possible(' ', COLOR_POSSIBLE, staps->get_arr_of_possible_staps()[index_of_possible_staps]));
         }
     }
-    for (int index_of_eating_staps; index_of_eating_staps < staps->get_len_of_arr_of_eating_staps(); index_of_eating_staps++) {
+    for (int index_of_eating_staps = 0; index_of_eating_staps < staps->get_len_of_arr_of_eating_staps(); index_of_eating_staps++) {
         if (staps->get_arr_of_eating_staps()[index_of_eating_staps]) {
-            this->set_mtx_el(new Eating(' ', COLOR_POSSIBLE, staps->get_arr_of_eating_staps()[index_of_eating_staps]));
+            this->set_mtx_el(new Eating(' ', COLOR_EATING, staps->get_arr_of_eating_staps()[index_of_eating_staps]));
         }
     }
 }

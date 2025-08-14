@@ -12,7 +12,7 @@
 #define COLOR_WHITE "\033[1;34m"
 #define COLOR_BLACK "\033[1;31m"
 #define COLOR_EMPTY ""
-#define COLOR_POSSIBLE "\033[1;36m"
+#define COLOR_POSSIBLE "\033[1;32m"
 #define COLOR_EATING "\033[1;35m"
 
 class Board {
