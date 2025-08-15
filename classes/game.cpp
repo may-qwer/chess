@@ -26,6 +26,7 @@ void Game::main_cycle() {
             get_cell(MSG_ENTER_FIGURE);
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
             show_staps();
+            get_stap(MSG_ENTER_STAP);
 
             pass_the_turn();
             // tmp
@@ -62,7 +63,7 @@ void Game::get_cell(const char* msg) {
     if (get_now_team_going() != main_board->get_mtx_el(int_cell/10, int_cell%10)->get_team()) {
         get_cell(MSG_NOT_RIGHT_COLOR);
     }
-    if (get_count_of_staps_for_figure(int_cell) == 0) { //get_count_of_staps_for_figure 
+    if (!is_empty_staps(int_cell)) {
         get_cell(MSG_ZERO_STAPS);
     }
 }
@@ -98,9 +99,14 @@ const char Game::get_now_team_going() {
     }
 }
 
-int Game::get_count_of_staps_for_figure(int int_cell) {
-    //todo
-    return 1;
+bool Game::is_empty_staps(const int int_cell) {
+    Staps* tmp_staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+    bool res = true;
+    if (tmp_staps->get_count_of_possible_staps() == 0 && tmp_staps->get_count_of_eating_staps() == 0) {
+        res = false;
+    }
+    delete tmp_staps;
+    return res;
 }
 
 void Game::show_staps() {
@@ -110,4 +116,16 @@ void Game::show_staps() {
     staps_board->show();
 
     delete staps_board;
+}
+
+void Game::get_stap(const char* msg) {
+    cout << msg;
+    cin >> str_stap;
+    if (get_str_len(str_stap) != 2) {
+        get_stap(MSG_NOT_CORRECT_INPUT);
+    }
+    int_stap = convert_str_to_int(str_stap);
+    if (staps->is_in_arrs(int_stap)) {
+        get_stap(MSG_IS_NOT_IN_STAPS);
+    }
 }
