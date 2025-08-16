@@ -162,6 +162,11 @@ void Board::set_mtx_el(Figure* el) {
     board_mtx[el->get_pos()/10][el->get_pos()%10] = el;
 }
 
+void Board::set_mtx_empty_el(const int pos) {
+    delete board_mtx[pos/10][pos%10];
+    board_mtx[pos/10][pos%10] = new Empty(' ', COLOR_EMPTY, pos);
+}
+
 Figure*** Board::get_mtx() {
     return board_mtx;
 }

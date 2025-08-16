@@ -47,6 +47,8 @@ public:
 
     void set_staps_for_board(Staps* staps);
 
+    void set_mtx_empty_el(const int pos);
+
 };
 
 #endif

@@ -52,3 +52,7 @@ Staps* Figure::get_staps() {
     set_staps();
     return staps;
 }
+
+void Figure::change_pos(const int new_pos) {
+    pos = new_pos;
+}

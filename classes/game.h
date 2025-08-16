@@ -39,6 +39,7 @@ private:
     char who_go;
     Board *main_board;
     Staps* staps;
+    Staps* tmp_staps;
 
     void get_cell(const char* msg);
 
@@ -59,6 +60,8 @@ private:
     void show_staps();
 
     void get_stap(const char* msg);
+
+    void move_figure();
 
 
 public:

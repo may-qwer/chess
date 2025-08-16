@@ -9,11 +9,13 @@ Game::Game() {
     one_more = false;
     counter = 0;
     str_cell = new char[2];
+    str_stap = new char[2];
     main_board = new Board;
 }
 
 Game::~Game() {
     delete [] str_cell;
+    delete [] str_stap;
     delete main_board;
 }
 
@@ -27,10 +29,11 @@ void Game::main_cycle() {
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
             show_staps();
             get_stap(MSG_ENTER_STAP);
+            move_figure();
 
             pass_the_turn();
             // tmp
-            running = false;
+            // running = false;
         }
     } while (one_more);
 }
@@ -100,12 +103,11 @@ const char Game::get_now_team_going() {
 }
 
 bool Game::is_empty_staps(const int int_cell) {
-    Staps* tmp_staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+    tmp_staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
     bool res = true;
     if (tmp_staps->get_count_of_possible_staps() == 0 && tmp_staps->get_count_of_eating_staps() == 0) {
         res = false;
     }
-    delete tmp_staps;
     return res;
 }
 
@@ -125,7 +127,13 @@ void Game::get_stap(const char* msg) {
         get_stap(MSG_NOT_CORRECT_INPUT);
     }
     int_stap = convert_str_to_int(str_stap);
-    if (staps->is_in_arrs(int_stap)) {
+    if (!(staps->is_in_arrs(int_stap))) {
         get_stap(MSG_IS_NOT_IN_STAPS);
     }
+}
+
+void Game::move_figure() {
+    main_board->get_mtx_el(int_cell/10, int_cell%10)->change_pos(int_stap);
+    main_board->set_mtx_el(main_board->get_mtx_el(int_cell/10, int_cell%10));
+    main_board->set_mtx_empty_el(int_cell);
 }

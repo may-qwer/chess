@@ -37,6 +37,8 @@ public:
 
     void get_figure_from_board(const int pos, Figure* fig);
 
+    void change_pos(const int new_pos);
+
 };
 
 #endif
