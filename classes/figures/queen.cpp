@@ -5,6 +5,11 @@ Queen::Queen(const char t, const char* c, const int p, Figure*** mtx, const char
     figures_on_board = mtx;
 }
 
+Queen::Queen(const Queen& o_queen) : Figure(o_queen) {
+    staps = new Staps(*o_queen.staps);
+    figures_on_board = o_queen.figures_on_board;
+}
+
 Queen::~Queen() {
     delete staps;
 }

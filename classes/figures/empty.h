@@ -12,6 +12,8 @@ class Empty : public Figure {
 public:
     Empty(const char t, const char* c, const int p, const char fl = ' ');
 
+    Empty(const Empty& o_empty);
+
     virtual ~Empty();
 
 private:

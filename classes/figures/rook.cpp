@@ -5,6 +5,11 @@ Rook::Rook(const char t, const char* c, const int p, Figure*** mtx, const char f
     figures_on_board = mtx;
 }
 
+Rook::Rook(const Rook& o_rook) : Figure(o_rook) {
+    staps = new Staps(*o_rook.staps);
+    figures_on_board = o_rook.figures_on_board;
+}
+
 Rook::~Rook() {
     delete staps;
 }

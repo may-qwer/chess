@@ -13,6 +13,8 @@ class King : public Figure {
 public:
     King(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'K');
 
+    King(const King& o_king);
+
     virtual ~King();
 
 private:

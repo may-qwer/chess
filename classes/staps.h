@@ -13,6 +13,8 @@ private:
 public:
     Staps(int lps, int les);
 
+    Staps(const Staps& o_staps);
+
     ~Staps();
 
     int get_len_of_arr_of_possible_staps();

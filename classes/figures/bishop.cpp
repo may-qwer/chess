@@ -6,6 +6,11 @@ Bishop::Bishop(const char t, const char* c, const int p, Figure*** mtx, const ch
     figures_on_board = mtx;
 }
 
+Bishop::Bishop(const Bishop& o_bishop) : Figure(o_bishop) {
+    staps = new Staps(*o_bishop.staps);
+    figures_on_board = o_bishop.figures_on_board;
+}
+
 Bishop::~Bishop() {
     delete staps;
 }

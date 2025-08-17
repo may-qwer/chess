@@ -13,6 +13,8 @@ class Knight : public Figure {
 public:
     Knight(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'N');
 
+    Knight(const Knight& o_knight);
+
     virtual ~Knight();
 
 private:

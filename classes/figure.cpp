@@ -12,6 +12,7 @@ Figure::Figure(const Figure& o_figure) {
     color = o_figure.color;
     figure_letter = o_figure.figure_letter;
     pos = o_figure.pos;
+    team = o_figure.team;
 }
 
 Figure::~Figure() {

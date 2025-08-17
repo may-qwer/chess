@@ -23,7 +23,7 @@ public:
 
     Figure(const Figure& o_figure);
 
-    ~Figure();
+    virtual ~Figure();
 
     const char* get_color();
 

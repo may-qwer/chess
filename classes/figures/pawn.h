@@ -13,6 +13,8 @@ class Pawn : public Figure {
 public:
     Pawn(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'p');
 
+    Pawn(const Pawn& o_pawn);
+
     virtual ~Pawn();
 
 private:

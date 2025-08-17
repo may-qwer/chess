@@ -5,6 +5,11 @@ Knight::Knight(const char t, const char* c, const int p, Figure*** mtx, const ch
     figures_on_board = mtx;
 }
 
+Knight::Knight(const Knight& o_knight) : Figure(o_knight) {
+    staps = new Staps(*o_knight.staps);
+    figures_on_board = o_knight.figures_on_board;
+}
+
 Knight::~Knight() {
     delete staps;
 }

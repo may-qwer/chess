@@ -6,6 +6,12 @@ Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char f
     is_first_stap = true;
 }
 
+Pawn::Pawn(const Pawn& o_pawn) : Figure(o_pawn) {
+    staps = new Staps(*o_pawn.staps);
+    figures_on_board = o_pawn.figures_on_board;
+    is_first_stap = o_pawn.is_first_stap;
+}
+
 Pawn::~Pawn() {
     delete staps;
 }

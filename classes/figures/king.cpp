@@ -6,6 +6,11 @@ King::King(const char t, const char* c, const int p, Figure*** mtx, const char f
     figures_on_board = mtx;
 }
 
+King::King(const King& o_king) : Figure(o_king) {
+    staps = new Staps(*o_king.staps);
+    figures_on_board = o_king.figures_on_board;
+}
+
 King::~King() {
     delete staps;
 }

@@ -12,6 +12,8 @@ class Queen : public Figure {
 public:
     Queen(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'Q');
 
+    Queen(const Queen& o_queen);
+
     virtual ~Queen();
 
 private:

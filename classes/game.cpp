@@ -32,8 +32,6 @@ void Game::main_cycle() {
             move_figure();
 
             pass_the_turn();
-            // tmp
-            // running = false;
         }
     } while (one_more);
 }
@@ -133,7 +131,20 @@ void Game::get_stap(const char* msg) {
 }
 
 void Game::move_figure() {
-    main_board->get_mtx_el(int_cell/10, int_cell%10)->change_pos(int_stap);
-    main_board->set_mtx_el(main_board->get_mtx_el(int_cell/10, int_cell%10));
-    main_board->set_mtx_empty_el(int_cell);
+    // main_board->get_mtx_el(int_cell/10, int_cell%10)->change_pos(int_stap);
+    // main_board->set_mtx_el(main_board->get_mtx_el(int_cell/10, int_cell%10));
+    // main_board->set_mtx_empty_el(int_cell);
+
+    // Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell/10, int_cell%10);
+    // tmp_moving_fig->change_pos(int_stap);
+    // Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
+    // tmp_empty_fig->change_pos(int_cell);
+
+    Figure* tmp_moving_fig = new Figure(*main_board->get_mtx_el(int_cell/10, int_cell%10));
+    tmp_moving_fig->change_pos(int_stap);
+    Figure* tmp_empty_fig = new Figure(*main_board->get_mtx_el(int_stap/10, int_stap%10));
+    tmp_empty_fig->change_pos(int_cell);    
+
+    main_board->set_mtx_el(tmp_moving_fig);
+    main_board->set_mtx_el(tmp_empty_fig);
 }
