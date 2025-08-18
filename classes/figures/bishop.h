@@ -13,7 +13,7 @@ class Bishop : public Figure {
 public:
     Bishop(const char t, const char* c, const int p, Figure*** mtx, const char fl = 'B');
 
-    Bishop(const Bishop& o_bishop);
+    virtual void clone(const Bishop& o_figure);
 
     virtual ~Bishop();
     

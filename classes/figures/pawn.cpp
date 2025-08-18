@@ -1,12 +1,22 @@
 #include "pawn.h"
 
+#include <iostream>
+
 Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char fl) : Figure(t, c, p, fl) {
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_P, MAX_COUNT_OF_EATING_STAPS_P);
     figures_on_board = mtx;
     is_first_stap = true;
 }
 
-Pawn::Pawn(const Pawn& o_pawn) : Figure(o_pawn) {
+// Pawn::Pawn(const Pawn& o_pawn) : Figure(o_pawn) {
+//     std::cout << "22" << std::endl;
+//     staps = new Staps(*o_pawn.staps);
+//     figures_on_board = o_pawn.figures_on_board;
+//     is_first_stap = o_pawn.is_first_stap;
+// }
+
+void Pawn::clone(const Pawn& o_pawn) {
+    std::cout << "22" << std::endl;
     staps = new Staps(*o_pawn.staps);
     figures_on_board = o_pawn.figures_on_board;
     is_first_stap = o_pawn.is_first_stap;

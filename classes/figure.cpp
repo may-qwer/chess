@@ -1,5 +1,7 @@
 #include "figure.h"
 
+#include <iostream>
+
 
 Figure::Figure(const char t, const char* c, const int p, const char fl) {
     color = c;
@@ -13,6 +15,8 @@ Figure::Figure(const Figure& o_figure) {
     figure_letter = o_figure.figure_letter;
     pos = o_figure.pos;
     team = o_figure.team;
+    clone(o_figure);
+    std::cout << "11" << std::endl;
 }
 
 Figure::~Figure() {
@@ -56,4 +60,8 @@ Staps* Figure::get_staps() {
 
 void Figure::change_pos(const int new_pos) {
     pos = new_pos;
+}
+
+void Figure::clone(const Figure& o_figure) {
+    return;
 }
