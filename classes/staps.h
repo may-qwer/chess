@@ -35,6 +35,8 @@ public:
 
     bool is_in_arrs(const int stap);
 
+    void clean_arrs();
+
 };
 
 #endif

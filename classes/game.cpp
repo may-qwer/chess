@@ -106,6 +106,7 @@ bool Game::is_empty_staps(const int int_cell) {
     if (tmp_staps->get_count_of_possible_staps() == 0 && tmp_staps->get_count_of_eating_staps() == 0) {
         res = false;
     }
+    tmp_staps->clean_arrs();
     return res;
 }
 
@@ -131,12 +132,10 @@ void Game::get_stap(const char* msg) {
 }
 
 void Game::move_figure() {
-
-    Figure* tmp_moving_fig = new Figure(*main_board->get_mtx_el(int_cell/10, int_cell%10));
+    Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell/10, int_cell%10);
     tmp_moving_fig->change_pos(int_stap);
-    Figure* tmp_empty_fig = new Figure(*main_board->get_mtx_el(int_stap/10, int_stap%10));
+    Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
     tmp_empty_fig->change_pos(int_cell);    
-
     main_board->set_mtx_el(tmp_moving_fig);
     main_board->set_mtx_el(tmp_empty_fig);
 }

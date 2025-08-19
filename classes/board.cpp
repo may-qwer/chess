@@ -158,13 +158,8 @@ Figure* Board::get_mtx_el(int i, int j) {
 }
 
 void Board::set_mtx_el(Figure* el) {
-    delete board_mtx[el->get_pos()/10][el->get_pos()%10]; //?
+    // delete board_mtx[el->get_pos()/10][el->get_pos()%10]; //?
     board_mtx[el->get_pos()/10][el->get_pos()%10] = el;
-}
-
-void Board::set_mtx_empty_el(const int pos) {
-    delete board_mtx[pos/10][pos%10];
-    board_mtx[pos/10][pos%10] = new Empty(' ', COLOR_EMPTY, pos);
 }
 
 Figure*** Board::get_mtx() {
@@ -172,14 +167,19 @@ Figure*** Board::get_mtx() {
 }
 
 void Board::set_staps_for_board(Staps* staps) {
+    int possible_pos, eating_pos;
     for (int index_of_possible_staps = 0; index_of_possible_staps < staps->get_len_of_arr_of_possible_staps(); index_of_possible_staps++) {
-        if (staps->get_arr_of_possible_staps()[index_of_possible_staps]) {
-            this->set_mtx_el(new Possible(' ', COLOR_POSSIBLE, staps->get_arr_of_possible_staps()[index_of_possible_staps]));
+        if (staps->get_arr_of_possible_staps()[index_of_possible_staps] != -1) {
+            possible_pos = staps->get_arr_of_possible_staps()[index_of_possible_staps];
+            delete this->get_mtx_el(possible_pos/10, possible_pos%10);
+            this->set_mtx_el(new Possible(' ', COLOR_POSSIBLE, possible_pos));
         }
     }
     for (int index_of_eating_staps = 0; index_of_eating_staps < staps->get_len_of_arr_of_eating_staps(); index_of_eating_staps++) {
-        if (staps->get_arr_of_eating_staps()[index_of_eating_staps]) {
-            this->set_mtx_el(new Eating(' ', COLOR_EATING, staps->get_arr_of_eating_staps()[index_of_eating_staps]));
+        if (staps->get_arr_of_eating_staps()[index_of_eating_staps] != -1) {
+            eating_pos = staps->get_arr_of_eating_staps()[index_of_eating_staps];
+            delete this->get_mtx_el(eating_pos/10, eating_pos%10);
+            this->set_mtx_el(new Eating(' ', COLOR_EATING, eating_pos));
         }
     }
 }

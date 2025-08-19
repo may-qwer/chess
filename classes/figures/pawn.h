@@ -15,8 +15,6 @@ public:
 
     Pawn(const Pawn& o_pawn);
 
-    virtual void clone(const Pawn& o_figure);
-
     virtual ~Pawn();
 
 private:

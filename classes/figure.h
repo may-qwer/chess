@@ -18,8 +18,6 @@ protected:
 
     bool is_in_board(const int pos);
 
-    virtual void clone(const Figure& o_figure);
-
 public:
     Figure(const char t, const char* c, const int p, const char fl);
 
