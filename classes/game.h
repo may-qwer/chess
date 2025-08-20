@@ -13,7 +13,7 @@
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
 #define COLOR_BLACK "\033[1;31m"
-
+// #define COLOR_FOR_WARNING "\033[1;35m"
 
 #define MSG_ENTER_FIGURE "Enter figure's cell you like to go, like a3: "
 #define MSG_NOT_CORRECT_INPUT "Your input is't correct. It should like a3. Try again: "
@@ -22,9 +22,13 @@
 #define MSG_ZERO_STAPS "You enter figure, which have zero possible staps. Try again: "
 #define MSG_ENTER_STAP "Enter one of showing stap, like a3: "
 #define MSG_IS_NOT_IN_STAPS "You enter stap's cell, which is not one of possible staps. Try again: "
+#define MSG_WARNING_IN_CHECK "\033[1;35mWARNING!\033[0m Your king is in check. Choose one of possible staps for king: "
 
 #define MIN_LIMIT 0
 #define MAX_LIMIT 7
+
+#define WHITE_KING_START_POS 47
+#define BLACK_KING_START_POS 40
 
 
 class Game {
@@ -39,11 +43,17 @@ private:
     char who_go;
     Board *main_board;
     Staps* staps;
-    Staps* tmp_staps;
+    Staps* staps_for_check_possible_go;
+    Staps* staps_for_chack_is_in_chack;
+    int white_king_pos;
+    int black_king_pos;
+    bool in_check;
 
     void get_cell(const char* msg);
 
     int convert_str_to_int(const char* str);
+
+    char* convert_int_to_str(const int num);
 
     void cout_who_go();
 
@@ -63,6 +73,7 @@ private:
 
     void move_figure();
 
+    bool is_in_check();
 
 public:
     Game();

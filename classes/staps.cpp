@@ -6,8 +6,6 @@ Staps::Staps(int lps, int les) {
     arr_of_possible_staps = new int[len_of_arr_of_possible_staps];
     arr_of_eating_staps = new int[len_of_arr_of_eating_staps];
     clean_arrs();
-    index_of_last_possible_stap = 0;
-    index_of_last_eating_staps = 0;
 }
 
 Staps::Staps(const Staps& o_staps) {
@@ -49,7 +47,7 @@ int* Staps::get_arr_of_eating_staps() {
 int Staps::get_count_of_possible_staps(){
     int res = 0;
     for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
-        if (arr_of_possible_staps[i]) {
+        if (arr_of_possible_staps[i] != -1) {
             res++;
         }
     }
@@ -59,7 +57,7 @@ int Staps::get_count_of_possible_staps(){
 int Staps::get_count_of_eating_staps() {
     int res = 0;
     for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
-        if (arr_of_eating_staps[i]) {
+        if (arr_of_eating_staps[i] != -1) {
             res++;
         }
     }
@@ -103,4 +101,6 @@ void Staps::clean_arrs() {
     for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
         arr_of_eating_staps[i] = -1;
     }
+    index_of_last_possible_stap = 0;
+    index_of_last_eating_staps = 0;
 }

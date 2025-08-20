@@ -1,7 +1,5 @@
 #include "pawn.h"
 
-#include <iostream>
-
 Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char fl) : Figure(t, c, p, fl) {
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_P, MAX_COUNT_OF_EATING_STAPS_P);
     figures_on_board = mtx;
@@ -37,7 +35,7 @@ void Pawn::set_staps() {
             arr_of_possible_directions = new int[2] {1, 2};
             is_first_stap = false;
         } else {
-            arr_of_possible_directions = new int[1] {2};
+            arr_of_possible_directions = new int[1] {1};
             len_of_arr_of_possible_staps = 1;
         }        
     }
