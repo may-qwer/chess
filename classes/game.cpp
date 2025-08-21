@@ -28,14 +28,14 @@ void Game::main_cycle() {
         while (running) {
             main_board->show();
             cout_who_go();
-            if (!in_check) {
-                get_cell(MSG_ENTER_FIGURE);
-                staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
-            }
+            in_check = is_in_check();
+            get_cell(MSG_ENTER_FIGURE);
+            staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
             show_staps();
             get_stap(MSG_ENTER_STAP);
             move_figure();
 
+            in_check = false;
             pass_the_turn();
         }
     } while (one_more);
@@ -159,7 +159,7 @@ void Game::move_figure() {
     }
 }
 
-bool Game::is_in_check() {
+bool Game::is_in_check(const chhar* msg) {
     // get_cell(MSG_ENTER_FIGURE);
     // staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
     int king_pos;
@@ -171,12 +171,10 @@ bool Game::is_in_check() {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (main_board->get_mtx_el(i, j)->get_team() != who_go) {
-                staps_for_chack_is_in_chack = new Staps(*main_board->get_mtx_el(i, j)->get_staps());
-                if (staps_for_chack_is_in_chack->is_in_arrs(king_pos)) {
-                    cout << MSG_WARNING_IN_CHECK;
-                    str_cell = convert_int_to_str(king_pos);
-                    int_cell = king_pos;
-                    staps = main_board->get_mtx_el(king_pos/10; king_pos%10);
+                staps_for_check_is_in_check = new Staps(*main_board->get_mtx_el(i, j)->get_staps());
+                main_board->get_mtx_el(i, j)->get_staps()->clean_arrs();
+                if (staps_for_check_is_in_check->is_in_arrs(king_pos)) {
+                    cout << msg;
                     return true;
                 }
             }
@@ -184,3 +182,16 @@ bool Game::is_in_check() {
     }
     return false;
 }
+
+// void Game::if_in_check() {
+//     int king_pos;
+//     if (who_go = 'w') {
+//         king_pos = white_king_pos;
+//     } else {
+//         king_pos = black_king_pos;
+//     }
+//     str_cell = convert_int_to_str(king_pos);
+//     int_cell = king_pos;
+//     staps = main_board->get_mtx_el(king_pos/10; king_pos%10);
+//     //in class King dont add staps which in on attack
+// }

@@ -44,7 +44,7 @@ private:
     Board *main_board;
     Staps* staps;
     Staps* staps_for_check_possible_go;
-    Staps* staps_for_chack_is_in_chack;
+    Staps* staps_for_check_is_in_check;
     int white_king_pos;
     int black_king_pos;
     bool in_check;
@@ -73,7 +73,9 @@ private:
 
     void move_figure();
 
-    bool is_in_check();
+    bool is_in_check(const char* msg);
+
+    // void if_in_check();
 
 public:
     Game();
