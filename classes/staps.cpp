@@ -81,11 +81,22 @@ void Staps::set_el_to_arr_of_eating_staps(const int el) {
 }
 
 bool Staps::is_in_arrs(const int stap) {
+    if (is_in_possible_arr(stap) || is_in_eating_arr(stap)) {
+        return true;
+    }
+    return false;
+}
+
+bool Staps::is_in_possible_arr(const int stap) {
     for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
         if (arr_of_possible_staps[i] == stap) {
             return true;
         }
     }
+    return false;
+}
+
+bool Staps::is_in_eating_arr(const int stap) {
     for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
         if (arr_of_eating_staps[i] == stap) {
             return true;
@@ -103,4 +114,11 @@ void Staps::clean_arrs() {
     }
     index_of_last_possible_stap = 0;
     index_of_last_eating_staps = 0;
+}
+
+bool Staps::is_empty_arrs() {
+    if ((index_of_last_possible_stap == 0) && (index_of_last_eating_staps == 0)) {
+        return true;
+    }
+    return false;
 }

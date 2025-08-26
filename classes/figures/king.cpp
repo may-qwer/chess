@@ -24,7 +24,7 @@ void King::set_staps() {
         if (!is_in_board(possible_pos)) {
             continue;
         }
-        if (is_possible_stap_to_check(possible_pos)) {
+        if (is_possible_stap_in_check(possible_pos)) {
             continue;
         }
         if (figures_on_board[possible_pos/10][possible_pos%10]->get_team() == this->get_team()) {
@@ -41,7 +41,19 @@ void King::set_staps() {
     }
 }
 
-bool King::is_possible_stap_to_check(int possible_stap) {
-    //todo: todo
+bool King::is_possible_stap_in_check(int possible_stap) {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (figures_on_board[i][j]->get_team() != ' ') {
+                if (figures_on_board[i][j]->get_team() != this->get_team()) {
+                    if (figures_on_board[i][j]->get_staps()->is_in_arrs(possible_stap)) {
+                        figures_on_board[i][j]->get_staps()->clean_arrs();
+                        return true;
+                    }
+                }
+            }
+            figures_on_board[i][j]->get_staps()->clean_arrs();
+        }
+    }
     return false;
 }

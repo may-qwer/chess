@@ -35,7 +35,13 @@ public:
 
     bool is_in_arrs(const int stap);
 
+    bool is_in_possible_arr(const int stap);
+
+    bool is_in_eating_arr(const int stap);
+
     void clean_arrs();
+
+    bool is_empty_arrs();
 
 };
 

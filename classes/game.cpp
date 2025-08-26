@@ -28,11 +28,16 @@ void Game::main_cycle() {
         while (running) {
             main_board->show();
             cout_who_go();
-            in_check = is_in_check();
+            in_check = is_in_check(" ");
+            cout << "0" << endl;
             get_cell(MSG_ENTER_FIGURE);
+            cout << "1" << endl;
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+            cout << "2" << endl;
             show_staps();
+            cout << "3" << endl;
             get_stap(MSG_ENTER_STAP);
+            cout << "4" << endl;
             move_figure();
 
             in_check = false;
@@ -113,13 +118,19 @@ const char Game::get_now_team_going() {
 }
 
 bool Game::is_empty_staps(const int int_cell) {
-    staps_for_check_possible_go = new Staps(*main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps());
-    bool res = true;
-    if (staps_for_check_possible_go->get_count_of_possible_staps() == 0 && staps_for_check_possible_go->get_count_of_eating_staps() == 0) {
-        res = false;
+    // staps_for_check_possible_go = new Staps(*main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps());
+    // bool res = true;
+    // if (staps_for_check_possible_go->get_count_of_possible_staps() == 0 && staps_for_check_possible_go->get_count_of_eating_staps() == 0) {
+    //     res = false;
+    // }
+    // delete staps_for_check_possible_go;
+    // return res;
+    if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_arrs()) {
+        main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->clean_arrs();
+        return true;
     }
-    delete staps_for_check_possible_go;
-    return res;
+    main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->clean_arrs();
+    return false;
 }
 
 void Game::show_staps() {
@@ -159,7 +170,7 @@ void Game::move_figure() {
     }
 }
 
-bool Game::is_in_check(const chhar* msg) {
+bool Game::is_in_check(const char* msg) {
     // get_cell(MSG_ENTER_FIGURE);
     // staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
     int king_pos;
