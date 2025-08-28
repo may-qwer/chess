@@ -15,6 +15,10 @@ public:
 
     Pawn(const Pawn& o_pawn);
 
+    void set_is_first_stap(bool val);
+
+    bool get_is_first_stap();
+
     virtual ~Pawn();
 
 private:

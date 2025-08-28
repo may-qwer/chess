@@ -25,22 +25,17 @@ Game::~Game() {
 void Game::main_cycle() {
     do {
         main_board->set_start_pos(START_POS);
+        set_all_staps();
         while (running) {
             main_board->show();
             cout_who_go();
-            in_check = is_in_check(" ");
-            cout << "0" << endl;
             get_cell(MSG_ENTER_FIGURE);
-            cout << "1" << endl;
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
-            cout << "2" << endl;
             show_staps();
-            cout << "3" << endl;
             get_stap(MSG_ENTER_STAP);
-            cout << "4" << endl;
             move_figure();
+            reset_all_staps();
 
-            in_check = false;
             pass_the_turn();
         }
     } while (one_more);
@@ -74,7 +69,7 @@ void Game::get_cell(const char* msg) {
     if (get_now_team_going() != main_board->get_mtx_el(int_cell/10, int_cell%10)->get_team()) {
         get_cell(MSG_NOT_RIGHT_COLOR);
     }
-    if (!is_empty_staps(int_cell)) {
+    if (is_empty_staps(int_cell)) {
         get_cell(MSG_ZERO_STAPS);
     }
 }
@@ -118,19 +113,7 @@ const char Game::get_now_team_going() {
 }
 
 bool Game::is_empty_staps(const int int_cell) {
-    // staps_for_check_possible_go = new Staps(*main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps());
-    // bool res = true;
-    // if (staps_for_check_possible_go->get_count_of_possible_staps() == 0 && staps_for_check_possible_go->get_count_of_eating_staps() == 0) {
-    //     res = false;
-    // }
-    // delete staps_for_check_possible_go;
-    // return res;
-    if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_arrs()) {
-        main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->clean_arrs();
-        return true;
-    }
-    main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->clean_arrs();
-    return false;
+    return main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_arrs();
 }
 
 void Game::show_staps() {
@@ -157,22 +140,23 @@ void Game::get_stap(const char* msg) {
 void Game::move_figure() {
     Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell/10, int_cell%10);
     tmp_moving_fig->change_pos(int_stap);
-    Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
-    tmp_empty_fig->change_pos(int_cell);    
+    // Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
+    // tmp_empty_fig->change_pos(int_cell);    
+    Figure* tmp_empty_fig = main_board->remove_figure_and_get_empty(int_stap, int_cell);
     main_board->set_mtx_el(tmp_moving_fig);
     main_board->set_mtx_el(tmp_empty_fig);
-    staps->clean_arrs();
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'w')) {
         white_king_pos = tmp_moving_fig->get_pos();
-    }
+    } 
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'b')) {
         black_king_pos = tmp_moving_fig->get_pos();
     }
+    if (tmp_moving_fig->get_figure_letter() == 'p') {
+        tmp_moving_fig->set_is_first_stap(false);
+    } 
 }
 
 bool Game::is_in_check(const char* msg) {
-    // get_cell(MSG_ENTER_FIGURE);
-    // staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
     int king_pos;
     if (who_go = 'w') {
         king_pos = white_king_pos;
@@ -194,15 +178,19 @@ bool Game::is_in_check(const char* msg) {
     return false;
 }
 
-// void Game::if_in_check() {
-//     int king_pos;
-//     if (who_go = 'w') {
-//         king_pos = white_king_pos;
-//     } else {
-//         king_pos = black_king_pos;
-//     }
-//     str_cell = convert_int_to_str(king_pos);
-//     int_cell = king_pos;
-//     staps = main_board->get_mtx_el(king_pos/10; king_pos%10);
-//     //in class King dont add staps which in on attack
-// }
+void Game::set_all_staps() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            main_board->get_mtx_el(i, j)->set_staps();
+        }
+    }
+}
+
+void Game::reset_all_staps() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            main_board->get_mtx_el(i, j)->get_staps()->clean_arrs();
+            main_board->get_mtx_el(i, j)->set_staps();
+        }
+    }
+}

@@ -52,10 +52,17 @@ void Figure::set_staps() {
 }
 
 Staps* Figure::get_staps() {
-    set_staps();
     return staps;
 }
 
 void Figure::change_pos(const int new_pos) {
     pos = new_pos;
+}
+
+void Figure::set_is_first_stap(bool val) {
+    return;
+}
+
+bool Figure::get_is_first_stap() { //always check is it pawn
+    return true;
 }

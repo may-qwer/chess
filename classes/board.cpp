@@ -183,3 +183,11 @@ void Board::set_staps_for_board(Staps* staps) {
         }
     }
 }
+
+Figure* Board::remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos) {
+    // Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
+    // tmp_empty_fig->change_pos(int_cell);
+    delete this->get_mtx_el(o_fig_pos/10, o_fig_pos%10);
+    return new Empty(' ', COLOR_EMPTY, n_empty_fig_pos);
+
+}

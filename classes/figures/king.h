@@ -18,8 +18,6 @@ public:
     virtual ~King();
 
 private:
-    Staps* staps_for_check_is_in_check;
-
     virtual void set_staps();
 
     bool is_possible_stap_in_check(int possible_stap);

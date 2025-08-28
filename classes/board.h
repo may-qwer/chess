@@ -25,7 +25,6 @@ private:
 
     bool is_in_str(const char* el, const char* str);
 
-
 public:
     Board();
 
@@ -46,6 +45,8 @@ public:
     Figure*** get_mtx();
 
     void set_staps_for_board(Staps* staps);
+
+    Figure* remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos);
 
 };
 

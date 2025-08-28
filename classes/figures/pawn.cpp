@@ -16,6 +16,14 @@ Pawn::~Pawn() {
     delete staps;
 }
 
+void Pawn::set_is_first_stap(bool val) {
+    is_first_stap = val;
+}
+
+bool Pawn::get_is_first_stap() {
+    return is_first_stap;
+}
+
 void Pawn::set_staps() {
     int len_of_arr_of_possible_staps = 2;
     int possible_pos = pos;
@@ -24,7 +32,7 @@ void Pawn::set_staps() {
         arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {11, 9};
         if (is_first_stap) {
             arr_of_possible_directions = new int[2] {-1, -2};
-            is_first_stap = false;
+            // is_first_stap = false;
         } else {
             arr_of_possible_directions = new int[1] {-1};
             len_of_arr_of_possible_staps = 1;
@@ -33,7 +41,7 @@ void Pawn::set_staps() {
         arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {-11, -9};
         if (is_first_stap) {
             arr_of_possible_directions = new int[2] {1, 2};
-            is_first_stap = false;
+            // is_first_stap = false;
         } else {
             arr_of_possible_directions = new int[1] {1};
             len_of_arr_of_possible_staps = 1;

@@ -12,9 +12,7 @@ protected:
     int pos;
     char team;
     Staps* staps;
-    Figure*** figures_on_board;
-
-    virtual void set_staps();    
+    Figure*** figures_on_board;   
 
     bool is_in_board(const int pos);
 
@@ -33,11 +31,17 @@ public:
 
     int get_pos();
 
+    virtual void set_staps(); 
+
     Staps* get_staps();
 
     void get_figure_from_board(const int pos, Figure* fig);
 
     void change_pos(const int new_pos);
+
+    virtual void set_is_first_stap(bool val);
+
+    virtual bool get_is_first_stap();
 
 };
 
