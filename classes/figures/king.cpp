@@ -41,18 +41,16 @@ void King::set_staps() {
     }
 }
 
-bool King::is_possible_stap_in_check(int possible_stap) {
+bool King::is_possible_stap_in_check(const int possible_stap) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (figures_on_board[i][j]->get_team() != ' ') {
                 if (figures_on_board[i][j]->get_team() != this->get_team()) {
                     if (figures_on_board[i][j]->get_staps()->is_in_arrs(possible_stap)) {
-                        // figures_on_board[i][j]->get_staps()->clean_arrs();
                         return true;
                     }
                 }
             }
-            // figures_on_board[i][j]->get_staps()->clean_arrs();
         }
     }
     return false;

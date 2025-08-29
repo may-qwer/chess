@@ -66,3 +66,7 @@ void Figure::set_is_first_stap(bool val) {
 bool Figure::get_is_first_stap() { //always check is it pawn
     return true;
 }
+
+bool Figure::is_possible_stap_in_check(const int possible_stap) { //always check is it king
+    return false;
+}

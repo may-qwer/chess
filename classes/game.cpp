@@ -13,7 +13,7 @@ Game::Game() {
     main_board = new Board;
     white_king_pos = WHITE_KING_START_POS;
     black_king_pos = BLACK_KING_START_POS;
-    in_check = false;
+    is_in_check_var = false;
 }
 
 Game::~Game() {
@@ -26,8 +26,11 @@ void Game::main_cycle() {
     do {
         main_board->set_start_pos(START_POS);
         set_all_staps();
+        white_king_pos = set_king_pos_for_game('w');
+        black_king_pos = set_king_pos_for_game('b');
         while (running) {
             main_board->show();
+            is_in_check();
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
@@ -156,26 +159,17 @@ void Game::move_figure() {
     } 
 }
 
-bool Game::is_in_check(const char* msg) {
+void Game::is_in_check() {//const char* msg) {
     int king_pos;
     if (who_go = 'w') {
         king_pos = white_king_pos;
     } else {
         king_pos = black_king_pos;
     }
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            if (main_board->get_mtx_el(i, j)->get_team() != who_go) {
-                staps_for_check_is_in_check = new Staps(*main_board->get_mtx_el(i, j)->get_staps());
-                main_board->get_mtx_el(i, j)->get_staps()->clean_arrs();
-                if (staps_for_check_is_in_check->is_in_arrs(king_pos)) {
-                    cout << msg;
-                    return true;
-                }
-            }
-        }
+    is_in_check_var = main_board->get_mtx_el(king_pos/10, king_pos%10)->is_possible_stap_in_check(king_pos);
+    if (is_in_check_var) {
+        cout << MSG_WARNING_IN_CHECK << endl;
     }
-    return false;
 }
 
 void Game::set_all_staps() {
@@ -193,4 +187,15 @@ void Game::reset_all_staps() {
             main_board->get_mtx_el(i, j)->set_staps();
         }
     }
+}
+
+int Game::set_king_pos_for_game(const char team_col) {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if ((main_board->get_mtx_el(i, j)->get_team() == team_col) && (main_board->get_mtx_el(i, j)->get_figure_letter() == 'K')) {
+                return i*10 + j;
+            }
+        }
+    }
+    return 0;
 }
