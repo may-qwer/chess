@@ -20,7 +20,7 @@ public:
 private:
     virtual void set_staps();
 
-    bool is_possible_stap_in_check(const int possible_stap);
+    virtual bool is_possible_stap_in_check(const int possible_stap);
 
 };
 

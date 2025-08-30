@@ -7,8 +7,8 @@
 //white pawns, white bishops, white rooks, white knites, white queen, white king
 //black pawns, black bishops, black rooks, black knites, black queen, black king
 // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
-// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
-#define START_POS "c5d4--------------------------d4----------------h8--------------"
+#define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
+// #define START_POS "c5e4a8------------------------d4----------------h8--------------"
 
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
@@ -74,12 +74,6 @@ private:
     void move_figure();
 
     void is_in_check(); //const char* msg);
-
-    void set_all_staps();
-
-    void reset_all_staps();
-
-    int set_king_pos_for_game(const char team_col);
 
 public:
     Game();

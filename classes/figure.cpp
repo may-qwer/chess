@@ -59,7 +59,7 @@ void Figure::change_pos(const int new_pos) {
     pos = new_pos;
 }
 
-void Figure::set_is_first_stap(bool val) {
+void Figure::set_is_first_stap(bool val) { //always chack is it pawn
     return;
 }
 

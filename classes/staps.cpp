@@ -5,7 +5,7 @@ Staps::Staps(int lps, int les) {
     len_of_arr_of_eating_staps = les;
     arr_of_possible_staps = new int[len_of_arr_of_possible_staps];
     arr_of_eating_staps = new int[len_of_arr_of_eating_staps];
-    clean_arrs();
+    clean_staps();
 }
 
 Staps::Staps(const Staps& o_staps) {
@@ -80,14 +80,14 @@ void Staps::set_el_to_arr_of_eating_staps(const int el) {
     index_of_last_eating_staps++;
 }
 
-bool Staps::is_in_arrs(const int stap) {
-    if (is_in_possible_arr(stap) || is_in_eating_arr(stap)) {
+bool Staps::is_in_staps(const int stap) {
+    if (is_in_possible_staps(stap) || is_in_eating_staps(stap)) {
         return true;
     }
     return false;
 }
 
-bool Staps::is_in_possible_arr(const int stap) {
+bool Staps::is_in_possible_staps(const int stap) {
     for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
         if (arr_of_possible_staps[i] == stap) {
             return true;
@@ -96,7 +96,7 @@ bool Staps::is_in_possible_arr(const int stap) {
     return false;
 }
 
-bool Staps::is_in_eating_arr(const int stap) {
+bool Staps::is_in_eating_staps(const int stap) {
     for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
         if (arr_of_eating_staps[i] == stap) {
             return true;
@@ -105,7 +105,7 @@ bool Staps::is_in_eating_arr(const int stap) {
     return false;
 }
 
-void Staps::clean_arrs() {
+void Staps::clean_staps() {
     for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
         arr_of_possible_staps[i] = -1;
     }
@@ -116,9 +116,32 @@ void Staps::clean_arrs() {
     index_of_last_eating_staps = 0;
 }
 
-bool Staps::is_empty_arrs() {
+bool Staps::is_empty_staps() {
     if ((index_of_last_possible_stap == 0) && (index_of_last_eating_staps == 0)) {
         return true;
     }
     return false;
+}
+
+void Staps::remove_el_from_staps(const int el) {
+    remove_el_from_eating_staps(el);
+    remove_el_from_possible_staps(el);
+}
+
+void Staps::remove_el_from_possible_staps(const int el) {
+    for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
+        if (arr_of_possible_staps[i] == el) {
+            arr_of_possible_staps[i] = -1;
+            return;
+        }
+    }
+}
+
+void Staps::remove_el_from_eating_staps(const int el) {
+    for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
+        if (arr_of_eating_staps[i] == el) {
+            arr_of_eating_staps[i] = -1;
+            return;
+        }
+    }
 }

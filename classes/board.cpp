@@ -158,7 +158,6 @@ Figure* Board::get_mtx_el(int i, int j) {
 }
 
 void Board::set_mtx_el(Figure* el) {
-    // delete board_mtx[el->get_pos()/10][el->get_pos()%10]; //?
     board_mtx[el->get_pos()/10][el->get_pos()%10] = el;
 }
 
@@ -171,23 +170,64 @@ void Board::set_staps_for_board(Staps* staps) {
     for (int index_of_possible_staps = 0; index_of_possible_staps < staps->get_len_of_arr_of_possible_staps(); index_of_possible_staps++) {
         if (staps->get_arr_of_possible_staps()[index_of_possible_staps] != -1) {
             possible_pos = staps->get_arr_of_possible_staps()[index_of_possible_staps];
-            delete this->get_mtx_el(possible_pos/10, possible_pos%10);
+            delete board_mtx[possible_pos/10][possible_pos%10];
             this->set_mtx_el(new Possible(' ', COLOR_POSSIBLE, possible_pos));
         }
     }
     for (int index_of_eating_staps = 0; index_of_eating_staps < staps->get_len_of_arr_of_eating_staps(); index_of_eating_staps++) {
         if (staps->get_arr_of_eating_staps()[index_of_eating_staps] != -1) {
             eating_pos = staps->get_arr_of_eating_staps()[index_of_eating_staps];
-            delete this->get_mtx_el(eating_pos/10, eating_pos%10);
+            delete board_mtx[eating_pos/10][eating_pos%10];
             this->set_mtx_el(new Eating(' ', COLOR_EATING, eating_pos));
         }
     }
 }
 
-Figure* Board::remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos) {
-    // Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
-    // tmp_empty_fig->change_pos(int_cell);
-    delete this->get_mtx_el(o_fig_pos/10, o_fig_pos%10);
+Figure* Board::remove_figure(int o_fig_pos, int n_empty_fig_pos) {
+    delete board_mtx[o_fig_pos/10][o_fig_pos%10];
     return new Empty(' ', COLOR_EMPTY, n_empty_fig_pos);
-
 }
+
+void Board::set_all_staps_for_figures() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            board_mtx[i][j]->get_staps()->clean_staps();
+            board_mtx[i][j]->set_staps();
+        }
+    }
+}
+
+int Board::get_king_pos(const char team) {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if ((board_mtx[i][j]->get_team() == team) && (board_mtx[i][j]->get_figure_letter() == 'K')) {
+                return i*10 + j;
+            } 
+        }
+    }
+    return 0;
+}
+
+// void Board::change_staps_if_in_check(const int king_pos) {
+//     bool is_stap_save_king = false;
+//     Board* board_for_check_is_in_check = this->copy();
+//     int stap_cell;
+//     for (int i = 0; i < BOARD_SIZE; i++) {
+//         for (int j = 0; j < BOARD_SIZE; j++) {
+//             if (board_for_check_is_in_check->board_mtx[i][j]->get_team() == get_now_team_going()) {
+//                 for (int k = 0; k < board_for_check_is_in_check->board_mtx[i][j]->get_staps()->get_len_of_arr_of_possible_staps(); k++) {
+//                     stap_cell = board_for_check_is_in_check->board_mtx[i][j]->get_staps()->get_arr_of_possible_staps()[k];
+//                     Figure* tmp_moving_fig = board_for_check_is_in_check->board_mtx[i][j];
+//                     tmp_moving_fig->change_pos(stap_cell);
+//                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
+//                     Figure* tmp_empty_fig = board_for_check_is_in_check->remove_figure(stap_cell, 10*i + j);
+//                     if (board_for_check_is_in_check->board_mtx[king_pos/10][king_pos%10]->is_possible_stap_in_check(king_pos)) {
+//                         board_mtx[i][j]->get_staps()->remove_el_from_possible_staps(stap_cell);
+//                     }
+//                     board_for_check_is_in_check->set_mtx_el(this->board_mtx[i][j]);
+//                     board_for_check_is_in_check->set_mtx_el(this->board_mtx[stap_cell/10][stap_cell%10]);
+//                 }
+//             }
+//         }
+//     }
+// }

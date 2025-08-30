@@ -46,7 +46,7 @@ bool King::is_possible_stap_in_check(const int possible_stap) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (figures_on_board[i][j]->get_team() != ' ') {
                 if (figures_on_board[i][j]->get_team() != this->get_team()) {
-                    if (figures_on_board[i][j]->get_staps()->is_in_arrs(possible_stap)) {
+                    if (figures_on_board[i][j]->get_staps()->is_in_staps(possible_stap)) {
                         return true;
                     }
                 }

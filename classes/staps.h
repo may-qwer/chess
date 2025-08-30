@@ -33,15 +33,21 @@ public:
 
     void set_el_to_arr_of_eating_staps(const int el);
 
-    bool is_in_arrs(const int stap);
+    bool is_in_staps(const int stap);
 
-    bool is_in_possible_arr(const int stap);
+    bool is_in_possible_staps(const int stap);
 
-    bool is_in_eating_arr(const int stap);
+    bool is_in_eating_staps(const int stap);
 
-    void clean_arrs();
+    void clean_staps();
 
-    bool is_empty_arrs();
+    bool is_empty_staps();
+
+    void remove_el_from_staps(const int el);
+
+    void remove_el_from_possible_staps(const int el);
+
+    void remove_el_from_eating_staps(const int el);
 
 };
 

@@ -25,19 +25,22 @@ Game::~Game() {
 void Game::main_cycle() {
     do {
         main_board->set_start_pos(START_POS);
-        set_all_staps();
-        white_king_pos = set_king_pos_for_game('w');
-        black_king_pos = set_king_pos_for_game('b');
+        white_king_pos = main_board->get_king_pos('w');
+        black_king_pos = main_board->get_king_pos('b');
         while (running) {
             main_board->show();
+            main_board->set_all_staps_for_figures(); 
             is_in_check();
+            if (is_in_check_var) {
+                // change_staps_if_in_check();
+                cout << MSG_WARNING_IN_CHECK << endl;
+            }           
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
             show_staps();
             get_stap(MSG_ENTER_STAP);
             move_figure();
-            reset_all_staps();
 
             pass_the_turn();
         }
@@ -116,7 +119,7 @@ const char Game::get_now_team_going() {
 }
 
 bool Game::is_empty_staps(const int int_cell) {
-    return main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_arrs();
+    return main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_staps();
 }
 
 void Game::show_staps() {
@@ -135,19 +138,16 @@ void Game::get_stap(const char* msg) {
         get_stap(MSG_NOT_CORRECT_INPUT);
     }
     int_stap = convert_str_to_int(str_stap);
-    if (!(staps->is_in_arrs(int_stap))) {
+    if (!(staps->is_in_staps(int_stap))) {
         get_stap(MSG_IS_NOT_IN_STAPS);
     }
 }
 
 void Game::move_figure() {
     Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell/10, int_cell%10);
-    tmp_moving_fig->change_pos(int_stap);
-    // Figure* tmp_empty_fig = main_board->get_mtx_el(int_stap/10, int_stap%10);
-    // tmp_empty_fig->change_pos(int_cell);    
-    Figure* tmp_empty_fig = main_board->remove_figure_and_get_empty(int_stap, int_cell);
+    tmp_moving_fig->change_pos(int_stap);   
     main_board->set_mtx_el(tmp_moving_fig);
-    main_board->set_mtx_el(tmp_empty_fig);
+    Figure* tmp_empty_fig = main_board->remove_figure(int_stap, int_cell);
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'w')) {
         white_king_pos = tmp_moving_fig->get_pos();
     } 
@@ -159,7 +159,7 @@ void Game::move_figure() {
     } 
 }
 
-void Game::is_in_check() {//const char* msg) {
+void Game::is_in_check() {
     int king_pos;
     if (who_go = 'w') {
         king_pos = white_king_pos;
@@ -167,35 +167,4 @@ void Game::is_in_check() {//const char* msg) {
         king_pos = black_king_pos;
     }
     is_in_check_var = main_board->get_mtx_el(king_pos/10, king_pos%10)->is_possible_stap_in_check(king_pos);
-    if (is_in_check_var) {
-        cout << MSG_WARNING_IN_CHECK << endl;
-    }
-}
-
-void Game::set_all_staps() {
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            main_board->get_mtx_el(i, j)->set_staps();
-        }
-    }
-}
-
-void Game::reset_all_staps() {
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            main_board->get_mtx_el(i, j)->get_staps()->clean_arrs();
-            main_board->get_mtx_el(i, j)->set_staps();
-        }
-    }
-}
-
-int Game::set_king_pos_for_game(const char team_col) {
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            if ((main_board->get_mtx_el(i, j)->get_team() == team_col) && (main_board->get_mtx_el(i, j)->get_figure_letter() == 'K')) {
-                return i*10 + j;
-            }
-        }
-    }
-    return 0;
 }
