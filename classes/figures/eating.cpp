@@ -13,6 +13,10 @@ Eating::~Eating() {
     delete staps;
 }
 
+Eating* Eating::copy() {
+    return new Eating(*this);
+}
+
 void Eating::set_staps() {
     staps->set_el_to_arr_of_possible_staps(-1);
     staps->set_el_to_arr_of_eating_staps(-1);

@@ -15,6 +15,10 @@ Bishop::~Bishop() {
     delete staps;
 }
 
+Bishop* Bishop::copy() {
+    return new Bishop(*this);
+}
+
 void Bishop::set_staps() {
     int arr_of_directions[COUNT_OF_DIRECTIONS_B] = {11, 9, -9, -11};
     int possible_pos = pos;

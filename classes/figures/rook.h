@@ -16,6 +16,8 @@ public:
 
     virtual ~Rook();
 
+    virtual Rook* copy();
+
 private:
     virtual void set_staps();
 

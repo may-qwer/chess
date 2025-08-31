@@ -15,6 +15,8 @@ public:
     Possible(const Possible& o_possible);
 
     virtual ~Possible();
+
+    virtual Possible* copy();
     
 private:
     virtual void set_staps();

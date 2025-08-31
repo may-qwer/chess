@@ -16,6 +16,8 @@ public:
     Bishop(const Bishop& o_bishop);
 
     virtual ~Bishop();
+
+    virtual Bishop* copy();
     
 private:
     virtual void set_staps();

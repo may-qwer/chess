@@ -14,6 +14,10 @@ Rook::~Rook() {
     delete staps;
 }
 
+Rook* Rook::copy() {
+    return new Rook(*this);
+}
+
 void Rook::set_staps() {
     int arr_of_directions[COUNT_OF_DIRECTIONS_R] = {10, 1, -10, -1};
     int possible_pos = pos;

@@ -17,10 +17,12 @@ public:
 
     virtual ~King();
 
+    virtual King* copy();
+
 private:
     virtual void set_staps();
 
-    virtual bool is_possible_stap_in_check(const int possible_stap);
+    bool is_possible_stap_in_check(const int possible_stap);
 
 };
 

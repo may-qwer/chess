@@ -1,8 +1,5 @@
 #include "figure.h"
 
-#include <iostream>
-
-
 Figure::Figure(const char t, const char* c, const int p, const char fl) {
     color = c;
     figure_letter = fl;

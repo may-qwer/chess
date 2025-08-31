@@ -21,6 +21,8 @@ public:
 
     virtual ~Pawn();
 
+    virtual Pawn* copy();
+
 private:
     virtual void set_staps();
     

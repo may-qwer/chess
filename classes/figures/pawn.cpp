@@ -16,6 +16,10 @@ Pawn::~Pawn() {
     delete staps;
 }
 
+Pawn* Pawn::copy() {
+    return new Pawn(*this);
+}
+
 void Pawn::set_is_first_stap(bool val) {
     is_first_stap = val;
 }

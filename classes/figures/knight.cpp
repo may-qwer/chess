@@ -14,6 +14,10 @@ Knight::~Knight() {
     delete staps;
 }
 
+Knight* Knight::copy() {
+    return new Knight(*this);
+}
+
 void Knight::set_staps() {
     int arr_of_directions[COUNT_OF_DIRECTIONS_N] = {8, 19, 21, 12, -8, -19, -21, -12};
     int possible_pos = pos;

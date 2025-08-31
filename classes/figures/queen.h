@@ -16,6 +16,8 @@ public:
 
     virtual ~Queen();
 
+    virtual Queen* copy();
+
 private:
     virtual void set_staps();
 

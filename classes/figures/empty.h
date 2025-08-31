@@ -16,6 +16,8 @@ public:
 
     virtual ~Empty();
 
+    virtual Empty* copy();
+
 private:
     virtual void set_staps();
     

@@ -17,6 +17,8 @@ public:
 
     virtual ~Knight();
 
+    virtual Knight* copy();
+
 private:
     virtual void set_staps();
 

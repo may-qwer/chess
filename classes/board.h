@@ -46,13 +46,17 @@ public:
 
     void set_staps_for_board(Staps* staps);
 
-    Figure* remove_figure(int o_fig_pos, int n_empty_fig_pos);
+    Figure* remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos);
 
     void set_all_staps_for_figures();
 
     int get_king_pos(const char team);
 
     void change_staps_if_in_check(const int king_pos);
+
+    void change_staps_if_king_going(const int int_cell, const char team);
+
+    bool is_cell_is_on_attack(const int cell, const char team);
 
 };
 

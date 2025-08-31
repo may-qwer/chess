@@ -13,6 +13,10 @@ Possible::~Possible() {
     delete staps;
 }
 
+Possible* Possible::copy() {
+    return new Possible(*this);
+}
+
 void Possible::set_staps() {
     staps->set_el_to_arr_of_possible_staps(-1);
     staps->set_el_to_arr_of_eating_staps(-1);

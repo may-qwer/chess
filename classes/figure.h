@@ -39,6 +39,8 @@ public:
 
     void change_pos(const int new_pos);
 
+    virtual Figure* copy() = 0;
+
     virtual void set_is_first_stap(bool val);
 
     virtual bool get_is_first_stap();

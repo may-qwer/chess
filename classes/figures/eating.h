@@ -15,6 +15,8 @@ public:
     Eating(const Eating& o_eating);
 
     virtual ~Eating();
+
+    virtual Eating* copy();
     
 private:
     virtual void set_staps();
