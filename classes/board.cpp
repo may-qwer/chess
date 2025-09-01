@@ -257,6 +257,8 @@ bool Board::is_cell_is_on_attack(const int cell, const char team) {
 void Board::change_staps_if_in_check(const int king_pos) {
     char now_team = board_mtx[king_pos/10][king_pos%10]->get_team();
     Board* board_for_check_is_in_check = this->copy();
+    Figure *tmp_moving_fig, *tmp_old_fig;
+    Figure* tmp_empty_fig = new Empty(' ', COLOR_EMPTY, -1);
     int int_cell, int_stap;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
@@ -267,33 +269,47 @@ void Board::change_staps_if_in_check(const int king_pos) {
                 int_cell = 10*i + j;
                 for (int k = 0; k < board_mtx[i][j]->get_staps()->get_len_of_arr_of_possible_staps(); k++) {
                     int_stap = board_mtx[i][j]->get_staps()->get_arr_of_possible_staps()[k];
-                    Figure* tmp_moving_fig = board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10];
+                    if (int_stap == -1) {
+                        continue;
+                    }
+                    tmp_moving_fig = board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10];
                     tmp_moving_fig->change_pos(int_stap);
-                    Figure* tmp_empty_fig = board_for_check_is_in_check->remove_figure_and_get_empty(int_stap, int_cell);
+                    tmp_old_fig = board_for_check_is_in_check->board_mtx[int_stap/10][int_stap%10];
+                    tmp_empty_fig->change_pos(int_stap);
                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
                     board_for_check_is_in_check->set_mtx_el(tmp_empty_fig);
                     board_for_check_is_in_check->set_all_staps_for_figures();
-                    if (is_cell_is_on_attack(king_pos, now_team)) {
+//----------------------------------------------------------------------------------------
+                    board_for_check_is_in_check->show();
+//----------------------------------------------------------------------------------------
+                    if (board_for_check_is_in_check->is_cell_is_on_attack(king_pos, now_team)) {
                         board_mtx[i][j]->get_staps()->remove_el_from_possible_staps(int_stap);
                     }
-                    board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10] = this->board_mtx[int_cell/10][int_cell%10];
-                    board_for_check_is_in_check->board_mtx[int_stap/10][int_stap%10] = this->board_mtx[int_stap/10][int_stap%10];                
+                    tmp_moving_fig->change_pos(int_cell);
+                    board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
+                    board_for_check_is_in_check->set_mtx_el(tmp_old_fig);                
                 }
                 for (int k = 0; k < board_mtx[i][j]->get_staps()->get_len_of_arr_of_eating_staps(); k++) {
                     int_stap = board_mtx[i][j]->get_staps()->get_arr_of_eating_staps()[k];
-                    Figure* tmp_moving_fig = board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10];
+                   if (int_stap == -1) {
+                        continue;
+                    }
+                    tmp_moving_fig = board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10];
                     tmp_moving_fig->change_pos(int_stap);
-                    Figure* tmp_empty_fig = board_for_check_is_in_check->remove_figure_and_get_empty(int_stap, int_cell);
+                    tmp_old_fig = board_for_check_is_in_check->board_mtx[int_stap/10][int_stap%10];
+                    tmp_empty_fig->change_pos(int_stap);
                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
                     board_for_check_is_in_check->set_mtx_el(tmp_empty_fig);
                     board_for_check_is_in_check->set_all_staps_for_figures();
-                    if (is_cell_is_on_attack(king_pos, now_team)) {
+                    if (board_for_check_is_in_check->is_cell_is_on_attack(king_pos, now_team)) {
                         board_mtx[i][j]->get_staps()->remove_el_from_possible_staps(int_stap);
                     }
-                    board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10] = this->board_mtx[int_cell/10][int_cell%10];
-                    board_for_check_is_in_check->board_mtx[int_stap/10][int_stap%10] = this->board_mtx[int_stap/10][int_stap%10];                
+                    tmp_moving_fig->change_pos(int_cell);
+                    board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
+                    board_for_check_is_in_check->set_mtx_el(tmp_old_fig);               
                 }
             }
         }
     }
+    delete tmp_empty_fig;
 }

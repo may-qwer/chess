@@ -117,10 +117,17 @@ void Staps::clean_staps() {
 }
 
 bool Staps::is_empty_staps() {
-    if ((index_of_last_possible_stap == 0) && (index_of_last_eating_staps == 0)) {
-        return true;
+    for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
+        if (arr_of_possible_staps[i] != -1) {
+            return false;
+        }
     }
-    return false;
+    for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
+        if (arr_of_eating_staps[i] != -1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void Staps::remove_el_from_staps(const int el) {

@@ -31,10 +31,25 @@ void Game::main_cycle() {
         while (running) {
             main_board->show();
             is_in_check();
+            //-----------------------
+            // cout << main_board->get_mtx_el(6, 4)->get_figure_letter() << " " << main_board->get_mtx_el(6, 4)->get_team() << endl;
+            // for (int i = 0; i < main_board->get_mtx_el(6, 4)->get_staps()->get_len_of_arr_of_possible_staps(); i++) {
+            //     cout << main_board->get_mtx_el(6, 4)->get_staps()->get_arr_of_possible_staps()[i] << " ";
+            // }
+            // cout << endl;
+            cout << endl << endl << endl << endl;
+            //-----------------------
             if (is_in_check_var) {
                 main_board->change_staps_if_in_check(main_board->get_king_pos(get_now_team_going()));
                 cout << MSG_WARNING_IN_CHECK << endl;
             }           
+            // //-----------------------
+            // cout << main_board->get_mtx_el(6, 4)->get_figure_letter() << " " << main_board->get_mtx_el(6, 4)->get_team() << endl;
+            // for (int i = 0; i < main_board->get_mtx_el(6, 4)->get_staps()->get_len_of_arr_of_possible_staps(); i++) {
+            //     cout << main_board->get_mtx_el(6, 4)->get_staps()->get_arr_of_possible_staps()[i] << " ";
+            // }
+            // cout << endl;
+            // //-----------------------
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             main_board->change_staps_if_king_going(int_cell, get_now_team_going());
