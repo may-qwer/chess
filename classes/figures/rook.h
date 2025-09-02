@@ -3,6 +3,7 @@
 
 #include "../figure.h"
 #include "../staps.h"
+#include "../board.h"
 
 #define MAX_COUNT_OF_POSSIBLE_STAPS_R 14
 #define MAX_COUNT_OF_EATING_STAPS_R 4

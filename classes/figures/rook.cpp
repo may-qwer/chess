@@ -7,7 +7,15 @@ Rook::Rook(const char t, const char* c, const int p, Figure*** mtx, const char f
 
 Rook::Rook(const Rook& o_rook) : Figure(o_rook) {
     staps = new Staps(*o_rook.staps);
-    figures_on_board = o_rook.figures_on_board;
+    figures_on_board = new Figure**[BOARD_SIZE];
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        figures_on_board[i] = new Figure*[BOARD_SIZE];
+    }
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            figures_on_board[i][j] = o_rook.figures_on_board[i][j];
+        }
+    }
 }
 
 Rook::~Rook() {
