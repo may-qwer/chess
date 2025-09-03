@@ -7,15 +7,7 @@ Queen::Queen(const char t, const char* c, const int p, Figure*** mtx, const char
 
 Queen::Queen(const Queen& o_queen) : Figure(o_queen) {
     staps = new Staps(*o_queen.staps);
-    figures_on_board = new Figure**[BOARD_SIZE];
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        figures_on_board[i] = new Figure*[BOARD_SIZE];
-    }
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            figures_on_board[i][j] = o_queen.figures_on_board[i][j];
-        }
-    }
+    figures_on_board = o_queen.figures_on_board;
 }
 
 Queen::~Queen() {

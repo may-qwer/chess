@@ -262,6 +262,7 @@ void Board::change_staps_if_in_check(const int king_pos) {
     int int_cell, int_stap;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
+            board_for_check_is_in_check->board_mtx[i][j]->set_mtx(board_for_check_is_in_check->board_mtx);
             if (board_mtx[i][j]->get_pos() == king_pos) {
                 continue;
             }

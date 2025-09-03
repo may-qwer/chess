@@ -8,15 +8,7 @@ Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char f
 
 Pawn::Pawn(const Pawn& o_pawn) : Figure(o_pawn) {
     staps = new Staps(*o_pawn.staps);
-    figures_on_board = new Figure**[BOARD_SIZE];
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        figures_on_board[i] = new Figure*[BOARD_SIZE];
-    }
-    for (int i = 0; i < BOARD_SIZE; i++) {
-        for (int j = 0; j < BOARD_SIZE; j++) {
-            figures_on_board[i][j] = o_pawn.figures_on_board[i][j];
-        }
-    }
+    figures_on_board = o_pawn.figures_on_board;
     is_first_stap = o_pawn.is_first_stap;
 }
 

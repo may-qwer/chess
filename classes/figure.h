@@ -47,6 +47,8 @@ public:
 
     virtual bool is_possible_stap_in_check(const int possible_stap);
 
+    void set_mtx(Figure*** mtx);
+
 };
 
 #endif

@@ -67,3 +67,7 @@ bool Figure::get_is_first_stap() { //always check is it pawn
 bool Figure::is_possible_stap_in_check(const int possible_stap) { //always check is it king
     return false;
 }
+
+void Figure::set_mtx(Figure*** mtx) {
+    figures_on_board = mtx;
+}
