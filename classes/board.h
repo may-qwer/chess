@@ -58,6 +58,8 @@ public:
 
     bool is_cell_is_on_attack(const int cell, const char team);
 
+    void set_mtx_for_all_figures();
+
 };
 
 #endif

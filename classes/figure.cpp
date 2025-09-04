@@ -71,3 +71,7 @@ bool Figure::is_possible_stap_in_check(const int possible_stap) { //always check
 void Figure::set_mtx(Figure*** mtx) {
     figures_on_board = mtx;
 }
+
+Figure*** Figure::get_mtx() {
+    return figures_on_board;
+}

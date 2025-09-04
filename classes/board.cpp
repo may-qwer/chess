@@ -262,7 +262,6 @@ void Board::change_staps_if_in_check(const int king_pos) {
     int int_cell, int_stap;
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            board_for_check_is_in_check->board_mtx[i][j]->set_mtx(board_for_check_is_in_check->board_mtx);
             if (board_mtx[i][j]->get_pos() == king_pos) {
                 continue;
             }
@@ -279,6 +278,7 @@ void Board::change_staps_if_in_check(const int king_pos) {
                     tmp_empty_fig->change_pos(int_cell);
                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
                     board_for_check_is_in_check->set_mtx_el(tmp_empty_fig);
+                    board_for_check_is_in_check->set_mtx_for_all_figures();
                     board_for_check_is_in_check->set_all_staps_for_figures();
                     if (board_for_check_is_in_check->is_cell_is_on_attack(king_pos, now_team)) {
                         board_mtx[i][j]->get_staps()->remove_el_from_possible_staps(int_stap);
@@ -289,7 +289,7 @@ void Board::change_staps_if_in_check(const int king_pos) {
                 }
                 for (int k = 0; k < board_mtx[i][j]->get_staps()->get_len_of_arr_of_eating_staps(); k++) {
                     int_stap = board_mtx[i][j]->get_staps()->get_arr_of_eating_staps()[k];
-                   if (int_stap == -1) {
+                    if (int_stap == -1) {
                         continue;
                     }
                     tmp_moving_fig = board_for_check_is_in_check->board_mtx[int_cell/10][int_cell%10];
@@ -298,16 +298,25 @@ void Board::change_staps_if_in_check(const int king_pos) {
                     tmp_empty_fig->change_pos(int_cell);
                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
                     board_for_check_is_in_check->set_mtx_el(tmp_empty_fig);
+                    board_for_check_is_in_check->set_mtx_for_all_figures();
                     board_for_check_is_in_check->set_all_staps_for_figures();
                     if (board_for_check_is_in_check->is_cell_is_on_attack(king_pos, now_team)) {
                         board_mtx[i][j]->get_staps()->remove_el_from_eating_staps(int_stap);
                     }
                     tmp_moving_fig->change_pos(int_cell);
                     board_for_check_is_in_check->set_mtx_el(tmp_moving_fig);
-                    board_for_check_is_in_check->set_mtx_el(tmp_old_fig);               
+                    board_for_check_is_in_check->set_mtx_el(tmp_old_fig);                
                 }
             }
         }
     }
     delete tmp_empty_fig;
+}
+
+void Board::set_mtx_for_all_figures() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            board_mtx[i][j]->set_mtx(board_mtx);
+        }
+    }
 }

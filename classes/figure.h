@@ -49,6 +49,8 @@ public:
 
     void set_mtx(Figure*** mtx);
 
+    Figure*** get_mtx();
+
 };
 
 #endif
