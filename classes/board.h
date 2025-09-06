@@ -38,7 +38,7 @@ public:
 
     void set_start_pos(const char* start_pos_str);
 
-    Figure* get_mtx_el(int i, int j);
+    Figure* get_mtx_el(int pos);
 
     void set_mtx_el(Figure* el);
 

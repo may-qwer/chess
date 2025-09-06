@@ -41,3 +41,19 @@ void Rook::set_staps() {
         possible_pos = pos;
     }
 }
+
+void Rook::set_is_going(const bool val) {
+    is_going = val;
+}
+
+bool Rook::get_is_going() {
+    return is_going;
+}
+
+void Rook::set_side_rook(const char val) {
+    side = val;
+}
+
+char Rook::get_side_rook() {
+    return side;
+}

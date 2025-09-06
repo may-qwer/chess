@@ -75,3 +75,19 @@ void Figure::set_mtx(Figure*** mtx) {
 Figure*** Figure::get_mtx() {
     return figures_on_board;
 }
+
+void Figure::set_is_going(const bool val) { //always check is it king and rook
+    return;
+}
+
+bool Figure::get_is_going() { //always check is it king and rook
+    return true;
+}
+
+void Figure::set_side_rook(const char val) { //always check is it rook
+    return;
+}
+
+char Figure::get_side_rook() { //always check is it rook
+    return '-';
+}

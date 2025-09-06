@@ -59,3 +59,11 @@ bool King::is_possible_stap_in_check(const int possible_stap) {
     }
     return false;
 }
+
+void King::set_is_going(const bool val) {
+    is_going = val;
+}
+
+bool King::get_is_going() {
+    return is_going;
+}

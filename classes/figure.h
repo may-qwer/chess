@@ -51,6 +51,14 @@ public:
 
     Figure*** get_mtx();
 
+    virtual void set_is_going(const bool val);
+
+    virtual bool get_is_going();
+
+    virtual void set_side_rook(const char val);
+
+    virtual char get_side_rook();
+
 };
 
 #endif

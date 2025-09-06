@@ -20,9 +20,15 @@ public:
     virtual King* copy();
 
 private:
+    bool is_going = false;
+
     virtual void set_staps();
 
     bool is_possible_stap_in_check(const int possible_stap);
+
+    virtual void set_is_going(const bool val);
+
+    virtual bool get_is_going();
 
 };
 

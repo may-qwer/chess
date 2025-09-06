@@ -83,6 +83,7 @@ void Board::set_start_pos(const char* start_pos_str) {
     int arr_of_indexes_of_figures[] = {15, 19, 23, 27, 29, 31, 47, 51, 55, 59, 61, 63};
     int pos = 0;
     char two_figures_simbol[2];
+    char side_rook = 'l';// left - l; right - r;
     for(int i = 0; i < ALL_FIGURES_POS_SIMBOLS; i += 2) {
         if (start_pos_str[i] == '-') {
             continue;
@@ -96,6 +97,12 @@ void Board::set_start_pos(const char* start_pos_str) {
             board_mtx[pos/10][pos%10] = new Bishop('w', COLOR_WHITE, pos, board_mtx);
         } else  if ((i > arr_of_indexes_of_figures[1]) && (i <= arr_of_indexes_of_figures[2])) {
             board_mtx[pos/10][pos%10] = new Rook('w', COLOR_WHITE, pos, board_mtx);
+            board_mtx[pos/10][pos%10]->set_side_rook(side_rook);
+            if (side_rook == 'l') {
+                side_rook = 'r';
+            } else {
+                side_rook = 'l';
+            }
         } else  if ((i > arr_of_indexes_of_figures[2]) && (i <= arr_of_indexes_of_figures[3])) {
             board_mtx[pos/10][pos%10] = new Knight('w', COLOR_WHITE, pos, board_mtx);
         } else  if ((i > arr_of_indexes_of_figures[3]) && (i <= arr_of_indexes_of_figures[4])) {
@@ -108,6 +115,12 @@ void Board::set_start_pos(const char* start_pos_str) {
             board_mtx[pos/10][pos%10] = new Bishop('b', COLOR_BLACK, pos, board_mtx);
         } else  if ((i > arr_of_indexes_of_figures[7]) && (i <= arr_of_indexes_of_figures[8])) {
             board_mtx[pos/10][pos%10] = new Rook('b', COLOR_BLACK, pos, board_mtx);
+            board_mtx[pos/10][pos%10]->set_side_rook(side_rook);
+            if (side_rook == 'l') {
+                side_rook = 'r';
+            } else {
+                side_rook = 'l';
+            }
         } else  if ((i > arr_of_indexes_of_figures[8]) && (i <= arr_of_indexes_of_figures[9])) {
             board_mtx[pos/10][pos%10] = new Knight('b', COLOR_BLACK, pos, board_mtx);
         } else  if ((i > arr_of_indexes_of_figures[9]) && (i <= arr_of_indexes_of_figures[10])) {
@@ -153,8 +166,8 @@ char* Board::convert_int_to_str(const int num) { //5 -> a3; 14 -> b5; 0 -> a8; 7
     return ret_str;
 }
 
-Figure* Board::get_mtx_el(int i, int j) {
-    return board_mtx[i][j];
+Figure* Board::get_mtx_el(int pos) {
+    return board_mtx[pos/10][pos%10];
 }
 
 void Board::set_mtx_el(Figure* el) {

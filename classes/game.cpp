@@ -24,6 +24,7 @@ Game::~Game() {
 
 void Game::main_cycle() {
     do {
+        rules();
         main_board->set_start_pos(START_POS);
         white_king_pos = main_board->get_king_pos('w');
         black_king_pos = main_board->get_king_pos('b');
@@ -38,7 +39,7 @@ void Game::main_cycle() {
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             main_board->change_staps_if_king_going(int_cell, get_now_team_going());
-            staps = main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps();
+            staps = main_board->get_mtx_el(int_cell)->get_staps();
             show_staps();
             get_stap(MSG_ENTER_STAP);
             move_figure();
@@ -64,6 +65,10 @@ void Game::pass_the_turn() {
 void Game::get_cell(const char* msg) {
     cout << msg;
     cin >> str_cell;
+    if ((str_cell[0] == 'r') || (str_cell[0] == 'R')) {
+        rules();
+        get_cell(MSG_ENTER_FIGURE);
+    }
     if (get_str_len(str_cell) != 2) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
@@ -71,10 +76,10 @@ void Game::get_cell(const char* msg) {
     if (!(is_right_simbol(int_cell/10)) || !(is_right_simbol(int_cell%10))) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
-    if (main_board->get_mtx_el(int_cell/10, int_cell%10)->get_figure_letter() == ' ') {
+    if (main_board->get_mtx_el(int_cell)->get_figure_letter() == ' ') {
         get_cell(MSG_EMPTY_CELL);
     }
-    if (get_now_team_going() != main_board->get_mtx_el(int_cell/10, int_cell%10)->get_team()) {
+    if (get_now_team_going() != main_board->get_mtx_el(int_cell)->get_team()) {
         get_cell(MSG_NOT_RIGHT_COLOR);
     }
     if (is_empty_staps(int_cell)) {
@@ -121,7 +126,7 @@ const char Game::get_now_team_going() {
 }
 
 bool Game::is_empty_staps(const int int_cell) {
-    return main_board->get_mtx_el(int_cell/10, int_cell%10)->get_staps()->is_empty_staps();
+    return main_board->get_mtx_el(int_cell)->get_staps()->is_empty_staps();
 }
 
 void Game::show_staps() {
@@ -136,6 +141,10 @@ void Game::show_staps() {
 void Game::get_stap(const char* msg) {
     cout << msg;
     cin >> str_stap;
+    if ((str_cell[0] == 'r') || (str_cell[0] == 'R')) {
+        rules();
+        get_stap(MSG_ENTER_STAP);
+    }
     if (get_str_len(str_stap) != 2) {
         get_stap(MSG_NOT_CORRECT_INPUT);
     }
@@ -146,16 +155,21 @@ void Game::get_stap(const char* msg) {
 }
 
 void Game::move_figure() {
-    Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell/10, int_cell%10);
+    Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell);
     tmp_moving_fig->change_pos(int_stap);   
     Figure* tmp_empty_fig = main_board->remove_figure_and_get_empty(int_stap, int_cell);
     main_board->set_mtx_el(tmp_moving_fig);
     main_board->set_mtx_el(tmp_empty_fig);
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'w')) {
         white_king_pos = tmp_moving_fig->get_pos();
+        tmp_moving_fig->set_is_going(true);
     } 
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'b')) {
         black_king_pos = tmp_moving_fig->get_pos();
+        tmp_moving_fig->set_is_going(true);
+    }
+    if (tmp_moving_fig->get_figure_letter() == 'R') {
+        tmp_moving_fig->set_is_going(true);
     }
     if (tmp_moving_fig->get_figure_letter() == 'p') {
         tmp_moving_fig->set_is_first_stap(false);
@@ -169,5 +183,105 @@ void Game::is_in_check() {
     } else {
         king_pos = black_king_pos;
     }
-    is_in_check_var = main_board->get_mtx_el(king_pos/10, king_pos%10)->is_possible_stap_in_check(king_pos);
+    is_in_check_var = main_board->get_mtx_el(king_pos)->is_possible_stap_in_check(king_pos);
 }
+
+
+bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - short casting; l - long casting
+    int king_pos, rook_pos, cell_for_check_1, cell_for_check_2;
+    char who_go;
+    if (get_now_team_going() == 'w') {
+        king_pos = white_king_pos;
+        if (type_of_casting == 's') {
+            rook_pos = convert_str_to_int("h1");
+            cell_for_check_1 = convert_str_to_int("f1");
+            cell_for_check_2 = convert_str_to_int("g1");
+        } else {
+            rook_pos = convert_str_to_int("a1");
+            cell_for_check_1 = convert_str_to_int("d1");
+            cell_for_check_2 = convert_str_to_int("c1");                
+        }
+        who_go = 'w';
+    } else {
+        king_pos = black_king_pos;
+        if (type_of_casting == 's') {
+            rook_pos = convert_str_to_int("h8");
+            cell_for_check_1 = convert_str_to_int("f8");
+            cell_for_check_2 = convert_str_to_int("g8");
+        } else {
+            rook_pos = convert_str_to_int("a8");
+            cell_for_check_1 = convert_str_to_int("d8");
+            cell_for_check_2 = convert_str_to_int("c8");
+        }
+        who_go = 'b';        
+    }
+    if ((main_board->get_mtx_el(king_pos)->get_is_going()) || (main_board->get_mtx_el(rook_pos))) {
+        return false;
+    }
+    if (is_in_check_var) {
+        return false;
+    }
+    if ((main_board->get_mtx_el(cell_for_check_1)->get_figure_letter() != ' ') || 
+        (main_board->get_mtx_el(cell_for_check_2)->get_figure_letter() != ' ')) {
+        return false;
+    }
+    if ((main_board->is_cell_is_on_attack(cell_for_check_1, who_go)) || (main_board->is_cell_is_on_attack(cell_for_check_2, who_go))) {
+        return false;
+    }
+    return true;
+}
+
+void Game::do_casting(const char type_of_casting) {
+    int king_pos, rook_pos, future_king_cell, future_rook_cell;
+    if (get_now_team_going() == 'w') {
+        king_pos = white_king_pos;
+        if (type_of_casting == 's') {
+            rook_pos = convert_str_to_int("h1");
+            future_rook_cell = convert_str_to_int("f1");
+            future_king_cell = convert_str_to_int("g1");
+        } else {
+            rook_pos = convert_str_to_int("a1");
+            future_rook_cell = convert_str_to_int("d1");
+            future_king_cell = convert_str_to_int("c1");                
+        }
+    } else {
+        king_pos = black_king_pos;
+        if (type_of_casting == 's') {
+            rook_pos = convert_str_to_int("h8");
+            future_rook_cell = convert_str_to_int("f8");
+            future_king_cell = convert_str_to_int("g8");
+        } else {
+            rook_pos = convert_str_to_int("a8");
+            future_rook_cell = convert_str_to_int("d8");
+            future_king_cell = convert_str_to_int("c8");
+        }     
+    }
+    Figure* tmp_king_fig = main_board->get_mtx_el(king_pos);
+    tmp_king_fig->change_pos(future_king_cell);
+    tmp_king_fig->set_is_going(true);
+    Figure* tmp_rook_fig = main_board->get_mtx_el(rook_pos);
+    tmp_rook_fig->change_pos(future_rook_cell);
+    Figure* tmp_empty_past_king = main_board->get_mtx_el(future_king_cell);
+    tmp_empty_past_king->change_pos(king_pos);
+    Figure* tmp_empty_past_rook = main_board->get_mtx_el(future_rook_cell);
+    tmp_empty_past_rook->change_pos(rook_pos);
+    main_board->set_mtx_el(tmp_king_fig);
+    main_board->set_mtx_el(tmp_rook_fig);
+    main_board->set_mtx_el(tmp_empty_past_king);
+    main_board->set_mtx_el(tmp_empty_past_rook);
+}
+
+void Game::rules() {
+    cout << COLOR_FOR_RULES << "--- " << RESET << "Hello! This is chess game in terminal. There are rules of this chess:" << COLOR_FOR_RULES << "--- " << RESET << endl;
+    cout << COLOR_FOR_RULES << "1) " << RESET << "To do stap you should enter figure's cell, like 'a2', and than choose one of possible " << endl;
+    cout << "staps, like 'a3'. If figure doesn't have staps, you can choose other figure." << endl;
+    cout << COLOR_FOR_RULES << "2) " << RESET << "If your king will in check, you get warning massage about this, and than you shold prote-" << endl;
+    cout << "him." << endl;
+    cout << COLOR_FOR_RULES << "3) " << RESET << "To do casting (long or short) you should enter 'oo' or 'OO' to do short casting or 'ooo'" << endl;
+    cout << "or 'OOO' to do long casting. If king can't do casting, you can choose other figure." << endl;
+    cout << endl;
+    cout << COLOR_FOR_RULES << "***" << RESET << "If you want to read rules again during the game, enter 'r' or 'R'." << endl;
+    cout << endl;
+    cout << COLOR_FOR_RULES << "Have a nice game!!!" << RESET << endl << endl;
+}
+
