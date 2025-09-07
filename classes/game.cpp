@@ -38,12 +38,15 @@ void Game::main_cycle() {
             }           
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
-            main_board->change_staps_if_king_going(int_cell, get_now_team_going());
-            staps = main_board->get_mtx_el(int_cell)->get_staps();
-            show_staps();
-            get_stap(MSG_ENTER_STAP);
-            move_figure();
+            if (!is_casting) {
+                main_board->change_staps_if_king_going(int_cell, get_now_team_going());
+                staps = main_board->get_mtx_el(int_cell)->get_staps();
+                show_staps();
+                get_stap(MSG_ENTER_STAP);
+                move_figure();
+            }
             main_board->set_all_staps_for_figures(); 
+            is_casting = false;
 
             pass_the_turn();
         }
@@ -68,6 +71,23 @@ void Game::get_cell(const char* msg) {
     if ((str_cell[0] == 'r') || (str_cell[0] == 'R')) {
         rules();
         get_cell(MSG_ENTER_FIGURE);
+    }
+    if (((str_cell[0] == 'o') && (str_cell[1] == 'o') && (str_cell[2] == 'o')) || 
+    ((str_cell[0] == 'O') && (str_cell[1] == 'O') && (str_cell[2] == 'O'))) {
+        if (can_casting('l')) {
+            is_casting = true;
+            do_casting('l');
+        }
+        get_cell(MSG_CANT_DO_CASTING);
+        }
+    if (((str_cell[0] == 'o') && (str_cell[1] == 'o')) || ((str_cell[0] == 'O') && (str_cell[1] == 'O'))) {
+        if (can_casting('s')) {
+            is_casting = true;
+            do_casting('s');
+        }
+    }
+    if (is_casting) {
+        return;
     }
     if (get_str_len(str_cell) != 2) {
         get_cell(MSG_NOT_CORRECT_INPUT);
@@ -188,7 +208,7 @@ void Game::is_in_check() {
 
 
 bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - short casting; l - long casting
-    int king_pos, rook_pos, cell_for_check_1, cell_for_check_2;
+    int king_pos, rook_pos, cell_for_check_1, cell_for_check_2, cell_for_check_3;
     char who_go;
     if (get_now_team_going() == 'w') {
         king_pos = white_king_pos;
@@ -199,7 +219,8 @@ bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - shor
         } else {
             rook_pos = convert_str_to_int("a1");
             cell_for_check_1 = convert_str_to_int("d1");
-            cell_for_check_2 = convert_str_to_int("c1");                
+            cell_for_check_2 = convert_str_to_int("c1");
+            cell_for_check_3 = convert_str_to_int("b1");
         }
         who_go = 'w';
     } else {
@@ -212,18 +233,27 @@ bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - shor
             rook_pos = convert_str_to_int("a8");
             cell_for_check_1 = convert_str_to_int("d8");
             cell_for_check_2 = convert_str_to_int("c8");
+            cell_for_check_3 = convert_str_to_int("b8");
         }
         who_go = 'b';        
     }
-    if ((main_board->get_mtx_el(king_pos)->get_is_going()) || (main_board->get_mtx_el(rook_pos))) {
+    if ((main_board->get_mtx_el(king_pos)->get_is_going()) || (main_board->get_mtx_el(rook_pos)->get_is_going())) {
         return false;
     }
     if (is_in_check_var) {
         return false;
     }
-    if ((main_board->get_mtx_el(cell_for_check_1)->get_figure_letter() != ' ') || 
+    if (type_of_casting == 's') {
+        if ((main_board->get_mtx_el(cell_for_check_1)->get_figure_letter() != ' ') || 
         (main_board->get_mtx_el(cell_for_check_2)->get_figure_letter() != ' ')) {
-        return false;
+            return false;
+        }
+    } else {
+        if ((main_board->get_mtx_el(cell_for_check_1)->get_figure_letter() != ' ') || 
+        (main_board->get_mtx_el(cell_for_check_2)->get_figure_letter() != ' ') ||
+        (main_board->get_mtx_el(cell_for_check_3)->get_figure_letter() != ' ')) {
+            return false;
+        }        
     }
     if ((main_board->is_cell_is_on_attack(cell_for_check_1, who_go)) || (main_board->is_cell_is_on_attack(cell_for_check_2, who_go))) {
         return false;
@@ -272,16 +302,14 @@ void Game::do_casting(const char type_of_casting) {
 }
 
 void Game::rules() {
-    cout << COLOR_FOR_RULES << "--- " << RESET << "Hello! This is chess game in terminal. There are rules of this chess:" << COLOR_FOR_RULES << "--- " << RESET << endl;
-    cout << COLOR_FOR_RULES << "1) " << RESET << "To do stap you should enter figure's cell, like 'a2', and than choose one of possible " << endl;
-    cout << "staps, like 'a3'. If figure doesn't have staps, you can choose other figure." << endl;
-    cout << COLOR_FOR_RULES << "2) " << RESET << "If your king will in check, you get warning massage about this, and than you shold prote-" << endl;
-    cout << "him." << endl;
-    cout << COLOR_FOR_RULES << "3) " << RESET << "To do casting (long or short) you should enter 'oo' or 'OO' to do short casting or 'ooo'" << endl;
-    cout << "or 'OOO' to do long casting. If king can't do casting, you can choose other figure." << endl;
-    cout << endl;
-    cout << COLOR_FOR_RULES << "***" << RESET << "If you want to read rules again during the game, enter 'r' or 'R'." << endl;
-    cout << endl;
-    cout << COLOR_FOR_RULES << "Have a nice game!!!" << RESET << endl << endl;
+    cout << RULES_1 << endl;
+    cout << RULES_2 << endl;
+    cout << RULES_3 << endl;
+    cout << RULES_4 << endl;
+    cout << RULES_5 << endl;
+    cout << RULES_6 << endl;
+    cout << RULES_7 << endl << endl;
+    cout << RULES_8 << endl << endl;
+    cout << RULES_9 << endl << endl;
 }
 
