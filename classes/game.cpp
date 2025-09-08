@@ -68,26 +68,26 @@ void Game::pass_the_turn() {
 void Game::get_cell(const char* msg) {
     cout << msg;
     cin >> str_cell;
+    char type_of_casting = '-';
     if ((str_cell[0] == 'r') || (str_cell[0] == 'R')) {
         rules();
         get_cell(MSG_ENTER_FIGURE);
     }
-    if (((str_cell[0] == 'o') && (str_cell[1] == 'o') && (str_cell[2] == 'o')) || 
-    ((str_cell[0] == 'O') && (str_cell[1] == 'O') && (str_cell[2] == 'O'))) {
-        if (can_casting('l')) {
-            is_casting = true;
-            do_casting('l');
-        }
-        get_cell(MSG_CANT_DO_CASTING);
-        }
-    if (((str_cell[0] == 'o') && (str_cell[1] == 'o')) || ((str_cell[0] == 'O') && (str_cell[1] == 'O'))) {
-        if (can_casting('s')) {
-            is_casting = true;
-            do_casting('s');
-        }
+    if ((str_cell[0] == 'l') && (str_cell[1] == 'c')) {
+        type_of_casting = 'l';
     }
-    if (is_casting) {
-        return;
+    if (((str_cell[0] == 's') && (str_cell[1] == 'c'))) {
+        type_of_casting = 's';
+    }
+    if (type_of_casting != '-') {
+        if (can_casting(type_of_casting)) {
+            is_casting = true;
+            do_casting(type_of_casting);
+            type_of_casting = '-';
+            return;
+        } else {
+            get_cell(MSG_CANT_DO_CASTING);
+        }
     }
     if (get_str_len(str_cell) != 2) {
         get_cell(MSG_NOT_CORRECT_INPUT);
@@ -193,7 +193,18 @@ void Game::move_figure() {
     }
     if (tmp_moving_fig->get_figure_letter() == 'p') {
         tmp_moving_fig->set_is_first_stap(false);
-    } 
+        if (tmp_moving_fig->is_promotion_target_achieved()) {
+            char promote_letter;
+            char* msg = MSG_CHOOSE_PAWN_PROMOTION;
+            do {
+                cout << msg;
+                cin >> promote_letter;
+                msg = MSG_NOT_CORRECT_ENTER_PAWN_PROMOTION;
+            } while ((promote_letter != 'N') || (promote_letter != 'B') || (promote_letter != 'R') || (promote_letter != 'Q'));
+            promote_pawn(tmp_moving_fig->get_pos(), promote_letter);
+        }
+    }
+
 }
 
 void Game::is_in_check() {
@@ -313,3 +324,6 @@ void Game::rules() {
     cout << RULES_9 << endl << endl;
 }
 
+void Game::promote_pawn(const int pos, const char figure_letter) {
+    main_board->remove_figure_and_get_new_figure(pos, pos, figure_letter);
+}

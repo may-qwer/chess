@@ -23,6 +23,7 @@ public:
 
     virtual ~Figure();
 
+
     const char* get_color();
 
     char get_figure_letter();
@@ -31,13 +32,18 @@ public:
 
     int get_pos();
 
-    virtual void set_staps(); 
-
     Staps* get_staps();
 
     void get_figure_from_board(const int pos, Figure* fig);
 
     void change_pos(const int new_pos);
+
+    void set_mtx(Figure*** mtx);
+
+    Figure*** get_mtx();
+    
+
+    virtual void set_staps(); 
 
     virtual Figure* copy() = 0;
 
@@ -47,10 +53,6 @@ public:
 
     virtual bool is_possible_stap_in_check(const int possible_stap);
 
-    void set_mtx(Figure*** mtx);
-
-    Figure*** get_mtx();
-
     virtual void set_is_going(const bool val);
 
     virtual bool get_is_going();
@@ -58,6 +60,8 @@ public:
     virtual void set_side_rook(const char val);
 
     virtual char get_side_rook();
+
+    virtual bool is_promotion_target_achieved();
 
 };
 

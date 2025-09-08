@@ -46,7 +46,7 @@ public:
 
     void set_staps_for_board(Staps* staps);
 
-    Figure* remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos);
+    Figure* remove_figure_and_get_new_figure(const int o_fig_pos, const int n_empty_fig_pos, const char type_of_fig = 'e');
 
     void set_all_staps_for_figures();
 

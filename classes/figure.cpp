@@ -91,3 +91,7 @@ void Figure::set_side_rook(const char val) { //always check is it rook
 char Figure::get_side_rook() { //always check is it rook
     return '-';
 }
+
+bool Figure::is_promotion_target_achieved() { //always check is it pawn
+    return false;
+}

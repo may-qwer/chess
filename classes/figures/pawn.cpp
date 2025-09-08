@@ -4,6 +4,11 @@ Pawn::Pawn(const char t, const char* c, const int p, Figure*** mtx, const char f
     staps = new Staps(MAX_COUNT_OF_POSSIBLE_STAPS_P, MAX_COUNT_OF_EATING_STAPS_P);
     figures_on_board = mtx;
     is_first_stap = true;
+    if (team == 'w') {
+        promotion_target = (pos/10)*10;
+    } else {
+        promotion_target = (pos/10)*10 + 7;
+    }
 }
 
 Pawn::Pawn(const Pawn& o_pawn) : Figure(o_pawn) {
@@ -88,4 +93,11 @@ void Pawn::set_staps() {
     }
     delete [] arr_of_eating_directions;
     delete [] arr_of_possible_directions;
+}
+
+bool Pawn::is_promotion_target_achieved() {
+    if (pos == promotion_target) {
+        return true;
+    }
+    return false;
 }

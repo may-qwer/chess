@@ -19,14 +19,17 @@ public:
 
     virtual bool get_is_first_stap();
 
+    virtual bool is_promotion_target_achieved();
+
     virtual ~Pawn();
 
     virtual Pawn* copy();
 
 private:
-    virtual void set_staps();
-    
     bool is_first_stap;
+    int promotion_target;
+
+    virtual void set_staps(); 
     
 };
 

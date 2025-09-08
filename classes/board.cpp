@@ -196,9 +196,23 @@ void Board::set_staps_for_board(Staps* staps) {
     }
 }
 
-Figure* Board::remove_figure_and_get_empty(int o_fig_pos, int n_empty_fig_pos) {
+Figure* Board::remove_figure_and_get_new_figure(const int o_fig_pos, const int n_empty_fig_pos, const char type_of_fig) {
+    team = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_team();
+    color = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_color();
     delete board_mtx[o_fig_pos/10][o_fig_pos%10];
+    if (type_of_fig == 'e') {
+        return new Empty(' ', COLOR_EMPTY, n_empty_fig_pos);
+    } else if (type_of_fig == 'R') {
+        return new Rook(team, color, n_empty_fig_pos, board_mtx);
+    } else if (type_of_fig == 'B') {
+        return new Bishop(team, color, n_empty_fig_pos, board_mtx);        
+    } else if (type_of_fig == 'N') {
+        return new Knight(team, color, n_empty_fig_pos, board_mtx);
+    } else if (type_of_fig == 'Q') {
+        return new Queen(team, color, n_empty_fig_pos, board_mtx);
+    }
     return new Empty(' ', COLOR_EMPTY, n_empty_fig_pos);
+
 }
 
 void Board::set_all_staps_for_figures() {
