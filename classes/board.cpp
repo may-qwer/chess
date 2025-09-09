@@ -197,8 +197,8 @@ void Board::set_staps_for_board(Staps* staps) {
 }
 
 Figure* Board::remove_figure_and_get_new_figure(const int o_fig_pos, const int n_empty_fig_pos, const char type_of_fig) {
-    team = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_team();
-    color = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_color();
+    char team = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_team();
+    const char* color = board_mtx[o_fig_pos/10][o_fig_pos%10]->get_color();
     delete board_mtx[o_fig_pos/10][o_fig_pos%10];
     if (type_of_fig == 'e') {
         return new Empty(' ', COLOR_EMPTY, n_empty_fig_pos);

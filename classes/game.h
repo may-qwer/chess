@@ -7,8 +7,9 @@
 //white pawns, white bishops, white rooks, white knites, white queen, white king
 //black pawns, black bishops, black rooks, black knites, black queen, black king
 // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
-// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8"
-#define START_POS "a8------------------------g4--d4----------------h8--------------"
+// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
+#define START_POS "b7b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a5----d7e7f7g7h7c8f8a8h8c6g8d8e8"
+// #define START_POS "a7------------------------g4--d4----------------h8--------------"
 
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
@@ -61,6 +62,7 @@ private:
     int black_king_pos;
     bool is_in_check_var;
     bool is_casting;
+    char* str_for_promote;
 
     void get_cell(const char* msg);
 

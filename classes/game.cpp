@@ -14,12 +14,14 @@ Game::Game() {
     white_king_pos = WHITE_KING_START_POS;
     black_king_pos = BLACK_KING_START_POS;
     is_in_check_var = false;
+    str_for_promote = new char[1];
 }
 
 Game::~Game() {
     delete [] str_cell;
     delete [] str_stap;
     delete main_board;
+    delete [] str_for_promote;
 }
 
 void Game::main_cycle() {
@@ -177,7 +179,7 @@ void Game::get_stap(const char* msg) {
 void Game::move_figure() {
     Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell);
     tmp_moving_fig->change_pos(int_stap);   
-    Figure* tmp_empty_fig = main_board->remove_figure_and_get_empty(int_stap, int_cell);
+    Figure* tmp_empty_fig = main_board->remove_figure_and_get_new_figure(int_stap, int_cell);
     main_board->set_mtx_el(tmp_moving_fig);
     main_board->set_mtx_el(tmp_empty_fig);
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'w')) {
@@ -194,14 +196,14 @@ void Game::move_figure() {
     if (tmp_moving_fig->get_figure_letter() == 'p') {
         tmp_moving_fig->set_is_first_stap(false);
         if (tmp_moving_fig->is_promotion_target_achieved()) {
-            char promote_letter;
-            char* msg = MSG_CHOOSE_PAWN_PROMOTION;
+            const char* msg = MSG_CHOOSE_PAWN_PROMOTION;
             do {
                 cout << msg;
-                cin >> promote_letter;
+                cin >> str_for_promote;
                 msg = MSG_NOT_CORRECT_ENTER_PAWN_PROMOTION;
-            } while ((promote_letter != 'N') || (promote_letter != 'B') || (promote_letter != 'R') || (promote_letter != 'Q'));
-            promote_pawn(tmp_moving_fig->get_pos(), promote_letter);
+            } while ((get_str_len(str_for_promote) != 1) && 
+            ((str_for_promote[0] != 'N') || (str_for_promote[0] != 'B') || (str_for_promote[0] != 'R') || (str_for_promote[0] != 'Q')));
+            promote_pawn(tmp_moving_fig->get_pos(), str_for_promote[0]);
         }
     }
 
@@ -325,5 +327,5 @@ void Game::rules() {
 }
 
 void Game::promote_pawn(const int pos, const char figure_letter) {
-    main_board->remove_figure_and_get_new_figure(pos, pos, figure_letter);
+    main_board->set_mtx_el(main_board->remove_figure_and_get_new_figure(pos, pos, figure_letter));
 }
