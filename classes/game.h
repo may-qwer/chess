@@ -63,6 +63,7 @@ private:
     bool is_in_check_var;
     bool is_casting;
     char* str_for_promote;
+    bool can_capture_on_passage;
 
     void get_cell(const char* msg);
 
@@ -99,6 +100,8 @@ private:
     bool can_promote();
 
     void promote_pawn(const int pos, const char figure_letter);
+
+    void capture_on_passage();
 
 public:
     Game();
