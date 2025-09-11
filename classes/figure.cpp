@@ -30,6 +30,10 @@ const char Figure::get_team() {
     return team;
 }
 
+void Figure::set_team(const char val) {
+    team = val;
+}
+
 bool Figure::is_in_board(const int pos) {
     int letter, num;
     letter = pos/10;

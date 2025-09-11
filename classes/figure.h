@@ -30,6 +30,8 @@ public:
 
     const char get_team();
 
+    void set_team(const char val);
+
     int get_pos();
 
     Staps* get_staps();

@@ -7,8 +7,7 @@
 //white pawns, white bishops, white rooks, white knites, white queen, white king
 //black pawns, black bishops, black rooks, black knites, black queen, black king
 // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
-// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
-#define START_POS "b7b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a5----d7e7f7g7h7c8f8a8h8c6g8d8e8"
+#define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
 // #define START_POS "a7------------------------g4--d4----------------h8--------------"
 
 #define RESET "\033[0m"
@@ -48,22 +47,24 @@
 
 class Game {
 private:
-    bool running;
+    bool running; //main cycle
     bool one_more;
     int counter;
-    char* str_cell;
-    int int_cell;
-    char* str_stap;
-    int int_stap;
-    char who_go;
     Board *main_board;
-    Staps* staps;
     int white_king_pos;
     int black_king_pos;
-    bool is_in_check_var;
-    bool is_casting;
-    char* str_for_promote;
-    bool can_capture_on_passage;
+    char* str_cell; //enter cell
+    int int_cell;
+    char* str_stap; //enter stap
+    int int_stap;
+    Staps* staps;
+    char who_go; //who go
+    bool is_in_check_var; //king check in 
+    bool is_casting;  //king and rook casting 
+    char* str_for_promote; //pawn promote
+    int pos_of_capture_on_passage_figure; //pawn capture on passage 
+    int pos_of_ghost_figure;
+    bool is_capture_on_passage = false;
 
     void get_cell(const char* msg);
 

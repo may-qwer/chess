@@ -36,7 +36,6 @@ void Pawn::set_staps() {
         arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {-11, 9};
         if (is_first_stap) {
             arr_of_possible_directions = new int[2] {-1, -2};
-            can_be_captured_on_passage = true;
             // is_first_stap = false;
         } else {
             arr_of_possible_directions = new int[1] {-1};
@@ -46,7 +45,6 @@ void Pawn::set_staps() {
         arr_of_eating_directions = new int[COUNT_OF_EATING_DIRECTIONS_P] {11, -9};
         if (is_first_stap) {
             arr_of_possible_directions = new int[2] {1, 2};
-            can_be_captured_on_passage = true;
             // is_first_stap = false;
         } else {
             arr_of_possible_directions = new int[1] {1};
@@ -62,6 +60,10 @@ void Pawn::set_staps() {
         if (figures_on_board[possible_pos/10][possible_pos%10]->get_team() == this->get_team()) {
             continue;
         }
+        if (figures_on_board[possible_pos/10][possible_pos%10]->get_team() == 'g') {
+            staps->set_el_to_arr_of_eating_staps(possible_pos);
+            continue;
+        } 
         if (figures_on_board[possible_pos/10][possible_pos%10]->get_figure_letter() == ' ') {
             continue;
         }         
@@ -102,12 +104,4 @@ bool Pawn::is_promotion_target_achieved() {
         return true;
     }
     return false;
-}
-
-bool Pawn::get_can_be_captured_on_passage() { 
-    return can_be_captured_on_passage;
-}
-
-void Pawn::set_can_be_captured_on_passage(const bool val) {
-    can_be_captyred_on_passage = val;
 }

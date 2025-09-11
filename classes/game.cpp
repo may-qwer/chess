@@ -47,7 +47,8 @@ void Game::main_cycle() {
                 get_stap(MSG_ENTER_STAP);
                 move_figure();
             }
-            main_board->set_all_staps_for_figures(); 
+            main_board->set_all_staps_for_figures();
+            main_board->remove_ghost_figure();
             is_casting = false;
 
             pass_the_turn();
@@ -178,8 +179,13 @@ void Game::get_stap(const char* msg) {
 
 void Game::move_figure() {
     Figure* tmp_moving_fig = main_board->get_mtx_el(int_cell);
-    tmp_moving_fig->change_pos(int_stap);   
-    Figure* tmp_empty_fig = main_board->remove_figure_and_get_new_figure(int_stap, int_cell);
+    tmp_moving_fig->change_pos(int_stap);
+    Figure* tmp_empty_fig;
+    if ((is_capture_on_passage) && (staps->is_in_eating_staps(pos_of_ghost_figure))) {
+        main_board->set_empty_figure(pos_of_capture_on_passage_figure);
+    }
+    is_capture_on_passage = false;
+    tmp_empty_fig = main_board->remove_figure_and_get_new_figure(int_stap, int_cell);
     main_board->set_mtx_el(tmp_moving_fig);
     main_board->set_mtx_el(tmp_empty_fig);
     if ((tmp_moving_fig->get_figure_letter() == 'K') && (tmp_moving_fig->get_team() == 'w')) {
@@ -194,6 +200,12 @@ void Game::move_figure() {
         tmp_moving_fig->set_is_going(true);
     }
     if (tmp_moving_fig->get_figure_letter() == 'p') {
+        if((tmp_moving_fig->get_is_first_stap()) && tmp_moving_fig->get_staps()->get_arr_of_possible_staps()[1] == int_stap) {
+            main_board->get_mtx_el(tmp_moving_fig->get_staps()->get_arr_of_possible_staps()[0])->set_team('g');
+            pos_of_capture_on_passage_figure = tmp_moving_fig->get_pos();
+            pos_of_ghost_figure = main_board->get_mtx_el(tmp_moving_fig->get_staps()->get_arr_of_possible_staps()[0])->get_pos();
+            is_capture_on_passage = true;
+        }
         tmp_moving_fig->set_is_first_stap(false);
         if (tmp_moving_fig->is_promotion_target_achieved()) {
             const char* msg = MSG_CHOOSE_PAWN_PROMOTION;

@@ -220,7 +220,9 @@ void Board::set_all_staps_for_figures() {
         for (int j = 0; j < BOARD_SIZE; j++) {
             if (board_mtx[i][j]->get_figure_letter() != 'K') {
                 board_mtx[i][j]->get_staps()->clean_staps();
-                board_mtx[i][j]->set_staps();            
+                // cout << board_mtx[i][j]->get_pos() << endl;  
+                // cout << board_mtx[i][j]->get_team() << "|" << board_mtx[i][j]->get_figure_letter() << endl;
+                board_mtx[i][j]->set_staps();          
             }
         }
     }
@@ -346,4 +348,19 @@ void Board::set_mtx_for_all_figures() {
             board_mtx[i][j]->set_mtx(board_mtx);
         }
     }
+}
+
+void Board::remove_ghost_figure() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            if (board_mtx[i][j]->get_team() == 'g') {
+                board_mtx[i][j]->set_team(' ');
+            }
+        }
+    }
+}
+
+void Board::set_empty_figure(const int pos) {
+    delete board_mtx[pos/10][pos%10];
+    board_mtx[pos/10][pos%10] = new Empty(' ', COLOR_EMPTY, pos);
 }

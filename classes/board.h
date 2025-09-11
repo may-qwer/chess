@@ -60,6 +60,10 @@ public:
 
     void set_mtx_for_all_figures();
 
+    void remove_ghost_figure();
+
+    void set_empty_figure(const int pos);
+
 };
 
 #endif
