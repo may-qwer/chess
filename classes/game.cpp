@@ -8,6 +8,7 @@ Game::Game() {
     running = true;
     one_more = false;
     counter = 0;
+    who_go  = 'w';
     str_cell = new char[2];
     str_stap = new char[2];
     main_board = new Board;
@@ -15,6 +16,8 @@ Game::Game() {
     black_king_pos = BLACK_KING_START_POS;
     is_in_check_var = false;
     str_for_promote = new char[1];
+    is_capture_on_passage = false;
+    str_for_one_more = new char[1];
 }
 
 Game::~Game() {
@@ -22,6 +25,7 @@ Game::~Game() {
     delete [] str_stap;
     delete main_board;
     delete [] str_for_promote;
+    delete [] str_for_one_more;
 }
 
 void Game::main_cycle() {
@@ -50,6 +54,7 @@ void Game::main_cycle() {
             main_board->set_all_staps_for_figures();
             main_board->remove_ghost_figure();
             is_casting = false;
+            is_win();
 
             pass_the_turn();
         }
@@ -66,6 +71,11 @@ void Game::cout_who_go() {
 
 void Game::pass_the_turn() {
     counter++;
+    if (who_go == 'w') {
+        who_go = 'b';
+    } else {
+        who_go = 'w';
+    }
 }
 
 void Game::get_cell(const char* msg) {
@@ -223,7 +233,7 @@ void Game::move_figure() {
 
 void Game::is_in_check() {
     int king_pos;
-    if (who_go = 'w') {
+    if (who_go == 'w') {
         king_pos = white_king_pos;
     } else {
         king_pos = black_king_pos;
@@ -234,7 +244,7 @@ void Game::is_in_check() {
 
 bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - short casting; l - long casting
     int king_pos, rook_pos, cell_for_check_1, cell_for_check_2, cell_for_check_3;
-    char who_go;
+    char tmp_who_go;
     if (get_now_team_going() == 'w') {
         king_pos = white_king_pos;
         if (type_of_casting == 's') {
@@ -247,7 +257,7 @@ bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - shor
             cell_for_check_2 = convert_str_to_int("c1");
             cell_for_check_3 = convert_str_to_int("b1");
         }
-        who_go = 'w';
+        tmp_who_go = 'w';
     } else {
         king_pos = black_king_pos;
         if (type_of_casting == 's') {
@@ -260,7 +270,7 @@ bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - shor
             cell_for_check_2 = convert_str_to_int("c8");
             cell_for_check_3 = convert_str_to_int("b8");
         }
-        who_go = 'b';        
+        tmp_who_go = 'b';        
     }
     if ((main_board->get_mtx_el(king_pos)->get_is_going()) || (main_board->get_mtx_el(rook_pos)->get_is_going())) {
         return false;
@@ -280,7 +290,7 @@ bool Game::can_casting(const char type_of_casting) { //type_of_casting: s - shor
             return false;
         }        
     }
-    if ((main_board->is_cell_is_on_attack(cell_for_check_1, who_go)) || (main_board->is_cell_is_on_attack(cell_for_check_2, who_go))) {
+    if ((main_board->is_cell_is_on_attack(cell_for_check_1, tmp_who_go)) || (main_board->is_cell_is_on_attack(cell_for_check_2, tmp_who_go))) {
         return false;
     }
     return true;
@@ -340,4 +350,36 @@ void Game::rules() {
 
 void Game::promote_pawn(const int pos, const char figure_letter) {
     main_board->set_mtx_el(main_board->remove_figure_and_get_new_figure(pos, pos, figure_letter));
+}
+
+void Game::is_win() {
+    if (!(main_board->is_where_are_any_staps())) {
+        running = false;
+        if (is_in_check_var) {
+            cout << MSG_CONGRATULATIONS;
+            if (who_go == 'w') {
+                cout << COLOR_WHITE << "White" << RESET;
+            } else {
+                cout << COLOR_BLACK << "Black" << RESET;
+            }
+            cout << MSG_WIN_WITH_CHECK_AND_MATE << endl;
+        } else {
+            cout << MSG_WIN_WITH_STALEMATE << endl;
+        }
+        is_one_more();
+    }
+}
+
+void Game::is_one_more() {
+    const char* msg = MSG_FOR_ONE_MORE_GAME;
+    do {
+        cout << MSG_FOR_ONE_MORE_GAME;
+        cin >> str_for_one_more;
+        msg = MSG_NOT_CORRECT_ENTER_ONE_MORE_GAME;
+    } while ((str_for_one_more[0] != 'y') || (str_for_one_more[0] != 'Y') || (str_for_one_more[0] != 'n') || (str_for_one_more[0] != 'N'));
+    if ((str_for_one_more[0] == 'n') || (str_for_one_more[0] == 'N')) {
+        one_more == false;
+        return;
+    }
+    one_more = true;
 }

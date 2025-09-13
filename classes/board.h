@@ -64,6 +64,8 @@ public:
 
     void set_empty_figure(const int pos);
 
+    bool is_where_are_any_staps();
+
 };
 
 #endif

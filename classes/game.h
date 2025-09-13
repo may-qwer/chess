@@ -7,17 +7,18 @@
 //white pawns, white bishops, white rooks, white knites, white queen, white king
 //black pawns, black bishops, black rooks, black knites, black queen, black king
 // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
-#define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
-// #define START_POS "a7------------------------g4--d4----------------h8--------------"
+// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
+#define START_POS "a7------------------------g4--d4------------------------------g8"
 
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
 #define COLOR_BLACK "\033[1;31m"
 // #define COLOR_FOR_WARNING "\033[1;35m"
 // #define COLOR_FOR_RULES "\033[1;32m"
+// #define COLOR_FOR_CONGRATULATIONS "\033[1;36m"
 
 #define MSG_ENTER_FIGURE "Enter figure's cell you like to go, like 'a3', or 'sc' or 'lc' to make short or long casting move: "
-#define MSG_NOT_CORRECT_INPUT "Your input is't correct. It should like a3. Try again: "
+#define MSG_NOT_CORRECT_INPUT "Your enter is't correct. It should like a3. Try again: "
 #define MSG_NOT_RIGHT_COLOR "You enter cell, where figure not your color. Try again: "
 #define MSG_EMPTY_CELL "You enter empty cell. Try again: "
 #define MSG_ZERO_STAPS "You enter figure, which have zero possible staps. Try again: "
@@ -27,6 +28,11 @@
 #define MSG_CANT_DO_CASTING "You can't do casting. Choose one of figures: "
 #define MSG_CHOOSE_PAWN_PROMOTION "Your pawn can promote to other figure. Enter one of letter 'N', 'B', 'R', 'Q' promote pawn: "
 #define MSG_NOT_CORRECT_ENTER_PAWN_PROMOTION "You enter is't correct. Enter 'N' or 'B' or 'R' or 'Q' to promote pawn. Try again: "
+#define MSG_FOR_ONE_MORE_GAME "Would you like to play one more game?) Enter 'y' or 'Y' if yes; 'n' or 'N' if not: "
+#define MSG_NOT_CORRECT_ENTER_ONE_MORE_GAME "Your enter is't correct. Enter 'y' or 'Y' if yes; 'n' or 'N' if not. Try again: "
+#define MSG_CONGRATULATIONS "\033[1;36mCONGRATULATIONS!!!!\033[0m"
+#define MSG_WIN_WITH_CHECK_AND_MATE " won by checkmating the king!!!!"
+#define MSG_WIN_WITH_STALEMATE "A stalemate situation arose on the board."
 
 #define RULES_1 "\033[1;32m---\033[0m Hello! This is chess game in terminal. There are rules of this chess: \033[1;32m--- \033[0m"
 #define RULES_2 "\033[1;32m1)\033[0m To do stap you should enter figure's cell, like 'a2', and than choose one of possible " 
@@ -64,7 +70,9 @@ private:
     char* str_for_promote; //pawn promote
     int pos_of_capture_on_passage_figure; //pawn capture on passage 
     int pos_of_ghost_figure;
-    bool is_capture_on_passage = false;
+    bool is_capture_on_passage;
+    char* str_for_one_more; // is win and is one more
+
 
     void get_cell(const char* msg);
 
@@ -103,6 +111,10 @@ private:
     void promote_pawn(const int pos, const char figure_letter);
 
     void capture_on_passage();
+
+    void is_win();
+
+    void is_one_more();
 
 public:
     Game();
