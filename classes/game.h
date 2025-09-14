@@ -7,8 +7,8 @@
 //white pawns, white bishops, white rooks, white knites, white queen, white king
 //black pawns, black bishops, black rooks, black knites, black queen, black king
 // 8  pawns, 2  bishops, 2  rooks, 2  knites, 1  queen, 1  king
-// #define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
-#define START_POS "a7------------------------g4--d4------------------------------g8"
+#define START_POS "a2b2c2d2e2f2g2h2c1f1a1h1b1g1d1e1a7b7c7d7e7f7g7h7c8f8a8h8b8g8d8e8" //default 
+// #define START_POS "a7------------------e7------f4d4------------------------------g8"
 
 #define RESET "\033[0m"
 #define COLOR_WHITE "\033[1;34m"
@@ -28,9 +28,9 @@
 #define MSG_CANT_DO_CASTING "You can't do casting. Choose one of figures: "
 #define MSG_CHOOSE_PAWN_PROMOTION "Your pawn can promote to other figure. Enter one of letter 'N', 'B', 'R', 'Q' promote pawn: "
 #define MSG_NOT_CORRECT_ENTER_PAWN_PROMOTION "You enter is't correct. Enter 'N' or 'B' or 'R' or 'Q' to promote pawn. Try again: "
-#define MSG_FOR_ONE_MORE_GAME "Would you like to play one more game?) Enter 'y' or 'Y' if yes; 'n' or 'N' if not: "
+#define MSG_FOR_ONE_MORE_GAME "\033[1;36m???\033[0m Would you like to play one more game?) Enter 'y' or 'Y' if yes; 'n' or 'N' if not: "
 #define MSG_NOT_CORRECT_ENTER_ONE_MORE_GAME "Your enter is't correct. Enter 'y' or 'Y' if yes; 'n' or 'N' if not. Try again: "
-#define MSG_CONGRATULATIONS "\033[1;36mCONGRATULATIONS!!!!\033[0m"
+#define MSG_CONGRATULATIONS "\033[1;36mCONGRATULATIONS!!!!\033[0m\n"
 #define MSG_WIN_WITH_CHECK_AND_MATE " won by checkmating the king!!!!"
 #define MSG_WIN_WITH_STALEMATE "A stalemate situation arose on the board."
 
@@ -115,6 +115,8 @@ private:
     void is_win();
 
     void is_one_more();
+
+    void set_start_values();
 
 public:
     Game();

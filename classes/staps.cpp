@@ -1,4 +1,6 @@
 #include "staps.h"
+#include <iostream>
+using namespace std;
 
 Staps::Staps(int lps, int les) {
     len_of_arr_of_possible_staps = lps;
@@ -151,4 +153,17 @@ void Staps::remove_el_from_eating_staps(const int el) {
             return;
         }
     }
+}
+
+void Staps::print_staps() {
+    cout << "Possible staps: ";
+    for (int i = 0; i < len_of_arr_of_possible_staps; i++) {
+        cout << arr_of_possible_staps[i] << ", "; 
+    }
+    cout << endl;
+    cout << "Eating staps: ";
+    for (int i = 0; i < len_of_arr_of_eating_staps; i++) {
+        cout << arr_of_eating_staps[i] << ", ";
+    }
+    cout << endl;
 }

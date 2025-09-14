@@ -64,7 +64,9 @@ public:
 
     void set_empty_figure(const int pos);
 
-    bool is_where_are_any_staps();
+    bool are_there_any_staps(const char team);
+
+    void delete_all_figures();
 
 };
 

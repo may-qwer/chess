@@ -49,6 +49,8 @@ public:
 
     void remove_el_from_eating_staps(const int el);
 
+    void print_staps();
+
 };
 
 #endif

@@ -365,13 +365,23 @@ void Board::set_empty_figure(const int pos) {
     board_mtx[pos/10][pos%10] = new Empty(' ', COLOR_EMPTY, pos);
 }
 
-bool Board::is_where_are_any_staps() {
+bool Board::are_there_any_staps(const char team) {
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            if (!(board_mtx[i][j]->get_staps()->is_empty_staps())){
-                return true;
+            if (board_mtx[i][j]->get_team() == team){
+                if (!(board_mtx[i][j]->get_staps()->is_empty_staps())){
+                    return true;
+                }
             }
         }
     }
     return false;
+}
+
+void Board::delete_all_figures() {
+    for (int i = 0; i < BOARD_SIZE; i++) {
+        for (int j = 0; j < BOARD_SIZE; j++) {
+            delete board_mtx[i][j];
+        }
+    }
 }

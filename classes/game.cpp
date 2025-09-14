@@ -29,8 +29,9 @@ Game::~Game() {
 }
 
 void Game::main_cycle() {
+    rules();
     do {
-        rules();
+        set_start_values();
         main_board->set_start_pos(START_POS);
         white_king_pos = main_board->get_king_pos('w');
         black_king_pos = main_board->get_king_pos('b');
@@ -45,7 +46,7 @@ void Game::main_cycle() {
             cout_who_go();
             get_cell(MSG_ENTER_FIGURE);
             if (!is_casting) {
-                main_board->change_staps_if_king_going(int_cell, get_now_team_going());
+                // main_board->change_staps_if_king_going(int_cell, get_now_team_going());
                 staps = main_board->get_mtx_el(int_cell)->get_staps();
                 show_staps();
                 get_stap(MSG_ENTER_STAP);
@@ -54,9 +55,8 @@ void Game::main_cycle() {
             main_board->set_all_staps_for_figures();
             main_board->remove_ghost_figure();
             is_casting = false;
-            is_win();
-
             pass_the_turn();
+            is_win();
         }
     } while (one_more);
 }
@@ -106,6 +106,7 @@ void Game::get_cell(const char* msg) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
     int_cell = convert_str_to_int(str_cell);
+    main_board->change_staps_if_king_going(int_cell, get_now_team_going());
     if (!(is_right_simbol(int_cell/10)) || !(is_right_simbol(int_cell%10))) {
         get_cell(MSG_NOT_CORRECT_INPUT);
     }
@@ -353,11 +354,19 @@ void Game::promote_pawn(const int pos, const char figure_letter) {
 }
 
 void Game::is_win() {
-    if (!(main_board->is_where_are_any_staps())) {
+    char tmp_who_go;
+    if (who_go == 'w') {
+        tmp_who_go = 'b';
+    } else {
+        tmp_who_go = 'w';
+    }
+    if ((main_board->are_there_any_staps(tmp_who_go))) {
+        main_board->show();
+        is_in_check();
         running = false;
         if (is_in_check_var) {
             cout << MSG_CONGRATULATIONS;
-            if (who_go == 'w') {
+            if (tmp_who_go == 'w') {
                 cout << COLOR_WHITE << "White" << RESET;
             } else {
                 cout << COLOR_BLACK << "Black" << RESET;
@@ -373,13 +382,24 @@ void Game::is_win() {
 void Game::is_one_more() {
     const char* msg = MSG_FOR_ONE_MORE_GAME;
     do {
-        cout << MSG_FOR_ONE_MORE_GAME;
+        cout << msg;
         cin >> str_for_one_more;
         msg = MSG_NOT_CORRECT_ENTER_ONE_MORE_GAME;
-    } while ((str_for_one_more[0] != 'y') || (str_for_one_more[0] != 'Y') || (str_for_one_more[0] != 'n') || (str_for_one_more[0] != 'N'));
+    } while ((str_for_one_more[0] != 'y') && (str_for_one_more[0] != 'Y') && (str_for_one_more[0] != 'n') && (str_for_one_more[0] != 'N'));
     if ((str_for_one_more[0] == 'n') || (str_for_one_more[0] == 'N')) {
-        one_more == false;
+        one_more = false;
         return;
     }
     one_more = true;
+    main_board->delete_all_figures();
+}
+
+void Game::set_start_values() {
+    running = true;
+    counter = 0;
+    who_go = 'w';
+    white_king_pos = WHITE_KING_START_POS;
+    black_king_pos = BLACK_KING_START_POS;
+    is_in_check_var = false;
+    is_capture_on_passage = false;
 }
